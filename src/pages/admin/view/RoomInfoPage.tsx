@@ -10,7 +10,7 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { AppDispatch } from "../../../app/store";
 import {
-  BigText,
+  Text,
   ChipButton,
   Input,
   Row,
@@ -107,7 +107,10 @@ export default function RoomInfoPage() {
             children={[
               <InfoOutlined />,
               <SizedBox width={1} />,
-              <BigText text="Room Details" fontsize={2.5} />,
+              <Text
+                text="Room Details"
+                props={{ sx: (theme) => ({ fontSize: theme.spacing(2.5) }) }}
+              />,
             ]}
           />
           <Divider />
@@ -124,19 +127,19 @@ export default function RoomInfoPage() {
               })}
             >
               <SmallText text="hostelName:" color="gray" />
-              <BigText text="GetFund Hostel" fontsize={2} />
+              <Text text="GetFund Hostel" />
               <Divider />
               <SmallText text="roomNumber:" color="gray" />
-              <BigText text="A10" fontsize={2} />
+              <Text text="A10" />
               <Divider />
               <SmallText text="roomGender:" color="gray" />
-              <BigText text="Female" fontsize={2} />
+              <Text text="Female" />
               <Divider />
               <SmallText text="roomStatus:" color="gray" />
-              <BigText text="Unavailable" fontsize={2} />
+              <Text text="Unavailable" />
               <Divider />
               <SmallText text="numberOfStudents:" color="gray" />
-              <BigText text="4" fontsize={2} />
+              <Text text="4" />
               <Divider />
             </Box>
             <SizedBox height={0.5} />
@@ -150,7 +153,7 @@ export default function RoomInfoPage() {
                 children={[
                   <HistoryOutlined />,
                   <SizedBox width={1} />,
-                  <BigText text="Recent Check" color={appColors.darkWine} />,
+                  <Text text="Recent Check" />,
                 ]}
               />
             </Box>
@@ -162,16 +165,16 @@ export default function RoomInfoPage() {
               })}
             >
               <SmallText text="dateTime:" color="gray" />
-              <BigText text="03/07/2021 01:57am" fontsize={2} />
+              <Text text="03/07/2021 01:57am" />
               <Divider />
               <SmallText text="studentName:" color="gray" />
-              <BigText text="Biliksuun Samuel Bhills" fontsize={2} />
+              <Text text="Biliksuun Samuel Bhills" />
               <Divider />
               <SmallText text="userName:" color="gray" />
-              <BigText text="Oka Alexander" fontsize={2} />
+              <Text text="Oka Alexander" />
               <Divider />
               <SmallText text="checkAction:" color="gray" />
-              <BigText text="in" fontsize={2} />
+              <Text text="in" />
               <Divider />
             </Box>
           </Box>

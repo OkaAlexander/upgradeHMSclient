@@ -4,9 +4,7 @@ export function getStudentsByGender(
   students: StudentModel[],
   gender?: string
 ): StudentModel[] {
-  return students.filter(
-    (std) => std.Gender.trim() === (gender ? gender : "Male")
-  );
+  return students.filter((std) => std.gender === (gender ? gender : "Male"));
 }
 
 export function searchStudent(students: StudentModel[], srch: string) {

@@ -89,16 +89,10 @@ export default function Sidebar({
             overflowY: "auto",
           }}
         >
-          {AdminRoutes.map((route) => (
+          {AdminRoutes.map((r) => (
             <SidebarLink
-              route={route.url}
-              key={route.url}
-              title={route.name}
-              handleClick={() => {
-                handlePageHeader(route.name);
-                handleNavigation(route.url);
-              }}
-              Icon={route.icon}
+              info={{ route: r.url, Icon: r.icon, title: r.name }}
+              key={r.url}
             />
           ))}
         </Box>

@@ -13,3 +13,7 @@ export interface IHostelReducer {
 export interface IStudentsReducer {
   students: StudentModel[];
 }
+
+export interface IStudentReducer {
+  student: StudentModel | null;
+}

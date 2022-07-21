@@ -1,40 +1,21 @@
-export const endPoints = {
-  user_login: "user_login",
-  student_login: "student_login",
-  book: "book",
-  booking_approve: "booking_approve",
-  get_all_student: "std_all",
-  manual_booking: "booking_manual",
-  add_complains: "complains_add",
-  get_complains: "complains_get",
-  getcomplainsby_status: "getcomplainsby_status",
-  getcomplainsby_statusandtype: "getcomplainsby_statusandtype",
-  add_keylogs: "keylogs_add",
-  getlogsby_date: "getlogsby_date",
-  getlogsby_dateandref: "getlogsby_dateandref",
-  getlogsby_ref: "getlogsby_ref",
-  getlogsby_roomnumber: "getlogsby_roomnumber",
-  getHostels: "gethostels",
-  getgfrooms: "getgfrooms",
-  getRooms: "getrooms",
-  getnhrooms: "getnhrooms",
-  getallboookings: "getallbookings",
-  fetch_students: "fetch_students",
-  generate_roomnumber: "generate_roomnumber",
-  get_logs: "get_logs",
-  info_update: "info_update",
-  delete_std: "delete_std",
-  get_private_hostels: "get_phostel",
-  register_private_hostel: "private_hostel",
-  update_private_hostel: "update_phostel",
-  update_complain_status: "update_complain_status",
-  decline_booking: "decline_booking",
-  hostel_info_update: "update_hostel_info",
-  manage_room: "manage_room",
-  account_pwd_change: "account_pwd_change",
-  fetch_registered_users: "fetch_registered_users",
-  update_user_rank: "update_user_rank",
-  delete_user: "delete_user",
-  user_register: "user_register",
-  register_hostel: "register_hostel",
+import moment from "moment";
+
+const academicYear: string = `${(
+  parseInt(moment().format("YYYY")) - 1
+).toString()}/${moment().format("YYYY")}`;
+
+export const GetRoutes = {
+  students: (year?: string) =>
+    `students/get/?year=${year ? year : academicYear}`,
+  complains: (year?: string) =>
+    `hostel/complains/get/?year=${year ? year : academicYear}`,
+  rooms: (year?: string) => `rooms/get/?year=${year ? year : academicYear}`,
+  hostels: "hostels/get",
 };
+
+export enum PostRoutes {
+  school_hostel_add = "hostel/add",
+  private_hostel_add = "private/hostel/add",
+  student_login = "student/login",
+  hostel_book = "hostel/book",
+}

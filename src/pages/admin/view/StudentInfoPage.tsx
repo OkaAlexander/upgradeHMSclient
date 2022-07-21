@@ -49,7 +49,6 @@ export default function StudentInfo() {
         >
           <Input
             label="Search By Ref/Phone"
-            placeholder="search"
             handleChange={(e) => console.log(e)}
           />
           <Chip

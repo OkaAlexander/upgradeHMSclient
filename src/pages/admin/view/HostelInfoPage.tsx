@@ -46,7 +46,7 @@ export default function HostelInfoPage() {
           Boolean(selection === "school")
             ? 450
             : Boolean(selection === "private")
-            ? "100%"
+            ? "60%"
             : 300
         }
         open={modal}
@@ -117,7 +117,7 @@ export default function HostelInfoPage() {
           })}
         >
           {hostels.map((hostel) => (
-            <HostelInfoView info={hostel} key={hostel.HostelID} />
+            <HostelInfoView info={hostel} key={hostel.hostelID} />
           ))}
         </Stack>
       </Box>

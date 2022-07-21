@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { DashboardPage } from "../pages/student/profile/view";
 import {
   AboutPage,
   EntryPage,
@@ -19,6 +20,7 @@ export default function StudentRouter() {
         <Route path="/hostels" element={<HostelsPage />} />
         <Route path="/" element={<LoginPage />} />
       </Route>
+      <Route path="/dashboard" element={<DashboardPage />}></Route>
     </Routes>
   );
 }

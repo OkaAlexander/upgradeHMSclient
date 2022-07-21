@@ -21,6 +21,7 @@ import {
 } from "@mui/icons-material";
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
+import FlatIcons from "../constants/icons";
 
 export interface navigationInterface {
   name: string;
@@ -57,48 +58,52 @@ export const AdminRoutes = [
   {
     name: "Bookings",
     url: Routes.BOOKINGS,
-    icon: Money,
+    icon: FlatIcons.FcReadingEbook,
   },
   {
     name: "Book Room",
     url: Routes.BOOK,
-    icon: PersonAdd,
+    icon: FlatIcons.FcCollaboration,
   },
   {
     name: "Check-Ins",
     url: Routes.CHECKINS,
-    icon: AccountTree,
+    icon: FlatIcons.FcMultipleInputs,
   },
   {
     name: "Student",
     url: Routes.STUDENT,
-    icon: AccountBox,
+    icon: FlatIcons.FcGraduationCap,
   },
   {
     name: "Hostels",
     url: Routes.HOSTELS,
-    icon: HomeWork,
+    icon: FlatIcons.FcHome,
   },
   {
     name: "Students",
     url: Routes.STUDENTS,
-    icon: Group,
+    icon: FlatIcons.FcConferenceCall,
   },
   {
     name: "Complains",
     url: Routes.COMPLAINS,
-    icon: ReportProblem,
+    icon: FlatIcons.FcHighPriority,
   },
   {
     name: "Key Logs",
     url: Routes.KEY_LOGS,
-    icon: Key,
+    icon: FlatIcons.FcKey,
   },
-  { name: "Rooms", url: Routes.ROOMS, icon: Room },
-  { name: "Profile", url: Routes.PROFILE, icon: Settings },
-  { name: "Users", url: Routes.USERS, icon: AccountCircleOutlined },
+  { name: "Rooms", url: Routes.ROOMS, icon: FlatIcons.FcDepartment },
+  { name: "Profile", url: Routes.PROFILE, icon: FlatIcons.FcPortraitMode },
+  { name: "Users", url: Routes.USERS, icon: FlatIcons.FcManager },
   // { name: "Add Hostel", url: Routes.ADMIN_REGISTER_HOSTEL, icon: HomeTwoTone },
-  { name: "Cards", url: Routes.STUDENT_CARDS, icon: CardMembership },
+  {
+    name: "Cards",
+    url: Routes.STUDENT_CARDS,
+    icon: FlatIcons.FcBusinessContact,
+  },
 ];
 export const userRoutes: navigationInterface[] = [
   {

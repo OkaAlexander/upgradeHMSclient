@@ -1,29 +1,20 @@
-import { TextField } from "@mui/material";
-import React, { ChangeEvent, ChangeEventHandler } from "react";
+import { TextField, TextFieldProps } from "@mui/material";
+import React, { ChangeEvent } from "react";
 
 interface IProps {
-  placeholder?: string;
+  props?: TextFieldProps;
   label: string;
-  handleChange: (e: string) => void;
-  variant?: any;
-  type?: any;
+  handleChange?: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
-export default function Input({
-  placeholder,
-  handleChange,
-  label,
-  variant,
-  type,
-}: IProps) {
+export default function Input({ props, handleChange, label }: IProps) {
   return (
     <TextField
-      variant={variant ? variant : "outlined"}
-      placeholder={placeholder}
       label={label}
-      type={type ? type : "text"}
-      size="small"
-      onChange={(e) => handleChange(e.target.value)}
+      onChange={handleChange}
       sx={{ margin: (theme) => theme.spacing(0, 1), minWidth: 200 }}
+      {...props}
     />
   );
 }

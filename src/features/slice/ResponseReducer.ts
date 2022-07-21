@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  AddHostelThunk,
+  StudentBookRoomThunk,
+  StudentLoginThunk,
+} from "../../functions/post";
+import {
   GetHostelsThunk,
   GetRoomsThunk,
   GetStudentsThunk,
@@ -74,6 +79,51 @@ const ResponseReducer = createSlice({
         state.loading = false;
       })
       .addCase(GetStudentsThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(AddHostelThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(AddHostelThunk.fulfilled, (state, action) => {
+        state.error = null;
+        state.message = action.payload;
+        state.loading = false;
+      })
+      .addCase(AddHostelThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(StudentLoginThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(StudentLoginThunk.fulfilled, (state) => {
+        state.error = null;
+        state.message = null;
+        state.loading = false;
+      })
+      .addCase(StudentLoginThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(StudentBookRoomThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(StudentBookRoomThunk.fulfilled, (state) => {
+        state.error = null;
+        state.message = null;
+        state.loading = false;
+      })
+      .addCase(StudentBookRoomThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.message = null;

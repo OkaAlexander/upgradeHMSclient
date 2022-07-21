@@ -1,29 +1,51 @@
-import { Box, Typography } from "@mui/material";
-import React from "react";
+import { Box } from "@mui/material";
+import React, { ReactNode } from "react";
+import { Text } from "../components";
+import FlatIcons from "../constants/icons";
 
 interface IProps {
   title: string;
+  children?: ReactNode;
 }
-export default function PageHeader({ title }: IProps) {
+export default function PageHeader({ title, children }: IProps) {
   return (
     <Box
       sx={(theme) => ({
         padding: theme.spacing(1),
-        width: "100%",
-        boxShadow: theme.shadows[1],
+        borderRadius: 0,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center",
-        marginTop: theme.spacing(8),
-        position: "sticky",
-        top: 50,
-        backgroundColor: "#fff",
-        zIndex: 10,
-        height: 60,
+        justifyContent: "space-between",
+        boxShadow: theme.shadows[1],
+        margin: theme.spacing(1, 0),
+        width: "100%",
       })}
     >
-      <Typography variant="body1">{title}</Typography>
+      <Box
+        sx={(theme) => ({
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          padding: theme.spacing(0, 1),
+          flex: 1,
+        })}
+      >
+        <FlatIcons.FcReading /> <Text text="All Students" />
+      </Box>
+      <Box
+        sx={(theme) => ({
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          padding: theme.spacing(0, 1),
+          flex: 1,
+        })}
+      >
+        {children}
+      </Box>
     </Box>
   );
 }

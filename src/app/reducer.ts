@@ -5,10 +5,12 @@ import {
   RoomsReducer,
   HostelsReducer,
   StudentsReducer,
+  StudentReducer,
 } from "../features/slice";
 export default combineReducers({
   ResponseReducer,
   RoomsReducer,
   HostelsReducer,
   StudentsReducer,
+  StudentReducer,
 });

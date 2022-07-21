@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import { BigText, SmallText } from "../../../components";
 
 export default function AboutPage() {
   return (

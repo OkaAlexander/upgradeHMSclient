@@ -28,15 +28,15 @@ export default function PrivateHostelInfo() {
           })}
         >
           <CustomInput label="Hostel Name" />
-          <CustomInput label="Hostel Price" type="number" />
+          <CustomInput label="Hostel Price" props={{ type: "number" }} />
           <CustomInput label="Contact 1" />
           <CustomInput label="Contact 2" />
         </Box>
 
         <Box sx={(theme) => ({ padding: theme.spacing(1), flex: 1 })}>
           <CustomInput label="Contact 3" />
-          <CustomInput label="Hostel Location" multiline />
-          <CustomInput label="Hostel Description" multiline />
+          <CustomInput label="Hostel Location" props={{ multiline: true }} />
+          <CustomInput label="Hostel Description" props={{ multiline: true }} />
           <CustomButton
             variant="outlined"
             handleClick={() => {}}

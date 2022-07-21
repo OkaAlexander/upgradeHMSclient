@@ -1,34 +1,21 @@
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import React, { ReactNode } from "react";
 
 interface IProps {
   label: string;
-  select?: boolean;
-  medium?: boolean;
-  type?: any;
-  multiline?: boolean;
   children?: ReactNode;
+  props?: TextFieldProps;
 }
-export default function CustomInput({
-  label,
-  select,
-  medium,
-  type,
-  multiline,
-  children,
-}: IProps) {
+export default function CustomInput({ label, children, props }: IProps) {
   return (
     <TextField
       variant="outlined"
-      size={medium ? "medium" : "small"}
       label={label}
-      select={select ? true : false}
-      type={type ? type : "text"}
-      multiline={Boolean(multiline)}
       sx={(theme) => ({
         margin: theme.spacing(0.5, 0),
         width: "100%",
       })}
+      {...props}
     >
       {children}
     </TextField>

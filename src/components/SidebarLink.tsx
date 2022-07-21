@@ -1,22 +1,16 @@
 import { Box, Chip, SvgIconTypeMap, Typography } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { appColors } from "../constants/colors";
+import { ISidebarRoute } from "../pages/interface";
 
 interface IProps {
-  title: string;
-  handleClick: () => void;
-  Icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-  route?: string;
+  info: ISidebarRoute;
 }
-export default function SidebarLink({
-  title,
-  handleClick,
-  Icon,
-  route,
-}: IProps) {
+export default function SidebarLink({ info }: IProps) {
   const location = useLocation();
+  const navigation = useNavigate();
   return (
     <Chip
       sx={{
@@ -29,10 +23,12 @@ export default function SidebarLink({
         justifyContent: "flex-start",
         background: "transparent",
         color: (theme) =>
-          location.pathname === route ? theme.palette.common.white : "#d0d0d0",
+          location.pathname === info.route
+            ? theme.palette.common.white
+            : "#d0d0d0",
         padding: (theme) => theme.spacing(0.5),
       }}
-      onClick={handleClick}
+      onClick={() => navigation(info.route ? info.route : "")}
       label={
         <Typography
           sx={(theme) => ({
@@ -42,25 +38,12 @@ export default function SidebarLink({
             marginLeft: theme.spacing(1.5),
             fontSize: theme.spacing(2.25),
           })}
-          variant="body1"
+          variant="body2"
         >
-          {title}
+          {info.title}
         </Typography>
       }
-      avatar={
-        <Box>
-          <Icon
-            sx={{
-              color: (theme) =>
-                location.pathname === route
-                  ? theme.palette.common.white
-                  : "gray",
-            }}
-            htmlColor={appColors.white}
-            fontSize="small"
-          />
-        </Box>
-      }
+      avatar={<info.Icon />}
     />
   );
 }

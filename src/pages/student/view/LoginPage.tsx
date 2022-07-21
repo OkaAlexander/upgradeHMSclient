@@ -1,7 +1,20 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { StudentLoginThunk } from "../../../functions/post";
 
 export default function LoginPage() {
+  const navigation = useNavigate();
+  const { student } = useAppSelector((state) => state.StudentReducer);
+  const [info, setInfo] = useState<{ referenceNumber: string }>({
+    referenceNumber: "",
+  });
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    student && navigation("/dashboard");
+  }, [student]);
   return (
     <Box
       sx={(theme) => ({
@@ -43,6 +56,12 @@ export default function LoginPage() {
             variant="outlined"
             size="small"
             label="Reference Number"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                dispatch(StudentLoginThunk(info));
+              }
+            }}
+            onChange={(e) => setInfo({ referenceNumber: e.target.value })}
             sx={(theme) => ({
               marginTop: theme.spacing(2),
             })}
@@ -55,6 +74,7 @@ export default function LoginPage() {
               alignSelf: "flex-end",
               margin: theme.spacing(1, 0),
             })}
+            onClick={() => dispatch(StudentLoginThunk(info))}
           >
             Submit
           </Button>

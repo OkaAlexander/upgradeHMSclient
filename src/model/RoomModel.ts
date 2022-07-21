@@ -1,12 +1,12 @@
 interface RoomModel {
-  RoomNumber: string;
-  NumberOfPersons: number;
-  RoomStatus: string;
-  RoomGender: string;
-  RoomSize: number;
-  KeyStatus: string;
+  roomNumber: string;
+  roomCapacity: number;
+  roomStatus: string;
+  roomGender: string;
+  roomSize: number;
+  keyStatus: string;
   Id: string;
-  HostelID: string;
+  hostelId: string;
 }
 
 export default RoomModel;

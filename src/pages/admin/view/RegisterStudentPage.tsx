@@ -78,10 +78,10 @@ export default function RegisterStudentPage() {
               },
             })}
           >
-            <CustomInput label="Level" select />
-            <CustomInput label="Academic Year" select />
-            <CustomInput label="Program" select />
-            <CustomInput label="Gender" select />
+            <CustomInput label="Level" props={{ select: true }} />
+            <CustomInput label="Academic Year" props={{ select: true }} />
+            <CustomInput label="Program" props={{ select: true }} />
+            <CustomInput label="Gender" props={{ select: true }} />
           </Box>
           <Box
             sx={(theme) => ({
@@ -175,7 +175,7 @@ export default function RegisterStudentPage() {
               },
             })}
           >
-            <CustomInput label="Hostel" select />
+            <CustomInput label="Hostel" props={{ select: true }} />
           </Box>
           <Box
             sx={(theme) => ({
@@ -187,7 +187,7 @@ export default function RegisterStudentPage() {
               },
             })}
           >
-            <CustomInput label="Room Number" select />
+            <CustomInput label="Room Number" props={{ select: true }} />
           </Box>
           <Box
             sx={(theme) => ({

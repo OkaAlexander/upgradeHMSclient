@@ -5,7 +5,7 @@ import {
 } from "@mui/icons-material";
 import { Box, Chip, Divider, IconButton } from "@mui/material";
 import React from "react";
-import { BigText, Expanded, Row, SizedBox, SmallText } from "../components";
+import { Text, Expanded, Row, SmallText } from "../components";
 import constants from "../constants";
 import { appColors } from "../constants/colors";
 import HostelModel from "../model/HostelModel";
@@ -55,42 +55,48 @@ export default function HostelInfoView({ info }: IProps) {
           padding: theme.spacing(1),
         })}
       >
-        <BigText text={info.HostelName} />
+        <Text text={info.hostelName} />
       </Box>
       <Divider />
       <Row
         padding={{ x: 1, y: 0 }}
         children={[
-          <BigText text="Capacity" />,
+          <Text text="Capacity" />,
           <Expanded />,
-          <BigText text={info.TotalCapacity.toString()} />,
+          <Text text={info.totalCapacity.toString()} />,
         ]}
       />
       <Divider />
       <Row
         padding={{ x: 1, y: 0 }}
         children={[
-          <BigText text="Pending" />,
+          <Text text="Pending" />,
           <Expanded />,
-          <BigText text={info.TotalBooked.toString()} color={"firebrick"} />,
+          <Text
+            text={info.totalBooked.toString()}
+            props={{ sx: (theme) => ({ color: "firebrick" }) }}
+          />,
         ]}
       />
       <Divider />
       <Row
         padding={{ x: 1, y: 0 }}
         children={[
-          <BigText text="Approved" />,
+          <Text text="Approved" />,
           <Expanded />,
-          <BigText text={info.TotalApproved.toString()} color="seagreen" />,
+          <Text
+            text={info.totalApproved.toString()}
+            props={{ sx: (theme) => ({ color: "seagreen" }) }}
+          />,
         ]}
       />
       <Divider />
       <Row
         padding={{ x: 1, y: 0 }}
         children={[
-          <BigText text="Available" />,
+          <Text text="Available" />,
           <Expanded />,
-          <BigText text={info.SlotLeft.toString()} />,
+          <Text text={info.slotLeft.toString()} />,
         ]}
       />
       <Divider />
@@ -108,7 +114,7 @@ export default function HostelInfoView({ info }: IProps) {
           sx={(theme) => ({
             padding: theme.spacing(0, 1),
           })}
-          label={<SmallText text={constants.currency + "2150"} />}
+          label={<SmallText text={constants.currency + info.price} />}
           avatar={<MoneyOutlined fontSize="small" />}
         />
       </Box>

@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Box, Chip } from "@mui/material";
 import React from "react";
-import { BigText, SmallText } from "../components";
+import { Text, SmallText } from "../components";
 import { appColors } from "../constants/colors";
 
 export default function RoomStudentView() {
@@ -32,7 +32,10 @@ export default function RoomStudentView() {
         })}
       ></Box>
       <Box>
-        <BigText fontsize={2} color={appColors.darkWine} text="Student Name" />
+        <Text
+          props={{ sx: (theme) => ({ color: appColors.darkWine }) }}
+          text="Student Name"
+        />
       </Box>
       <Box>
         <SmallText fontsize={1.5} text="0550465223" />

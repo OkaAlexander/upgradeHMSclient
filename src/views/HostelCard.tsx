@@ -1,13 +1,7 @@
 import { PhoneOutlined, ReadMoreOutlined } from "@mui/icons-material";
 import { Box, Grid, IconButton } from "@mui/material";
 import React from "react";
-import {
-  BigText,
-  CustomDivider,
-  Row,
-  SizedBox,
-  SmallText,
-} from "../components";
+import { Text, CustomDivider, Row, SizedBox, SmallText } from "../components";
 import Images from "../resources/Images";
 
 export default function HostelCard() {
@@ -59,7 +53,7 @@ export default function HostelCard() {
           minHeight: "50px",
         })}
       >
-        <BigText text="GetFund Hostel" fontsize={2} />
+        <Text text="GetFund Hostel" />
         <CustomDivider />
         <Row
           padding={{ x: 1, y: 0 }}

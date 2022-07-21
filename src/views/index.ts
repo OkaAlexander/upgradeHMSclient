@@ -5,3 +5,4 @@ export { default as PrivateHostelInfoView } from "./PrivateHostelInfo";
 export { default as HostelInfoView } from "./HostelInfoView";
 export { default as RoomStudentView } from "./RoomStudentView";
 export { default as HostelCard } from "./HostelCard";
+export { default as TableTemplate } from "./TableTemplate";

@@ -4,25 +4,24 @@ import configuration from "../configurations/configurations";
 interface IProps {
   url: string;
   data?: any;
-  method?: string;
   baseUrl?: string;
   file?: boolean;
 }
 
-function controller({ url, data, method, baseUrl, file }: IProps) {
-  return new Promise(function (resolve, reject) {
+function Post<T>({ url, data, file }: IProps) {
+  return new Promise<T>(function (resolve, reject) {
     try {
       Axios({
-        baseURL: baseUrl ? baseUrl : configuration.baseURL,
-        method: method ? method : "post",
+        baseURL: configuration.baseURL,
         data,
         url,
+        method: "post",
         headers: {
           contentType: file ? "multipart/form-data" : "application/json",
         },
       })
         .then((response) => {
-          resolve(JSON.parse(response.data));
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error?.response?.data || error?.message);
@@ -33,4 +32,29 @@ function controller({ url, data, method, baseUrl, file }: IProps) {
   });
 }
 
-export default controller;
+interface IGetProps {
+  url?: string;
+}
+function Get<T>({ url }: IGetProps) {
+  return new Promise<T>(function (resolve, reject) {
+    try {
+      Axios({
+        baseURL: configuration.baseURL,
+        url,
+        method: "get",
+      })
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => reject(error?.response?.data || error?.message));
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
+  Get,
+  Post,
+};

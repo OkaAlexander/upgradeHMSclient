@@ -1,6 +1,7 @@
 import {
   IHostelReducer,
   IRoomReducer,
+  IStudentReducer,
   IStudentsReducer,
 } from "../interface/IReducer";
 import ResponseModel from "../model/ResponseModel";
@@ -19,4 +20,8 @@ export const HostelReducerState: IHostelReducer = {
 };
 export const StudentsReducerState: IStudentsReducer = {
   students: [],
+};
+
+export const StudentReducerState: IStudentReducer = {
+  student: null,
 };

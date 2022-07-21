@@ -1,10 +1,10 @@
 export default interface HostelModel {
-  HostelName: string;
-  TotalCapacity: number;
-  TotalBooked: number;
-  TotalApproved: number;
-  SlotLeft: number;
-  HostelID: string;
-  Price: number;
-  Description: String;
+  hostelName: string;
+  totalCapacity: number;
+  totalBooked: number;
+  totalApproved: number;
+  slotLeft: number;
+  hostelID: string;
+  price: number;
+  description: String;
 }

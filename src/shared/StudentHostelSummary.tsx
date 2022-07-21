@@ -1,7 +1,7 @@
 import { GroupOutlined, HomeOutlined } from "@mui/icons-material";
 import { Box, Divider } from "@mui/material";
 import React from "react";
-import { BigText, Expanded, Row, SizedBox, SmallText } from "../components";
+import { Text, Expanded, Row, SizedBox, SmallText } from "../components";
 import { appColors } from "../constants/colors";
 import HostelModel from "../model/HostelModel";
 import StudentModel from "../model/StudentModel";
@@ -25,7 +25,10 @@ export default function StudentHostelSummary({ hostel, students }: IProps) {
         children={[
           <HomeOutlined fontSize="small" htmlColor={appColors.darkWine} />,
           <SizedBox width={0.5} />,
-          <BigText text={hostel.HostelName} color={appColors.darkWine} />,
+          <Text
+            text={hostel.hostelName}
+            props={{ sx: (theme) => ({ color: appColors.darkWine }) }}
+          />,
         ]}
       />
       <Divider />

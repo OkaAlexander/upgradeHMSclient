@@ -1,8 +1,19 @@
 import { Box, Container, MenuItem } from "@mui/material";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { CustomInput } from "../../../components";
+import {
+  CustomIconButton,
+  CustomInput,
+  CustomTableCell,
+  CustomTableRow,
+  Input,
+  SizedBox,
+} from "../../../components";
+import FlatIcons from "../../../constants/icons";
 import { GetHostelsThunk, GetRoomsThunk } from "../../../functions/thunk";
+import { PageHeader } from "../../../shared";
+import { TableTemplate } from "../../../views";
+import { RoomsTableHeader } from "../../data";
 
 export default function ManageRoomInfoPage() {
   const dispatch = useAppDispatch();
@@ -10,8 +21,8 @@ export default function ManageRoomInfoPage() {
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
 
   useEffect(() => {
-    dispatch(GetRoomsThunk());
-    dispatch(GetHostelsThunk());
+    // dispatch(GetRoomsThunk());
+    // dispatch(GetHostelsThunk());
   }, []);
   return (
     <Box
@@ -23,60 +34,55 @@ export default function ManageRoomInfoPage() {
         justifyContent: "flex-start",
       })}
     >
+      <PageHeader title="Manage Rooms">
+        <>
+          <Input
+            label="Hostel"
+            props={{ variant: "outlined", size: "small" }}
+          />
+          <SizedBox width={1} />
+          <Input label="Room" props={{ variant: "outlined", size: "small" }} />
+          <SizedBox width={1} />
+          <CustomIconButton Icon={FlatIcons.FcSearch} />
+        </>
+      </PageHeader>
       <Container>
-        <Box
-          sx={(theme) => ({
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            padding: theme.spacing(1),
-            border: "1px solid #d0d0d0",
-            borderRadius: theme.spacing(0.5),
-            [theme.breakpoints.down("sm")]: {
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            },
-            marginTop: theme.spacing(3.5),
-          })}
-        >
-          <Box
-            sx={(theme) => ({
-              width: "250px",
-              margin: theme.spacing(0, 0.5),
-              [theme.breakpoints.down("sm")]: {
-                width: "100%",
-                margin: theme.spacing(0.5, 0),
-              },
-            })}
-          >
-            <CustomInput label="Hostel" select>
-              <React.Fragment>
-                {hostels.map((hostel) => (
-                  <MenuItem value={hostel.HostelID}>
-                    {hostel.HostelName}
-                  </MenuItem>
-                ))}
-              </React.Fragment>
-            </CustomInput>
-          </Box>
-
-          <Box
-            sx={(theme) => ({
-              width: "150px",
-              margin: theme.spacing(0, 0.5),
-              [theme.breakpoints.down("sm")]: {
-                width: "100%",
-                margin: theme.spacing(0.5, 0),
-              },
-            })}
-          >
-            <CustomInput select label="Room Number" />
-          </Box>
-        </Box>
+        <TableTemplate header={RoomsTableHeader}>
+          {rooms.map((r, index) => (
+            <CustomTableRow index={index}>
+              <>
+                <CustomTableCell
+                  props={{ align: "left" }}
+                  content={r.hostelId}
+                />
+                <CustomTableCell
+                  props={{ align: "center" }}
+                  content={r.roomNumber}
+                />
+                <CustomTableCell
+                  props={{ align: "center" }}
+                  content={r.roomGender}
+                />
+                <CustomTableCell
+                  props={{ align: "center" }}
+                  content={r.roomCapacity}
+                />
+                <CustomTableCell
+                  props={{ align: "center" }}
+                  content={r.roomSize}
+                />
+                <CustomTableCell
+                  props={{ align: "center" }}
+                  content={r.roomStatus}
+                />
+                <CustomTableCell
+                  props={{ align: "center" }}
+                  content={<CustomIconButton Icon={FlatIcons.FcExpand} />}
+                />
+              </>
+            </CustomTableRow>
+          ))}
+        </TableTemplate>
       </Container>
     </Box>
   );

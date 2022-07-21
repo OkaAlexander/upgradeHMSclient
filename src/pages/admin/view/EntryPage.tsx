@@ -41,13 +41,14 @@ export default function EntryPage() {
         anchorEl={profileMenu}
       />
 
-      <PageHeader title={pageHeader} />
+      {/* <PageHeader title={pageHeader} /> */}
       <Box
         sx={{
           width: "100%",
           paddingLeft: sidebar ? "240px" : 0,
           overflow: "hidden",
           height: "100%",
+          marginTop: "50px",
         }}
       >
         <Outlet />

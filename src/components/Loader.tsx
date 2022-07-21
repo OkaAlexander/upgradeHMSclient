@@ -15,7 +15,7 @@ export default function Loader({ open }: ILoader) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        zIndex: 100,
+        zIndex: 100100,
         background: "rgba(255,255,255,0.15)",
         backdropFilter: "blur(1px)",
         outline: "none",

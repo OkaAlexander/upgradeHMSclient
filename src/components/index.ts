@@ -8,9 +8,12 @@ export { default as MenuChipButton } from "./MenuChipButton";
 export { default as CustomButton } from "./CustomButton";
 export { default as Loader } from "./Loader";
 export { default as SizedBox } from "./SizedBox";
-export { default as BigText } from "./BigText";
+export { default as Text } from "./Text";
 export { default as Expanded } from "./Expanded";
 export { default as SmallText } from "./SmallText";
 export { default as Row } from "./Row";
-export {default as CustomDivider} from './CustomDivider'
-export {default as HomeNavLink} from './HomeNavLink'
+export { default as CustomDivider } from "./CustomDivider";
+export { default as HomeNavLink } from "./HomeNavLink";
+export { default as CustomIconButton } from "./CustomIconButton";
+export { default as CustomTableCell } from "./CustomTableCell";
+export { default as CustomTableRow } from "./CustomTableRow";
