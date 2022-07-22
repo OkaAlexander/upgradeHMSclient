@@ -1,8 +1,16 @@
 import { Box, Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { GetHostelsThunk } from "../../../functions/thunk";
 import { HostelCard } from "../../../views";
 
 export default function HostelsPage() {
+  const dispatch = useAppDispatch();
+  const { hostels } = useAppSelector((state) => state.HostelsReducer);
+
+  useEffect(() => {
+    dispatch(GetHostelsThunk());
+  }, []);
   return (
     <Box
       sx={(theme) => ({
@@ -28,8 +36,8 @@ export default function HostelsPage() {
           justifyContent: "center",
         })}
       >
-        {[1, 2, 3, 4, 5].map((index) => (
-          <HostelCard key={index.toString()} />
+        {hostels.map((hostel) => (
+          <HostelCard info={hostel} key={hostel.hostelId.toString()} />
         ))}
       </Grid>
     </Box>

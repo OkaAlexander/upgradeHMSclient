@@ -117,7 +117,7 @@ export default function HostelInfoPage() {
           })}
         >
           {hostels.map((hostel) => (
-            <HostelInfoView info={hostel} key={hostel.hostelID} />
+            <HostelInfoView info={hostel} key={hostel.hostelId} />
           ))}
         </Stack>
       </Box>

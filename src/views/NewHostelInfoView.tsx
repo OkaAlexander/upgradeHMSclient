@@ -7,7 +7,7 @@ import { AddHostelThunk } from "../functions/post";
 import HostelModel from "../model/HostelModel";
 
 const initialHostelInfo: HostelModel = {
-  hostelID: "",
+  hostelId: "",
   totalCapacity: 0,
   slotLeft: 0,
   price: 0,

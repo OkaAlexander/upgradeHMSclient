@@ -7,12 +7,20 @@ import {
   SizedBox,
 } from "../../../../components";
 import FlatIcons from "../../../../constants/icons";
-import { HomeNavLinks } from "../../../data";
+import { IMenubarRoute } from "../../interface";
 
 interface IProps {
   handleMobileMenu?: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleAccountMenu?: (event: MouseEvent<HTMLButtonElement>) => void;
+  isAuthenticated?: boolean;
+  routes: IMenubarRoute[];
 }
-export default function MenuBarView({ handleMobileMenu }: IProps) {
+export default function MenuBarView({
+  handleMobileMenu,
+  handleAccountMenu,
+  isAuthenticated,
+  routes,
+}: IProps) {
   const navigation = useNavigate();
   return (
     <Box
@@ -44,7 +52,7 @@ export default function MenuBarView({ handleMobileMenu }: IProps) {
           },
         })}
       >
-        {HomeNavLinks.map((route) => (
+        {routes.map((route) => (
           <HomeNavLink
             handleClick={() => navigation(route.route ? route.route : "")}
             key={route.title}
@@ -54,7 +62,7 @@ export default function MenuBarView({ handleMobileMenu }: IProps) {
       </Box>
       <Box
         sx={(theme) => ({
-          display: "flex",
+          display: Boolean(isAuthenticated) ? "flex" : "none",
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-end",
@@ -70,7 +78,10 @@ export default function MenuBarView({ handleMobileMenu }: IProps) {
         <SizedBox width={1} />
         <CustomIconButton Icon={FlatIcons.FcNews} />
         <SizedBox width={1} />
-        <CustomIconButton Icon={FlatIcons.FcBusinessContact} />
+        <CustomIconButton
+          handleClick={handleAccountMenu}
+          Icon={FlatIcons.FcBusinessContact}
+        />
         <SizedBox width={1} />
         <CustomIconButton Icon={FlatIcons.FcRules} />
         <Box

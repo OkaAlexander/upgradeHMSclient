@@ -4,7 +4,7 @@ export default interface HostelModel {
   totalBooked: number;
   totalApproved: number;
   slotLeft: number;
-  hostelID: string;
+  hostelId: string;
   price: number;
   description: String;
 }

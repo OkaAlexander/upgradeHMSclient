@@ -113,10 +113,10 @@ export default function StudentsPage() {
             {hostels.map((hostel) => (
               <StudentHostelSummary
                 students={Students.filter(
-                  (std) => std.hostelID === hostel.hostelID
+                  (std) => std.hostelID === hostel.hostelId
                 )}
                 hostel={hostel}
-                key={hostel.hostelID}
+                key={hostel.hostelId}
               />
             ))}
           </Box>

@@ -1,12 +1,5 @@
 import { IHomeNavRoute, ITableHeader } from "../interface";
 
-export const HomeNavLinks: IHomeNavRoute[] = [
-  { title: "Login", route: "" },
-  { title: "Hostels", route: "hostels" },
-  { title: "Shop", route: "shop" },
-  { title: "About Us", route: "about" },
-];
-
 export const StudentsTableHeader: ITableHeader[] = [
   { title: "Name", align: "left" },
   { title: "Reference Number", align: "center" },

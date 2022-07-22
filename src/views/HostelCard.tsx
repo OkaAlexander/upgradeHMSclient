@@ -1,10 +1,16 @@
 import { PhoneOutlined, ReadMoreOutlined } from "@mui/icons-material";
 import { Box, Grid, IconButton } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Text, CustomDivider, Row, SizedBox, SmallText } from "../components";
+import HostelModel from "../model/HostelModel";
 import Images from "../resources/Images";
 
-export default function HostelCard() {
+interface IProps {
+  info: HostelModel;
+}
+export default function HostelCard({ info }: IProps) {
+  const navigation = useNavigate();
   return (
     <Grid
       item
@@ -53,7 +59,7 @@ export default function HostelCard() {
           minHeight: "50px",
         })}
       >
-        <Text text="GetFund Hostel" />
+        <Text text={info.hostelName} />
         <CustomDivider />
         <Row
           padding={{ x: 1, y: 0 }}
@@ -61,7 +67,10 @@ export default function HostelCard() {
             <PhoneOutlined fontSize="small" />,
             <SmallText text="+233550465223" />,
             <SizedBox width={0.5} />,
-            <IconButton size="small">
+            <IconButton
+              onClick={() => navigation(`hostels/?id=${info.hostelId}`)}
+              size="small"
+            >
               <ReadMoreOutlined />
             </IconButton>,
           ]}
