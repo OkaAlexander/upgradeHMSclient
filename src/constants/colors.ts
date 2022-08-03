@@ -11,4 +11,5 @@ export const appColors = {
   default: "#f5f5f5",
   gray: "#D0D0D0",
   transparentPrimary: (opacity = 1) => `rgba(33, 117, 155, ${opacity})`,
+  blue: "#0D47A1",
 };

@@ -1,15 +1,22 @@
-import { PhoneOutlined, ReadMoreOutlined } from "@mui/icons-material";
+import {
+  BookOutlined,
+  MoneyOutlined,
+  PhoneOutlined,
+  ReadMoreOutlined,
+} from "@mui/icons-material";
 import { Box, Grid, IconButton } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Text, CustomDivider, Row, SizedBox, SmallText } from "../components";
+import constants from "../constants";
 import HostelModel from "../model/HostelModel";
 import Images from "../resources/Images";
 
 interface IProps {
   info: HostelModel;
+  handleBook: () => void;
 }
-export default function HostelCard({ info }: IProps) {
+export default function HostelCard({ info, handleBook }: IProps) {
   const navigation = useNavigate();
   return (
     <Grid
@@ -64,14 +71,11 @@ export default function HostelCard({ info }: IProps) {
         <Row
           padding={{ x: 1, y: 0 }}
           children={[
-            <PhoneOutlined fontSize="small" />,
-            <SmallText text="+233550465223" />,
+            <MoneyOutlined fontSize="small" />,
+            <SmallText text={`${constants.currency}${info.price}`} />,
             <SizedBox width={0.5} />,
-            <IconButton
-              onClick={() => navigation(`hostels/?id=${info.hostelId}`)}
-              size="small"
-            >
-              <ReadMoreOutlined />
+            <IconButton onClick={handleBook} size="small">
+              <BookOutlined />
             </IconButton>,
           ]}
         />

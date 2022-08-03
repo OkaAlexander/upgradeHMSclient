@@ -18,4 +18,5 @@ export enum PostRoutes {
   private_hostel_add = "private/hostel/add",
   student_login = "student/login",
   hostel_book = "hostel/book",
+  student_register = "booking/student/register",
 }

@@ -1,4 +1,4 @@
-import { IHomeNavRoute, ITableHeader } from "../interface";
+import { ITableHeader } from "../interface";
 
 export const StudentsTableHeader: ITableHeader[] = [
   { title: "Name", align: "left" },

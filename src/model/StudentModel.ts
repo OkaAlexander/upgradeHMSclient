@@ -1,5 +1,5 @@
 export default interface StudentModel {
-  hostelID: string;
+  hostelId: string;
   studentName: string;
   referenceNumber: string;
   programme: string;

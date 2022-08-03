@@ -1,14 +1,14 @@
 export default interface BookRoomModel {
-  AcademicYear: string;
-  Email: string;
-  Gender: string;
-  HostelID: string;
-  PhoneNumber: string;
-  Picture: string;
-  IndexNumber: string;
-  Programme: string;
-  ReferenceNumber: string;
-  StudentLevel: string;
-  StudentName: string;
-  DateBooked: string;
+  academicYear: string;
+  email: string;
+  gender: string;
+  hostelID: string;
+  phoneNumber: string;
+  picture: string;
+  indexNumber: string;
+  programme: string;
+  referenceNumber: string;
+  studentLevel: string;
+  studentName: string;
+  dateBooked: string;
 }

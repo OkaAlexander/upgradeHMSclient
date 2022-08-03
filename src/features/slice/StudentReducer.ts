@@ -16,7 +16,7 @@ const StudentReducer = createSlice({
         state.student = action.payload;
       })
       .addCase(StudentBookRoomThunk.fulfilled, (state, action) => {
-        state.student = action.payload;
+        state.student = action.payload.data;
       });
   },
 });

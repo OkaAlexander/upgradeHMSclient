@@ -24,7 +24,11 @@ export default function DashboardPage() {
   }
 
   useEffect(() => {
-    !student && navigation("..");
+    !student
+      ? navigation("/")
+      : student.hostelId
+      ? navigation("profile")
+      : navigation("hostels");
   }, [student]);
 
   useEffect(() => {

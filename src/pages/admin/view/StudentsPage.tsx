@@ -113,7 +113,7 @@ export default function StudentsPage() {
             {hostels.map((hostel) => (
               <StudentHostelSummary
                 students={Students.filter(
-                  (std) => std.hostelID === hostel.hostelId
+                  (std) => std.hostelId === hostel.hostelId
                 )}
                 hostel={hostel}
                 key={hostel.hostelId}
@@ -151,7 +151,7 @@ export default function StudentsPage() {
                   />
                   <CustomTableCell
                     props={{ align: "center" }}
-                    content={student.hostelID}
+                    content={student.hostelId}
                   />
                   <CustomTableCell
                     props={{ align: "center" }}

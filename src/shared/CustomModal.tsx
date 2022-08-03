@@ -40,7 +40,6 @@ export default function CustomModal({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        height: "100vh",
         outline: "none",
         borderStyle: "none",
       })}

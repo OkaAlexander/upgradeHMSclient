@@ -1,6 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { DashboardPage } from "../pages/student/profile/view";
+import {
+  DashboardPage,
+  StudentProfilePage,
+} from "../pages/student/profile/view";
 import {
   AboutPage,
   EntryPage,
@@ -23,6 +26,7 @@ export default function StudentRouter() {
       </Route>
       <Route path="/dashboard" element={<DashboardPage />}>
         <Route path="hostels" element={<HostelsPage />} />
+        <Route path="profile" element={<StudentProfilePage />} />
         <Route path="hostels/:id" element={<HostelInfoPage />} />
       </Route>
     </Routes>

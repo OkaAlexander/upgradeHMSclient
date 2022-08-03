@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React, { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../../app/hooks";
 import {
   CustomIconButton,
   HomeNavLink,

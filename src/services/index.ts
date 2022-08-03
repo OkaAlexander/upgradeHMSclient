@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { toast } from "react-toastify";
 import { Toast } from "react-toastify/dist/types";
 import ResponseModel from "../model/ResponseModel";
@@ -20,4 +21,28 @@ export function handleNotifier({ handleClose, response }: IHandleNotifier) {
       theme: "dark",
       onClose: handleClose,
     });
+}
+
+export async function handleFilePicker(event: ChangeEvent<HTMLInputElement>) {
+  let file: any = null;
+  if (event.target.files && event.target.files.length > 0) {
+    file = event.target.files[0];
+  }
+  return {
+    path: file ? await generateImagePreviewPath(file) : "",
+    file,
+  };
+}
+export function generateImagePreviewPath(file: File) {
+  return new Promise<any>(function (resolve, reject) {
+    try {
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", () => {
+        resolve(fileReader.result);
+      });
+      fileReader.readAsDataURL(file);
+    } catch (error) {
+      reject(error);
+    }
+  });
 }

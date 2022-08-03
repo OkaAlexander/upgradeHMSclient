@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Container } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../app/hooks";
 import { CustomDivider } from "../../../components";
 import { Footer } from "../../../shared";
 import { LandingMenuRoutes } from "../data";
@@ -8,6 +10,11 @@ import { AppbarView, MenuBarView } from "../views/frontend";
 
 export default function EntryPage() {
   const navigation = useNavigate();
+  const { student } = useAppSelector((state) => state.StudentReducer);
+
+  useEffect(() => {
+    !student && navigation("/");
+  }, [student]);
 
   return (
     <Container
