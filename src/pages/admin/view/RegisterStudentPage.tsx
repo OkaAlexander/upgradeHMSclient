@@ -3,14 +3,54 @@ import {
   Button,
   Container,
   FormLabel,
+  MenuItem,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { useAppDispatch } from "../../../app/hooks";
 import { CustomInput } from "../../../components";
+import { responseFail } from "../../../features/slice/ResponseReducer";
+import { RegisterStudentThunk } from "../../../functions/post";
+import StudentModel from "../../../model/StudentModel";
+import { handleFilePicker } from "../../../services";
+import {
+  GenerateAcademicYears,
+  GenerateGender,
+  GetPrograms,
+  InitialStudentInfo,
+} from "../data";
 
 export default function RegisterStudentPage() {
+  const [info, setInfo] = useState<StudentModel>(InitialStudentInfo);
+  const dispatch = useAppDispatch();
+  const [data, setData] = useState<{ file: File | null; path: any }>({
+    file: null,
+    path: "",
+  });
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  function handleSubmit() {
+    const formData = new FormData();
+    var file: any = data.file;
+    formData.append("studentName", info.studentName);
+    formData.append("phoneNumber", info.phoneNumber);
+    formData.append("referenceNumber", info.referenceNumber);
+    formData.append("studentLevel", info.studentLevel);
+    formData.append("email", info.email);
+    formData.append("programme", info.programme);
+    formData.append("academicYear", info.academicYear);
+    formData.append("gender", info.gender);
+    formData.append("hostelId", info.hostelId);
+    formData.append("indexNumber", info.indexNumber ? info.indexNumber : "");
+    formData.append("file", file);
+    dispatch(RegisterStudentThunk(formData));
+  }
+
   return (
     <Box
       sx={(theme) => ({
@@ -61,10 +101,34 @@ export default function RegisterStudentPage() {
               },
             })}
           >
-            <CustomInput label="Student Name" />
-            <CustomInput label="Phone Number" />
-            <CustomInput label="Reference Number" />
-            <CustomInput label="Email" />
+            <CustomInput
+              props={{ type: "text", value: info.studentName }}
+              handleChange={(event) =>
+                setInfo({ ...info, studentName: event.target.value })
+              }
+              label="Student Name"
+            />
+            <CustomInput
+              props={{ type: "tel", value: info.phoneNumber }}
+              handleChange={(event) =>
+                setInfo({ ...info, phoneNumber: event.target.value })
+              }
+              label="Phone Number"
+            />
+            <CustomInput
+              props={{ type: "text", value: info.referenceNumber }}
+              handleChange={(event) =>
+                setInfo({ ...info, referenceNumber: event.target.value })
+              }
+              label="Reference Number"
+            />
+            <CustomInput
+              props={{ type: "email", value: info.email }}
+              handleChange={(event) =>
+                setInfo({ ...info, email: event.target.value })
+              }
+              label="Email"
+            />
           </Box>
           <Box
             sx={(theme) => ({
@@ -78,10 +142,64 @@ export default function RegisterStudentPage() {
               },
             })}
           >
-            <CustomInput label="Level" props={{ select: true }} />
-            <CustomInput label="Academic Year" props={{ select: true }} />
-            <CustomInput label="Program" props={{ select: true }} />
-            <CustomInput label="Gender" props={{ select: true }} />
+            <CustomInput
+              label="Level"
+              props={{ select: true, value: info.studentLevel }}
+            >
+              {[100, 200, 300, 400].map((level) => (
+                <MenuItem
+                  key={level.toString()}
+                  value={level.toString()}
+                  onClick={() =>
+                    setInfo({ ...info, studentLevel: level.toString() })
+                  }
+                >
+                  {level.toString()}
+                </MenuItem>
+              ))}
+            </CustomInput>
+            <CustomInput
+              label="Academic Year"
+              props={{ select: true, value: info.academicYear }}
+            >
+              {GenerateAcademicYears().map((yr) => (
+                <MenuItem
+                  key={yr}
+                  value={yr}
+                  onClick={() => setInfo({ ...info, academicYear: yr })}
+                >
+                  {yr}
+                </MenuItem>
+              ))}
+            </CustomInput>
+            <CustomInput
+              label="Program"
+              props={{ select: true, value: info.programme }}
+            >
+              {GetPrograms().map((p) => (
+                <MenuItem
+                  value={p}
+                  onClick={() => setInfo({ ...info, programme: p })}
+                  key={p}
+                >
+                  {p}
+                </MenuItem>
+              ))}
+            </CustomInput>
+            <CustomInput
+              label="Gender"
+              props={{ select: true, value: info.gender }}
+            >
+              {GenerateGender().map((gender) => (
+                <MenuItem
+                  value={gender}
+                  onClick={() => setInfo({ ...info, gender })}
+                  key={gender}
+                >
+                  {gender}
+                </MenuItem>
+              ))}
+            </CustomInput>
           </Box>
           <Box
             sx={(theme) => ({
@@ -100,14 +218,16 @@ export default function RegisterStudentPage() {
             <Box
               sx={(theme) => ({
                 width: 200,
-                height: 150,
+                height: 200,
                 borderRadius: theme.spacing(0.5),
                 boxShadow: theme.shadows[1],
                 alignSelf: "centern",
                 margin: theme.spacing(0.5, 0),
                 background: "#f5f5f5",
               })}
-            ></Box>
+            >
+              <img src={data.path} alt="student" />
+            </Box>
             <Box
               sx={(theme) => ({
                 width: 200,
@@ -124,6 +244,9 @@ export default function RegisterStudentPage() {
                 type="file"
                 size="small"
                 id="file-input"
+                onChange={async (e: ChangeEvent<HTMLInputElement>) => {
+                  setData(await handleFilePicker(e));
+                }}
               />
               <FormLabel
                 sx={(theme) => ({
@@ -200,6 +323,7 @@ export default function RegisterStudentPage() {
             })}
           >
             <Button
+              onClick={handleSubmit}
               fullWidth
               size="medium"
               sx={(theme) => ({ height: 38 })}
