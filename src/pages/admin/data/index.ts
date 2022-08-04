@@ -1,7 +1,6 @@
-import { readFileSync } from "fs";
 import moment from "moment";
+import RoomModel from "../../../model/RoomModel";
 import StudentModel from "../../../model/StudentModel";
-import Axios from "axios";
 export const InitialStudentInfo: StudentModel = {
   studentName: "",
   phoneNumber: "",
@@ -12,9 +11,20 @@ export const InitialStudentInfo: StudentModel = {
   studentLevel: "",
   academicYear: "",
   indexNumber: "",
-  roomNumber: "",
+  roomNumber: "A10",
   picture: "",
   referenceNumber: "",
+};
+
+export const InitialRoomInfo: RoomModel = {
+  Id: "",
+  roomCapacity: 4,
+  roomNumber: "",
+  keyStatus: "",
+  hostelId: "",
+  roomGender: "none",
+  roomSize: 0,
+  roomStatus: "available",
 };
 
 export function GenerateAcademicYears() {

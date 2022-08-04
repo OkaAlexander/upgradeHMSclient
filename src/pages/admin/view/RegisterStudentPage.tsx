@@ -9,20 +9,29 @@ import {
   Typography,
 } from "@mui/material";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { CustomInput } from "../../../components";
 import { responseFail } from "../../../features/slice/ResponseReducer";
-import { RegisterStudentThunk } from "../../../functions/post";
+import {
+  GetAvailableRoomsThunk,
+  RegisterStudentThunk,
+} from "../../../functions/post";
+import { GetHostelsThunk } from "../../../functions/thunk";
+import RoomModel from "../../../model/RoomModel";
+import { ValidateStudentInfo } from "../../../model/services";
 import StudentModel from "../../../model/StudentModel";
 import { handleFilePicker } from "../../../services";
 import {
   GenerateAcademicYears,
   GenerateGender,
   GetPrograms,
+  InitialRoomInfo,
   InitialStudentInfo,
 } from "../data";
 
 export default function RegisterStudentPage() {
+  const { rooms } = useAppSelector((state) => state.AvailableRoomsReducer);
+  const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const [info, setInfo] = useState<StudentModel>(InitialStudentInfo);
   const dispatch = useAppDispatch();
   const [data, setData] = useState<{ file: File | null; path: any }>({
@@ -31,24 +40,38 @@ export default function RegisterStudentPage() {
   });
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    dispatch(GetHostelsThunk());
+  }, []);
+
+  useEffect(() => {
+    const rm: RoomModel = InitialRoomInfo;
+    rm.hostelId = info.hostelId;
+    rm.roomGender = info.gender;
+    Boolean(rm.hostelId) && dispatch(GetAvailableRoomsThunk(rm));
+  }, [info.gender, info.hostelId]);
 
   function handleSubmit() {
-    const formData = new FormData();
-    var file: any = data.file;
-    formData.append("studentName", info.studentName);
-    formData.append("phoneNumber", info.phoneNumber);
-    formData.append("referenceNumber", info.referenceNumber);
-    formData.append("studentLevel", info.studentLevel);
-    formData.append("email", info.email);
-    formData.append("programme", info.programme);
-    formData.append("academicYear", info.academicYear);
-    formData.append("gender", info.gender);
-    formData.append("hostelId", info.hostelId);
-    formData.append("indexNumber", info.indexNumber ? info.indexNumber : "");
-    formData.append("file", file);
-    dispatch(RegisterStudentThunk(formData));
+    try {
+      ValidateStudentInfo(info);
+      const formData = new FormData();
+      var file: any = data.file;
+      formData.append("studentName", info.studentName);
+      formData.append("phoneNumber", info.phoneNumber);
+      formData.append("referenceNumber", info.referenceNumber);
+      formData.append("studentLevel", info.studentLevel);
+      formData.append("email", info.email);
+      formData.append("programme", info.programme);
+      formData.append("academicYear", info.academicYear);
+      formData.append("gender", info.gender);
+      formData.append("hostelId", info.hostelId);
+      formData.append("roomNumber", info.roomNumber);
+      // formData.append("picture", info.picture);
+      // formData.append("indexNumber", info.indexNumber);
+      formData.append("file", file);
+      dispatch(RegisterStudentThunk(formData));
+    } catch (error) {
+      dispatch(responseFail(error));
+    }
   }
 
   return (
@@ -193,7 +216,7 @@ export default function RegisterStudentPage() {
               {GenerateGender().map((gender) => (
                 <MenuItem
                   value={gender}
-                  onClick={() => setInfo({ ...info, gender })}
+                  onClick={() => setInfo({ ...info, gender: gender.trim() })}
                   key={gender}
                 >
                   {gender}
@@ -298,7 +321,19 @@ export default function RegisterStudentPage() {
               },
             })}
           >
-            <CustomInput label="Hostel" props={{ select: true }} />
+            <CustomInput label="Hostel" props={{ select: true }}>
+              {hostels.map((hostel) => (
+                <MenuItem
+                  value={hostel.hostelId}
+                  key={hostel.hostelId}
+                  onClick={() =>
+                    setInfo({ ...info, hostelId: hostel.hostelId })
+                  }
+                >
+                  {hostel.hostelName}
+                </MenuItem>
+              ))}
+            </CustomInput>
           </Box>
           <Box
             sx={(theme) => ({
@@ -310,7 +345,19 @@ export default function RegisterStudentPage() {
               },
             })}
           >
-            <CustomInput label="Room Number" props={{ select: true }} />
+            <CustomInput label="Room Number" props={{ select: true }}>
+              {rooms.map((rm) => (
+                <MenuItem
+                  value={rm.roomNumber}
+                  key={rm.roomNumber}
+                  onClick={() =>
+                    setInfo({ ...info, roomNumber: rm.roomNumber })
+                  }
+                >
+                  {rm.roomNumber}
+                </MenuItem>
+              ))}
+            </CustomInput>
           </Box>
           <Box
             sx={(theme) => ({

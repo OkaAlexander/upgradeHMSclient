@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   AddHostelThunk,
+  GetAvailableRoomsThunk,
   RegisterStudentThunk,
   StudentBookRoomThunk,
   StudentLoginThunk,
@@ -140,6 +141,21 @@ const ResponseReducer = createSlice({
         state.loading = false;
       })
       .addCase(RegisterStudentThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(GetAvailableRoomsThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(GetAvailableRoomsThunk.fulfilled, (state) => {
+        state.error = null;
+        state.message = null;
+        state.loading = false;
+      })
+      .addCase(GetAvailableRoomsThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.message = null;
