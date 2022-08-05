@@ -25,6 +25,7 @@ export default function TableTemplate({ header, children }: IProps) {
         overflowX: "auto",
         borderRadius: 0,
         background: "#f5f5f5",
+        minHeight: "30vh",
       })}
     >
       <Table>

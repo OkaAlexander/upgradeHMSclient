@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GetAvailableRoomsThunk } from "../../functions/post";
-import { RoomsReducerState } from "../../state";
+import { RoomsReducerState } from "../../app/state";
 
 export default createSlice({
   name: "AvailableRoomsReducer",

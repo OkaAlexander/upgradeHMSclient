@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GetHostelsThunk } from "../../functions/thunk";
-import { HostelReducerState } from "../../state";
+import { HostelReducerState } from "../../app/state";
 
 export default createSlice({
   name: "HostelsReducer",

@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import {
   AccountsPage,
+  BookingInfoPreviewPage,
   BookingsPage,
   ComplainsPage,
   EntryPage,
@@ -33,6 +34,10 @@ export default function AdminRouter() {
         <Route path={routes.PROFILE} element={<ProfilePage />} />
         <Route path={routes.STUDENT_CARDS} element={<StudentIdPage />} />
         <Route path={routes.STUDENTS} element={<StudentsPage />} />
+        <Route
+          path={routes.BOOKING_INFO_PREVIEW}
+          element={<BookingInfoPreviewPage />}
+        />
       </Route>
     </Routes>
   );

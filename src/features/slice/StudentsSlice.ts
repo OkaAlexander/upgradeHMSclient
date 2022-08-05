@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GetStudentsThunk } from "../../functions/thunk";
-import { StudentsReducerState } from "../../state";
+import { StudentsReducerState } from "../../app/state";
 
 export default createSlice({
   name: "StudentsReducer",

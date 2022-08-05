@@ -1,10 +1,11 @@
 import {
+  IBookingsReducerState,
   IHostelReducer,
   IRoomReducer,
   IStudentReducer,
   IStudentsReducer,
-} from "../interface/IReducer";
-import ResponseModel from "../model/ResponseModel";
+} from "./IReducer";
+import ResponseModel from "../../model/ResponseModel";
 export const ResponseState: ResponseModel = {
   error: null,
   loading: false,
@@ -24,4 +25,8 @@ export const StudentsReducerState: IStudentsReducer = {
 
 export const StudentReducerState: IStudentReducer = {
   student: null,
+};
+
+export const BookingsReducerState: IBookingsReducerState = {
+  bookings: [],
 };

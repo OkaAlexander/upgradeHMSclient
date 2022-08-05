@@ -18,3 +18,12 @@ export const RoomsTableHeader: ITableHeader[] = [
   { title: "Room Status", align: "center" },
   { title: "More", align: "center" },
 ];
+
+export const BookingsTableHeader: ITableHeader[] = [
+  { title: "ReferenceNumber", align: "left" },
+  { title: "StudentName", align: "left" },
+  { title: "PhoneNumber", align: "center" },
+  { title: "Hostel", align: "left" },
+  { title: "DateBooked", align: "center" },
+  { title: "More", align: "center" },
+];

@@ -43,7 +43,7 @@ export default function HostelsPage() {
   }, []);
 
   useEffect(() => {
-    !student ? navigation("/") : navigation("../profile");
+    !student ? navigation("/") : student.hostelId && navigation("../profile");
   }, [student]);
 
   return (

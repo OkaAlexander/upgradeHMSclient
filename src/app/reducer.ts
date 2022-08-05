@@ -7,6 +7,7 @@ import {
   StudentsReducer,
   StudentReducer,
   AvailableRoomsReducer,
+  BookingsReducer,
 } from "../features/slice";
 export default combineReducers({
   ResponseReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   StudentsReducer,
   StudentReducer,
   AvailableRoomsReducer,
+  BookingsReducer,
 });

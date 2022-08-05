@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { StudentBookRoomThunk, StudentLoginThunk } from "../../functions/post";
-import { StudentReducerState } from "../../state";
+import { StudentReducerState } from "../../app/state";
 
 const StudentReducer = createSlice({
   name: "StudentReducer",

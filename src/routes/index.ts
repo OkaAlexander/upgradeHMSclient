@@ -44,6 +44,7 @@ export const Routes = {
   ROOMS: "/admin/home/rooms",
   USERS: "/admin/home/manage/users",
   STUDENT_CARDS: "/admin/home/students/cards",
+  BOOKING_INFO_PREVIEW: "/admin/home/booking/:id",
 };
 
 export const StudentsRoutes = {

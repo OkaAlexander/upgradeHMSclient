@@ -5,5 +5,5 @@ export { default as CustomModal } from "./CustomModal";
 export { default as StudentServicesMenu } from "./StudentServiceMenu";
 export { default as StudentHostelSummary } from "./StudentHostelSummary";
 export { default as Footer } from "./Footer";
-
+export { default as BookingActionMenu } from "./BookingActionMenu";
 export { default as Nyansh } from "./Buttocks";

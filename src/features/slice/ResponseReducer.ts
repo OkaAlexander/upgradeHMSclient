@@ -11,7 +11,8 @@ import {
   GetRoomsThunk,
   GetStudentsThunk,
 } from "../../functions/thunk";
-import { ResponseState } from "../../state";
+import { ResponseState } from "../../app/state";
+import { GetBookingsThunk } from "../../functions/get";
 
 const ResponseReducer = createSlice({
   name: "ResponseReducer",
@@ -156,6 +157,21 @@ const ResponseReducer = createSlice({
         state.loading = false;
       })
       .addCase(GetAvailableRoomsThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(GetBookingsThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(GetBookingsThunk.fulfilled, (state) => {
+        state.error = null;
+        state.message = null;
+        state.loading = false;
+      })
+      .addCase(GetBookingsThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.message = null;
