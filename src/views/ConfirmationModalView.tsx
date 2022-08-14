@@ -79,21 +79,12 @@ export default function ConfirmationModalView({
               flex: 0.85,
               color: appColors.blue,
               borderColor: appColors.blue,
+              height: "30px",
             })}
             variant="outlined"
             size="small"
           >
-            <Box
-              sx={(theme) => ({
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-              })}
-            >
-              <Check />
-              <SizedBox width={1} />
-              <SmallText color={appColors.blue} text="Yes" />
-            </Box>
+            Yes
           </Button>
           <Expanded />
           <Button
@@ -103,22 +94,12 @@ export default function ConfirmationModalView({
               flex: 0.85,
               color: "firebrick",
               borderColor: "firebrick",
+              height: "30px",
             })}
             variant="outlined"
             size="small"
           >
-            <Box
-              sx={(theme) => ({
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-              })}
-            >
-              <CloseOutlined />
-              <SizedBox width={1} />
-
-              <SmallText color="firebrick" text="No" />
-            </Box>
+            No
           </Button>
         </Box>
       </Box>

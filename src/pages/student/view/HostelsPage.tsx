@@ -27,6 +27,7 @@ import HostelModel from "../../../model/HostelModel";
 import StudentModel from "../../../model/StudentModel";
 import { HostelCard } from "../../../views";
 import ConfirmationModalView from "../../../views/ConfirmationModalView";
+import { InitialStudentInfo } from "../../admin/data";
 import { InitialBookingInfo } from "../data";
 
 export default function HostelsPage() {
@@ -36,6 +37,7 @@ export default function HostelsPage() {
     null
   );
   const { student } = useAppSelector((state) => state.StudentReducer);
+  const [info, setInfo] = useState<StudentModel>(InitialStudentInfo);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const [confirmationModal, setConfirmationModal] = useState<boolean>(false);
   useEffect(() => {
@@ -43,7 +45,12 @@ export default function HostelsPage() {
   }, []);
 
   useEffect(() => {
-    !student ? navigation("/") : student.hostelId && navigation("../profile");
+    !student
+      ? navigation("/")
+      : Boolean(student.hostelId) && navigation("/dashboard/profile");
+    if (student) {
+      setInfo({ ...student });
+    }
   }, [student]);
 
   return (
@@ -69,12 +76,12 @@ export default function HostelsPage() {
         message="Do you want to book this Hostel?"
         handleResponse={(event) => {
           const status = event;
-          if (status && student) {
-            student.hostelId = selectedHostel ? selectedHostel.hostelId : "";
-            student.indexNumber = student.indexNumber
-              ? student.indexNumber
-              : "";
-            dispatch(StudentBookRoomThunk(student));
+          if (status) {
+            info.hostelId = selectedHostel ? selectedHostel.hostelId : "";
+            if (!Boolean(info.indexNumber)) {
+              info.indexNumber = info.referenceNumber;
+            }
+            dispatch(StudentBookRoomThunk(info));
           }
           setConfirmationModal(!confirmationModal);
         }}

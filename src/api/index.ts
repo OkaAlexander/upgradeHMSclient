@@ -21,4 +21,6 @@ export enum PostRoutes {
   hostel_book = "hostel/book",
   student_register = "booking/student/register",
   get_available_rooms = "rooms/get/available",
+  approve_booking = "booking/approve",
+  decline_booking = "booking/decline",
 }

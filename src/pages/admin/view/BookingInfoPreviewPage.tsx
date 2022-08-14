@@ -1,21 +1,33 @@
 import { Container, Box, MenuItem, Typography, Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { CustomInput, SizedBox } from "../../../components";
+import {
+  CustomButton,
+  CustomInput,
+  Expanded,
+  SizedBox,
+} from "../../../components";
 import configuration from "../../../configurations/configurations";
 import { GetBookingsThunk } from "../../../functions/get";
+import {
+  ApproveBookingThunk,
+  GetAvailableRoomsThunk,
+} from "../../../functions/post";
 import { GetHostelsThunk } from "../../../functions/thunk";
 import BookingsModel from "../../../model/BookingsModel";
+import RoomModel from "../../../model/RoomModel";
 import { GetBookingInfo } from "../../service";
 import { InitialBookingInfo } from "../../student/data";
+import { InitialRoomInfo } from "../data";
 
 export default function BookingInfoPreviewPage() {
   const { bookings } = useAppSelector((state) => state.BookingsReducer);
+  const { rooms } = useAppSelector((state) => state.AvailableRoomsReducer);
   const dispatch = useAppDispatch();
+  const navigation = useNavigate();
   const params = useParams();
   const id = params.id;
-
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const [info, setInfo] = useState<BookingsModel>({
     ...InitialBookingInfo,
@@ -32,6 +44,15 @@ export default function BookingInfoPreviewPage() {
     setInfo(GetBookingInfo(bookings, ref ? ref : ""));
   }, [id]);
 
+  useEffect(() => {
+    const roomInfo: RoomModel = {
+      ...InitialRoomInfo,
+      hostelId: info.hostelId,
+      roomGender: info.gender,
+    };
+    dispatch(GetAvailableRoomsThunk(roomInfo));
+  }, [info.gender, info.hostelId]);
+
   return (
     <Container
       sx={(theme) => ({
@@ -46,6 +67,13 @@ export default function BookingInfoPreviewPage() {
           justifyContent: "flex-start",
           width: "100%",
           alignSelf: "center",
+          [theme.breakpoints.down("sm")]: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+          },
         })}
       >
         <Box
@@ -82,6 +110,13 @@ export default function BookingInfoPreviewPage() {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            [theme.breakpoints.down("sm")]: {
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              paddingTop: theme.spacing(2),
+            },
           })}
         >
           <Box
@@ -96,6 +131,9 @@ export default function BookingInfoPreviewPage() {
               overflow: "hidden",
               boxShadow: theme.shadows[1],
               border: "1px solid #f0f0f0",
+              [theme.breakpoints.down("sm")]: {
+                position: "relative",
+              },
             })}
           >
             <img
@@ -105,6 +143,103 @@ export default function BookingInfoPreviewPage() {
             />
           </Box>
         </Box>
+      </Box>
+      <SizedBox height={1} />
+      <Box
+        sx={(theme) => ({
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: theme.spacing(0.5, 2),
+          borderBottom: "1px solid #d0d0d0",
+          borderRadius: theme.spacing(1),
+          width: "72%",
+          [theme.breakpoints.down("sm")]: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            borderStyle: "none",
+            padding: theme.spacing(2),
+          },
+        })}
+      >
+        <CustomInput
+          props={{
+            size: "small",
+            sx: (theme) => ({
+              width: "250px",
+              [theme.breakpoints.down("sm")]: {
+                width: "100%",
+                margin: theme.spacing(1, 0),
+              },
+            }),
+            select: true,
+          }}
+          label="Select Room"
+        >
+          {rooms.map((room) => (
+            <MenuItem
+              onClick={() => setInfo({ ...info, roomNumber: room.roomNumber })}
+              key={room.roomNumber}
+              value={room.roomNumber}
+            >
+              {room.roomNumber}
+            </MenuItem>
+          ))}
+        </CustomInput>
+        <SizedBox width={1} />
+        <CustomInput
+          props={{
+            size: "small",
+            value: info.roomNumber,
+            sx: (theme) => ({
+              width: "250px",
+              [theme.breakpoints.down("sm")]: {
+                width: "100%",
+                margin: theme.spacing(1, 0),
+              },
+            }),
+          }}
+          handleChange={(event) =>
+            setInfo({ ...info, roomNumber: event.target.value.toUpperCase() })
+          }
+          label="Enter Room Number"
+        />
+        <SizedBox width={2} />
+        <CustomButton
+          props={{
+            size: "small",
+            sx: (theme) => ({
+              width: "150px",
+              [theme.breakpoints.down("sm")]: {
+                width: "100%",
+                margin: theme.spacing(1, 0),
+              },
+            }),
+          }}
+          handleClick={() => dispatch(ApproveBookingThunk(info))}
+          title="Approve"
+        />
+        <SizedBox width={1} />
+        <CustomButton
+          title="Go Back"
+          handleClick={() => navigation("/admin/home/bookings")}
+          props={{
+            variant: "outlined",
+            color: "inherit",
+            sx: (theme) => ({
+              width: "150px",
+              [theme.breakpoints.down("sm")]: {
+                width: "100%",
+                margin: theme.spacing(1, 0),
+              },
+            }),
+          }}
+        />
+        <Expanded />
       </Box>
     </Container>
   );

@@ -16,12 +16,19 @@ import { TableTemplate } from "../../../views";
 import { BookingsTableHeader } from "../../data";
 import * as Feather from "react-icons/fi";
 import { BookingActionMenu } from "../../../shared";
+import { DeclineBookingThunk } from "../../../functions/post";
+import { GetHostelInfoById, SearchBookingInfo } from "../../service";
+import { GetHostelsThunk } from "../../../functions/thunk";
+import BookingsModel from "../../../model/BookingsModel";
+import { responseFail } from "../../../features/slice/ResponseReducer";
 export default function BookingsPage() {
   const { bookings } = useAppSelector((state) => state.BookingsReducer);
   const navigation = useNavigate();
+  const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const [referenceNumber, setReferenceNumber] = useState<string | null>(null);
   const [action, setAction] = useState<HTMLElement | null>(null);
   const dispatch = useAppDispatch();
+  const [Bookings, setBookings] = useState<BookingsModel[]>([]);
 
   function handleAction(event: MouseEvent<HTMLButtonElement>) {
     setAction(event.currentTarget);
@@ -34,6 +41,11 @@ export default function BookingsPage() {
       navigation(`/admin/home/booking/id=${referenceNumber}`);
     }
     if (response === -1) {
+      const info = bookings.find((b) => b.referenceNumber === referenceNumber);
+      if (info) {
+        dispatch(DeclineBookingThunk(info));
+        dispatch(GetHostelsThunk());
+      }
     }
     setAction(null);
   }
@@ -41,6 +53,10 @@ export default function BookingsPage() {
   useEffect(() => {
     dispatch(GetBookingsThunk());
   }, []);
+
+  useEffect(() => {
+    setBookings(bookings);
+  }, [bookings]);
   return (
     <Container>
       <BookingActionMenu handleClose={handleActionClose} anchorEl={action} />
@@ -90,17 +106,33 @@ export default function BookingsPage() {
               placeholder: "search ....",
             }}
             label=""
+            handleChange={(event) => {
+              const results = SearchBookingInfo(bookings, event.target.value);
+              if (Boolean(results.length > 0)) {
+                setBookings(results);
+              } else {
+                setBookings(bookings);
+              }
+            }}
           />
         </Box>
       </Box>
       <SizedBox height={1} />
       <Container>
         <TableTemplate header={BookingsTableHeader}>
-          {bookings.map((book, index) => (
+          {Bookings.map((book, index) => (
             <CustomTableRow index={index}>
               <React.Fragment>
                 <CustomTableCell
                   content={book.referenceNumber}
+                  props={{ align: "left" }}
+                />
+                <CustomTableCell
+                  content={
+                    Boolean(book.indexNumber)
+                      ? book.indexNumber
+                      : book.referenceNumber
+                  }
                   props={{ align: "left" }}
                 />
                 <CustomTableCell
@@ -113,7 +145,7 @@ export default function BookingsPage() {
                   props={{ align: "center" }}
                 />
                 <CustomTableCell
-                  content={book.hostelId}
+                  content={GetHostelInfoById(hostels, book.hostelId).hostelName}
                   props={{ align: "left" }}
                 />
                 <CustomTableCell

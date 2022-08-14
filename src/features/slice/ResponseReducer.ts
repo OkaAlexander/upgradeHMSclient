@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   AddHostelThunk,
+  ApproveBookingThunk,
   GetAvailableRoomsThunk,
   RegisterStudentThunk,
   StudentBookRoomThunk,
   StudentLoginThunk,
+  DeclineBookingThunk,
 } from "../../functions/post";
 import {
   GetHostelsThunk,
@@ -172,6 +174,36 @@ const ResponseReducer = createSlice({
         state.loading = false;
       })
       .addCase(GetBookingsThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(ApproveBookingThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(ApproveBookingThunk.fulfilled, (state, action) => {
+        state.error = null;
+        state.message = action.payload;
+        state.loading = false;
+      })
+      .addCase(ApproveBookingThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(DeclineBookingThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(DeclineBookingThunk.fulfilled, (state, action) => {
+        state.error = null;
+        state.message = action.payload;
+        state.loading = false;
+      })
+      .addCase(DeclineBookingThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.message = null;

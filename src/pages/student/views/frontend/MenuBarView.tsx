@@ -1,13 +1,15 @@
 import { Box } from "@mui/material";
 import React, { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import {
   CustomIconButton,
+  Expanded,
   HomeNavLink,
   SizedBox,
 } from "../../../../components";
 import FlatIcons from "../../../../constants/icons";
+import { InitLogout } from "../../../../features/slice/StudentReducer";
 import { IMenubarRoute } from "../../interface";
 
 interface IProps {
@@ -23,6 +25,8 @@ export default function MenuBarView({
   routes,
 }: IProps) {
   const navigation = useNavigate();
+  const dispatch = useAppDispatch();
+  const { student } = useAppSelector((state) => state.StudentReducer);
   return (
     <Box
       sx={(theme) => ({
@@ -53,6 +57,7 @@ export default function MenuBarView({
           },
         })}
       >
+        <SizedBox width={5} />
         {routes.map((route) => (
           <HomeNavLink
             handleClick={() => navigation(route.route ? route.route : "")}
@@ -60,6 +65,22 @@ export default function MenuBarView({
             route={route}
           />
         ))}
+        {Boolean(student) && <Expanded />}
+        {Boolean(student) && (
+          <Box
+            sx={(theme) => ({
+              [theme.breakpoints.down("sm")]: {
+                display: "none",
+              },
+            })}
+          >
+            <HomeNavLink
+              handleClick={() => dispatch(InitLogout())}
+              route={{ title: "Logout" }}
+            />
+          </Box>
+        )}
+        <SizedBox width={3} />
       </Box>
       <Box
         sx={(theme) => ({

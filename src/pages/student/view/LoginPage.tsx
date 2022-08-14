@@ -13,9 +13,10 @@ export default function LoginPage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    student && student.hostelId
-      ? navigation("/dashboard")
-      : navigation("/hostels");
+    student &&
+      (Boolean(student.hostelId)
+        ? navigation("/dashboard/profile")
+        : navigation("/hostels"));
   }, [student]);
   return (
     <Box

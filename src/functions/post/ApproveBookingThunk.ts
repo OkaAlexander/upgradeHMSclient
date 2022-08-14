@@ -3,20 +3,14 @@ import { PostRoutes } from "../../api";
 import controller from "../../controller";
 import StudentModel from "../../model/StudentModel";
 
-interface res {
-  data: StudentModel;
-  message: string;
-}
 export default createAsyncThunk(
-  "api/student/hostel/book",
-  async (data: any) => {
+  "api/booking/approve",
+  async (data: StudentModel) => {
     try {
-      const res = await controller.Post<res>({
-        url: PostRoutes.hostel_book,
+      return await controller.Post<string>({
+        url: PostRoutes.approve_booking,
         data,
       });
-      console.log(res);
-      return res;
     } catch (error) {
       throw error;
     }

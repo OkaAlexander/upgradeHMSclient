@@ -21,6 +21,7 @@ export const RoomsTableHeader: ITableHeader[] = [
 
 export const BookingsTableHeader: ITableHeader[] = [
   { title: "ReferenceNumber", align: "left" },
+  { title: "IndexNumber", align: "left" },
   { title: "StudentName", align: "left" },
   { title: "PhoneNumber", align: "center" },
   { title: "Hostel", align: "left" },

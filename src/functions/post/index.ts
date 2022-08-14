@@ -3,3 +3,5 @@ export { default as StudentLoginThunk } from "./StudentLoginThunk";
 export { default as StudentBookRoomThunk } from "./StudentBookRoomThunk";
 export { default as RegisterStudentThunk } from "./RegisterStudentThunk";
 export { default as GetAvailableRoomsThunk } from "./GetAvailableRoomsThunk";
+export { default as ApproveBookingThunk } from "./ApproveBookingThunk";
+export { default as DeclineBookingThunk } from "./DeclineBookingThunk";

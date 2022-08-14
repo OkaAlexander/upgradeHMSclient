@@ -105,6 +105,7 @@ export const AdminRoutes = [
     url: Routes.STUDENT_CARDS,
     icon: FlatIcons.FcBusinessContact,
   },
+  { name: "Trash", url: Routes.BOOKINGS, icon: FlatIcons.FcFullTrash },
 ];
 export const userRoutes: navigationInterface[] = [
   {
