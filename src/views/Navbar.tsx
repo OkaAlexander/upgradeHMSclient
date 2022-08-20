@@ -24,7 +24,7 @@ export default function Navbar({
   return (
     <AppBar
       sx={(theme) => ({
-        height: 50,
+        height: "60px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -59,7 +59,7 @@ export default function Navbar({
             padding: (theme) => theme.spacing(0, 1),
           }}
         >
-          <Box sx={{ height: 45, width: 200 }}>
+          <Box sx={{ height: "40px", width: "150px" }}>
             <img src={Images.labeledlogo} alt="" />
           </Box>
         </Box>

@@ -4,9 +4,24 @@ import {
   HistoryOutlined,
   InfoOutlined,
   Refresh,
+  Search,
+  SearchOutlined,
 } from "@mui/icons-material";
-import { Box, Chip, Divider, Grid } from "@mui/material";
-import React, { useEffect } from "react";
+import {
+  Badge,
+  Box,
+  Button,
+  Chip,
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { AppDispatch } from "../../../app/store";
 import {
@@ -16,170 +31,227 @@ import {
   Row,
   SizedBox,
   SmallText,
+  Expanded,
 } from "../../../components";
 import { appColors } from "../../../constants/colors";
+import FlatIcons from "../../../constants/icons";
 import {
   GetHostelsThunk,
   GetRoomsThunk,
   GetStudentsThunk,
 } from "../../../functions/thunk";
+import KeylogModel from "../../../model/KeylogModel";
+import StudentModel from "../../../model/StudentModel";
+import Images from "../../../resources/Images";
 import { RoomStudentView } from "../../../views";
+import { GetHostelInfoById } from "../../service";
+import { StudentCheckInCard, StudentCheckInPlaceholder } from "../components";
 
 export default function RoomInfoPage() {
   const dispatch = useAppDispatch();
+  const [roomData, setRoomData] = useState<StudentModel[]>([]);
   const { rooms } = useAppSelector((state) => state.RoomsReducer);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const { students } = useAppSelector((state) => state.StudentsReducer);
+  const [srch, setSrch] = useState<string>("");
 
   useEffect(() => {
     dispatch(GetRoomsThunk());
     dispatch(GetHostelsThunk());
     dispatch(GetStudentsThunk());
   }, []);
+
+  function handleSearch() {
+    setRoomData(
+      students.filter((std) => std.roomNumber === srch.toUpperCase().trim())
+    );
+  }
+
+  useEffect(() => {}, [students]);
   return (
     <Box
-      sx={{
-        height: "100vh",
-        overflow: "hidden",
-      }}
+      sx={(theme) => ({
+        background: theme.palette.background.paper,
+        padding: theme.spacing(1),
+        height: "100%",
+      })}
     >
       <Box
         sx={(theme) => ({
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "flex-end",
-          padding: theme.spacing(1, 2),
+          justifyContent: "space-between",
           boxShadow: theme.shadows[1],
+          borderRadius: 0,
+          padding: theme.spacing(1),
+          background: theme.palette.common.white,
         })}
       >
-        <ChipButton title="Refresh" Icon={Refresh} handleClick={() => {}} />
-        <Input
-          label="search"
-          handleChange={(e) => {
-            console.log(e);
-          }}
-        />
-      </Box>
-      <Box
-        sx={(theme) => ({
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          paddingTop: theme.spacing(0.25),
-          height: "100%",
-        })}
-      >
-        <Box
+        <Stack
+          direction="row"
           sx={(theme) => ({
             flex: 1,
-            height: "100%",
+            alignItems: "center",
+            padding: theme.spacing(0, 2),
             justifyContent: "flex-start",
-            padding: theme.spacing(1),
           })}
         >
-          <Grid
-            container
+          <FlatIcons.FcReadingEbook />
+          <SizedBox width={1} />
+          <Typography variant="body1">Room Services</Typography>
+        </Stack>
+        <Stack
+          direction="row"
+          sx={(theme) => ({
+            flex: 1,
+            alignItems: "center",
+            padding: theme.spacing(0, 2),
+            justifyContent: "flex-end",
+          })}
+        >
+          <TextField
+            placeholder="Room Number"
+            variant="standard"
+            onChange={(e) => setSrch(e.target.value)}
+            size="small"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+          />
+          <IconButton onClick={handleSearch} size="small">
+            <Search />
+          </IconButton>
+        </Stack>
+      </Box>
+
+      <Box sx={{ mt: 1, p: 2 }}>
+        <Stack
+          sx={(theme) => ({
+            padding: theme.spacing(2),
+          })}
+          direction="row"
+        >
+          <Stack
+            sx={(theme) => ({
+              flex: 1.5,
+            })}
+          >
+            {roomData.length > 0
+              ? roomData
+                  .map((d, index) => {
+                    if (index < 2 && roomData.length > 2) {
+                      return d;
+                    } else if (index < 1) {
+                      return d;
+                    }
+                    return null;
+                  })
+                  .filter((s) => s !== null)
+                  .map((s) =>
+                    s ? <StudentCheckInCard student={s} /> : <React.Fragment />
+                  )
+              : Array.from({ length: 2 }).map(() => (
+                  <StudentCheckInPlaceholder />
+                ))}
+          </Stack>
+          <Stack
+            sx={(theme) => ({
+              flex: 1.5,
+            })}
+          >
+            {roomData.length > 0
+              ? roomData
+                  .map((d, index) => {
+                    if (index < 4 && index > 1 && roomData.length > 2) {
+                      return d;
+                    } else if (index === 1) {
+                      return d;
+                    }
+                    return null;
+                  })
+                  .filter((s) => s !== null)
+                  .map((s) =>
+                    s ? <StudentCheckInCard student={s} /> : <React.Fragment />
+                  )
+              : Array.from({ length: 2 }).map(() => (
+                  <StudentCheckInPlaceholder />
+                ))}
+          </Stack>
+        </Stack>
+      </Box>
+
+      {Boolean(roomData.length) && (
+        <Stack
+          direction="row"
+          sx={(theme) => ({
+            boxShadow: theme.shadows[1],
+            padding: theme.spacing(1),
+            alignItems: "center",
+            justifyContent: "space-between",
+            background: theme.palette.common.white,
+          })}
+        >
+          <Stack
             sx={(theme) => ({
               alignItems: "center",
-              width: "100%",
-              height: "100%",
-              overflow: "autoy",
             })}
+            direction="row"
           >
-            {[1, 2, 3, 4].map((index) => (
-              <RoomStudentView key={index.toString()} />
-            ))}
-          </Grid>
-        </Box>
-        <Box
-          sx={(theme) => ({
-            width: 300,
-            background: "#f0f0f0",
-            borderLeft: "1px solid rgba(211,211,211,0.85)",
-            height: "100%",
-          })}
-        >
-          <Row
-            padding={{ x: 1, y: 0.5 }}
-            children={[
-              <InfoOutlined />,
-              <SizedBox width={1} />,
-              <Text
-                text="Room Details"
-                props={{ sx: (theme) => ({ fontSize: theme.spacing(2.5) }) }}
-              />,
-            ]}
-          />
-          <Divider />
-          <Box
+            <FlatIcons.FcHome />
+            <SizedBox width={0.25} />
+            <Typography variant="body1">
+              {
+                GetHostelInfoById(
+                  hostels,
+                  `${
+                    roomData.length > 0 &&
+                    roomData[roomData.length - 1].hostelId
+                  }`
+                ).hostelName
+              }
+            </Typography>
+            <SizedBox width={2} />
+            <FlatIcons.FcReading />
+            <SizedBox width={0.25} />
+            <Typography variant="body1">
+              {roomData.length > 0
+                ? roomData[Math.floor(Math.random() * roomData.length)].gender
+                : "..."}
+            </Typography>
+            <SizedBox width={2} />
+            <FlatIcons.FcOrganization />
+            <SizedBox width={0.25} />
+            <Typography variant="body1">
+              {roomData.length > 0
+                ? roomData[Math.floor(Math.random() * roomData.length)]
+                    .roomNumber
+                : "..."}
+            </Typography>
+            <SizedBox width={2} />
+          </Stack>
+          <Stack
             sx={(theme) => ({
-              overflowX: "hidden",
-              overflowY: "auto",
-              height: "100%",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              pr: 3,
             })}
+            direction="row"
           >
-            <Box
-              sx={(theme) => ({
-                padding: theme.spacing(1),
-              })}
-            >
-              <SmallText text="hostelName:" color="gray" />
-              <Text text="GetFund Hostel" />
-              <Divider />
-              <SmallText text="roomNumber:" color="gray" />
-              <Text text="A10" />
-              <Divider />
-              <SmallText text="roomGender:" color="gray" />
-              <Text text="Female" />
-              <Divider />
-              <SmallText text="roomStatus:" color="gray" />
-              <Text text="Unavailable" />
-              <Divider />
-              <SmallText text="numberOfStudents:" color="gray" />
-              <Text text="4" />
-              <Divider />
-            </Box>
-            <SizedBox height={0.5} />
-            <Box
-              sx={(theme) => ({
-                background: "#fff",
-              })}
-            >
-              <Row
-                padding={{ x: 1, y: 0.5 }}
-                children={[
-                  <HistoryOutlined />,
-                  <SizedBox width={1} />,
-                  <Text text="Recent Check" />,
-                ]}
-              />
-            </Box>
-            <Divider />
-            <Box
-              sx={(theme) => ({
-                padding: theme.spacing(1),
-                height: "inherit",
-              })}
-            >
-              <SmallText text="dateTime:" color="gray" />
-              <Text text="03/07/2021 01:57am" />
-              <Divider />
-              <SmallText text="studentName:" color="gray" />
-              <Text text="Biliksuun Samuel Bhills" />
-              <Divider />
-              <SmallText text="userName:" color="gray" />
-              <Text text="Oka Alexander" />
-              <Divider />
-              <SmallText text="checkAction:" color="gray" />
-              <Text text="in" />
-              <Divider />
-            </Box>
-          </Box>
-        </Box>
-      </Box>
+            <Badge badgeContent={roomData.length} color="primary">
+              <FlatIcons.FcConferenceCall />
+            </Badge>
+            <SizedBox width={1} />
+            {Boolean(roomData.length < 4) ? (
+              <FlatIcons.FcUnlock />
+            ) : (
+              <FlatIcons.FcLock />
+            )}
+          </Stack>
+        </Stack>
+      )}
     </Box>
   );
 }

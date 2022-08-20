@@ -38,7 +38,7 @@ export default function Sidebar({
       >
         <Box
           sx={{
-            height: 50,
+            height: "60px",
             display: "flex",
             flexDirection: "row",
             alignItems: "center",

@@ -1,6 +1,7 @@
 import moment from "moment";
 import RoomModel from "../../../model/RoomModel";
 import StudentModel from "../../../model/StudentModel";
+import { ITableHeader } from "../../interface";
 export const InitialStudentInfo: StudentModel = {
   studentName: "",
   phoneNumber: "",
@@ -108,3 +109,22 @@ export function GetPrograms() {
     "MSC. ENVIRONMENTAL ENGINEERING MANAGEMENT",
   ];
 }
+
+export const ComplainstableHeader: ITableHeader[] = [
+  { title: "Check", align: "left" },
+  { title: "Hostel Name", align: "center" },
+  { title: "Room Number", align: "center" },
+  { title: "Complaint Name", align: "center" },
+  { title: "Problem", align: "center" },
+  { title: "Date Logged", align: "center" },
+  { title: "Status", align: "center" },
+];
+
+export const KeylogsTableHeader: ITableHeader[] = [
+  { title: "Action", align: "left" },
+  { title: "Room Number", align: "center" },
+  { title: "Reference Number", align: "center" },
+  { title: "Student Name", align: "center" },
+  { title: "Date Logged", align: "center" },
+  { title: "Username", align: "center" },
+];

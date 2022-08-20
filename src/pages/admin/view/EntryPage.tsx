@@ -48,7 +48,7 @@ export default function EntryPage() {
           paddingLeft: sidebar ? "240px" : 0,
           overflow: "hidden",
           height: "100%",
-          marginTop: "50px",
+          marginTop: "60px",
         }}
       >
         <Outlet />

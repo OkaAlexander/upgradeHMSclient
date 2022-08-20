@@ -15,5 +15,5 @@ export interface ISidebarRoute {
 
 export interface ITableHeader {
   title: string;
-  align: any;
+  align: "center" | "left" | "right";
 }
