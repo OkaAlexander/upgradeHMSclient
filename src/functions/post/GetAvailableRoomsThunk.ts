@@ -5,7 +5,7 @@ import RoomModel from "../../model/RoomModel";
 
 export default createAsyncThunk(
   "api/rooms/get/available",
-  async (data: RoomModel) => {
+  async (data: any) => {
     try {
       return await controller.Post<RoomModel[]>({
         url: PostRoutes.get_available_rooms,

@@ -12,7 +12,7 @@ export function searchStudent(students: StudentModel[], srch: string) {
     return students;
   }
   const options = {
-    keys: ["StudentName", "ReferenceNumber"],
+    keys: ["studentName", "referenceNumber", "phoneNumber"],
   };
 
   const fuse = new Fuse(students, options);

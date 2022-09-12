@@ -6,10 +6,7 @@ interface ILoader {
 }
 export default function Loader({ open }: ILoader) {
   return (
-    <Backdrop
-      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={open}
-    >
+    <Backdrop sx={{ color: "#fff", zIndex: 18449 }} open={open}>
       <span className="loader"></span>
     </Backdrop>
   );

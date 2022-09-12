@@ -24,7 +24,7 @@ function Post<T>({ url, data, file }: IProps) {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(error?.response?.data || error?.message);
+          reject(error?.response?.data || error?.message || error);
         });
     } catch (error) {
       reject(error);
@@ -46,7 +46,9 @@ function Get<T>({ url }: IGetProps) {
         .then((response) => {
           resolve(response.data);
         })
-        .catch((error) => reject(error?.response?.data || error?.message));
+        .catch((error) =>
+          reject(error?.response?.data || error?.message || error)
+        );
     } catch (error) {
       reject(error);
     }

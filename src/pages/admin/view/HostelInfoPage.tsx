@@ -17,13 +17,17 @@ export default function HostelInfoPage() {
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const [modal, setModal] = useState<boolean>(false);
   const [selection, setSelection] = useState<string>("");
+  const [schoolHostel, setSchoolHostel] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLDivElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (hostel: string) => {
     setSelection(hostel);
-    setModal(true);
+    if (hostel === "school") {
+      setSchoolHostel(true);
+    }
+    // setModal(true);
     setAnchorEl(null);
   };
 
@@ -54,14 +58,22 @@ export default function HostelInfoPage() {
         handleClose={() => setModal(false)}
         title="Register Hostel"
       >
-        {Boolean(selection === "school") ? (
-          <NewHostelInfoView />
+        {/* {Boolean(selection === "school") ? (
+          <NewHostelInfoView
+            open={schoolHostel}
+            handleClose={() => setSchoolHostel(false)}
+          />
         ) : Boolean(selection === "private") ? (
           <PrivateHostelInfoView />
         ) : (
           <Box></Box>
-        )}
+        )} */}
       </CustomModal>
+
+      <NewHostelInfoView
+        open={schoolHostel}
+        handleClose={() => setSchoolHostel(false)}
+      />
       <AddHostelMenu handleClose={handleClose} anchorEl={anchorEl} />
       <Container
         sx={(theme) => ({

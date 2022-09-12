@@ -12,6 +12,8 @@ export const GetRoutes = {
   rooms: (year?: string) => `rooms/get/?year=${year ? year : academicYear}`,
   hostels: "hostels/get",
   bookings: () => `bookings/get`,
+  keylogs_get: (yr?: string) =>
+    `hostel/logs/get/?year=${yr ? yr : academicYear}`,
 };
 
 export enum PostRoutes {
@@ -23,4 +25,5 @@ export enum PostRoutes {
   get_available_rooms = "rooms/get/available",
   approve_booking = "booking/approve",
   decline_booking = "booking/decline",
+  keylog_add = "hostel/log/add",
 }

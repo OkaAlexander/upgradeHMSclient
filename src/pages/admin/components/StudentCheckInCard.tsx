@@ -7,11 +7,17 @@ import StudentModel from "../../../model/StudentModel";
 import Images from "../../../resources/Images";
 import configuration from "../../../configurations/configurations";
 import KeylogModel from "../../../model/KeylogModel";
+import moment from "moment";
 interface IProps {
   student: StudentModel;
-  logInfo?: KeylogModel;
+  logInfo: KeylogModel | null;
+  handleAddKeyLog: (data: KeylogModel) => void;
 }
-export default function StudentCheckInCard({ student, logInfo }: IProps) {
+export default function StudentCheckInCard({
+  student,
+  logInfo,
+  handleAddKeyLog,
+}: IProps) {
   return (
     <Stack
       direction="row"
@@ -49,7 +55,13 @@ export default function StudentCheckInCard({ student, logInfo }: IProps) {
         })}
       >
         <Stack direction="row">
-          <FlatIcons.FcBusinessman />
+          {logInfo &&
+          logInfo.referenceNumber === student.referenceNumber &&
+          Boolean(logInfo.action) ? (
+            <FlatIcons.FcKey />
+          ) : (
+            <FlatIcons.FcBusinessman />
+          )}
           <SizedBox width={0.45} />
           <Typography variant="body1">{student.studentName}</Typography>
           <Expanded />
@@ -64,8 +76,22 @@ export default function StudentCheckInCard({ student, logInfo }: IProps) {
             size="small"
             color="primary"
             variant="text"
+            onClick={() => {
+              const info: KeylogModel = {
+                hostelId: student.hostelId,
+                username: "samuel",
+                referenceNumber: student.referenceNumber,
+                dateOfLog: moment().format(),
+                action: Boolean(logInfo && logInfo.action) ? 0 : 1,
+                roomNumber: student.roomNumber,
+                studentName: student.studentName,
+                academicYear: student.academicYear,
+                id: student.referenceNumber,
+              };
+              handleAddKeyLog(info);
+            }}
           >
-            CheckIn
+            {logInfo && Boolean(logInfo.action) ? "CheckOut" : "CheckIn"}
           </Button>
         </Stack>
         <Stack direction="row">

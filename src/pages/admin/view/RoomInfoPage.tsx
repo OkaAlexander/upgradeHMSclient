@@ -35,6 +35,7 @@ import {
 } from "../../../components";
 import { appColors } from "../../../constants/colors";
 import FlatIcons from "../../../constants/icons";
+import { AddKeyLogThunk, GetKeyLogsThunk } from "../../../functions/services";
 import {
   GetHostelsThunk,
   GetRoomsThunk,
@@ -51,20 +52,35 @@ export default function RoomInfoPage() {
   const dispatch = useAppDispatch();
   const [roomData, setRoomData] = useState<StudentModel[]>([]);
   const { rooms } = useAppSelector((state) => state.RoomsReducer);
+  const { keylogs } = useAppSelector((state) => state.KeyLogsReducer);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const { students } = useAppSelector((state) => state.StudentsReducer);
   const [srch, setSrch] = useState<string>("");
+  const [logInfo, setLogInfo] = useState<KeylogModel | null>(null);
 
   useEffect(() => {
     dispatch(GetRoomsThunk());
     dispatch(GetHostelsThunk());
     dispatch(GetStudentsThunk());
+    dispatch(GetKeyLogsThunk());
   }, []);
+
+  useEffect(() => {
+    if (roomData.length > 0) {
+      const std = roomData[roomData.length - 1];
+      const logs = keylogs.filter((k) => k.roomNumber === std.roomNumber);
+      logs.length > 0 && setLogInfo(logs[0]);
+    }
+  }, [roomData, keylogs]);
 
   function handleSearch() {
     setRoomData(
       students.filter((std) => std.roomNumber === srch.toUpperCase().trim())
     );
+  }
+
+  function handleAddKeyLog(data: KeylogModel) {
+    dispatch(AddKeyLogThunk(data));
   }
 
   useEffect(() => {}, [students]);
@@ -151,7 +167,15 @@ export default function RoomInfoPage() {
                   })
                   .filter((s) => s !== null)
                   .map((s) =>
-                    s ? <StudentCheckInCard student={s} /> : <React.Fragment />
+                    s ? (
+                      <StudentCheckInCard
+                        logInfo={logInfo}
+                        handleAddKeyLog={handleAddKeyLog}
+                        student={s}
+                      />
+                    ) : (
+                      <React.Fragment />
+                    )
                   )
               : Array.from({ length: 2 }).map(() => (
                   <StudentCheckInPlaceholder />
@@ -174,7 +198,15 @@ export default function RoomInfoPage() {
                   })
                   .filter((s) => s !== null)
                   .map((s) =>
-                    s ? <StudentCheckInCard student={s} /> : <React.Fragment />
+                    s ? (
+                      <StudentCheckInCard
+                        logInfo={logInfo}
+                        handleAddKeyLog={handleAddKeyLog}
+                        student={s}
+                      />
+                    ) : (
+                      <React.Fragment />
+                    )
                   )
               : Array.from({ length: 2 }).map(() => (
                   <StudentCheckInPlaceholder />
@@ -244,7 +276,7 @@ export default function RoomInfoPage() {
               <FlatIcons.FcConferenceCall />
             </Badge>
             <SizedBox width={1} />
-            {Boolean(roomData.length < 4) ? (
+            {logInfo && Boolean(logInfo.action) ? (
               <FlatIcons.FcUnlock />
             ) : (
               <FlatIcons.FcLock />

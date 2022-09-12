@@ -23,7 +23,10 @@ import { TableTemplate } from "../../../views";
 import { ComplainstableHeader, KeylogsTableHeader } from "../data";
 import moment from "moment";
 import { Search } from "@mui/icons-material";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 export default function KeyLogsPage() {
+  const dispatch = useAppDispatch();
+  const { keylogs } = useAppSelector((state) => state.KeyLogsReducer);
   return (
     <Box
       sx={(theme) => ({
@@ -94,34 +97,30 @@ export default function KeyLogsPage() {
       <Box>
         <TableTemplate header={KeylogsTableHeader}>
           <React.Fragment>
-            {Array.from({ length: 45 }).map(() => (
-              <CustomTableRow
-                index={Math.round(Math.random() * 10)}
-                key={Math.random() + Date.now().toString()}
-              >
+            {keylogs.map((log, index) => (
+              <CustomTableRow index={index} key={log.id}>
                 <CustomTableCell
-                  content={
-                    Boolean((Math.round(Math.random()) * 5) % 2)
-                      ? "CheckIn"
-                      : "CheckOut"
-                  }
-                />
-                <CustomTableCell props={{ align: "center" }} content={"A30"} />
-                <CustomTableCell
-                  props={{ align: "center" }}
-                  content={"UE20040117"}
+                  content={Boolean(log.action) ? "CheckIn" : "CheckOut"}
                 />
                 <CustomTableCell
                   props={{ align: "center" }}
-                  content={"Kunjam Bismark"}
+                  content={log.roomNumber}
                 />
                 <CustomTableCell
                   props={{ align: "center" }}
-                  content={moment().format("DD/MM/YYYY  h:m a")}
+                  content={log.referenceNumber}
                 />
                 <CustomTableCell
                   props={{ align: "center" }}
-                  content={"Oka Alexander"}
+                  content={log.studentName}
+                />
+                <CustomTableCell
+                  props={{ align: "center" }}
+                  content={moment(log.dateOfLog).format("DD/MM/YYYY h:m a")}
+                />
+                <CustomTableCell
+                  props={{ align: "center" }}
+                  content={log.username}
                 />
               </CustomTableRow>
             ))}

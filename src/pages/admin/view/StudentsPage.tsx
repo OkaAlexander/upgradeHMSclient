@@ -62,9 +62,10 @@ export default function StudentsPage() {
           <Input
             label=""
             props={{
-              placeholder: "search...",
+              placeholder: "search by index,ref,phone....",
               variant: "standard",
               type: "search",
+              onChange: (e) => setSrch(e.target.value),
             }}
           />
           <SizedBox width={0.5} />

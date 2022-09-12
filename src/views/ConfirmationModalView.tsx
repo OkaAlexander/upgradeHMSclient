@@ -11,7 +11,7 @@ interface IProps {
   title: string;
   message: string;
   handleClose?: () => void;
-  handleResponse: (response: boolean) => void;
+  handleResponse: () => void;
 }
 export default function ConfirmationModalView({
   open,
@@ -73,7 +73,7 @@ export default function ConfirmationModalView({
           })}
         >
           <Button
-            onClick={() => handleResponse(true)}
+            onClick={handleResponse}
             id="yes"
             sx={(theme) => ({
               flex: 0.85,
@@ -88,7 +88,7 @@ export default function ConfirmationModalView({
           </Button>
           <Expanded />
           <Button
-            onClick={() => handleResponse(false)}
+            onClick={handleClose}
             id="no"
             sx={(theme) => ({
               flex: 0.85,

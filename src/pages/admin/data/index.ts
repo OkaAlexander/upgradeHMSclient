@@ -18,7 +18,7 @@ export const InitialStudentInfo: StudentModel = {
 };
 
 export const InitialRoomInfo: RoomModel = {
-  Id: "",
+  id: "",
   roomCapacity: 4,
   roomNumber: "",
   keyStatus: "",

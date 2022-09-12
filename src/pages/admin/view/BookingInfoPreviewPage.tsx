@@ -45,12 +45,13 @@ export default function BookingInfoPreviewPage() {
   }, [id]);
 
   useEffect(() => {
-    const roomInfo: RoomModel = {
-      ...InitialRoomInfo,
-      hostelId: info.hostelId,
-      roomGender: info.gender,
-    };
-    dispatch(GetAvailableRoomsThunk(roomInfo));
+    info.hostelId &&
+      dispatch(
+        GetAvailableRoomsThunk({
+          roomGender: info.gender,
+          hostelId: info.hostelId,
+        })
+      );
   }, [info.gender, info.hostelId]);
 
   return (

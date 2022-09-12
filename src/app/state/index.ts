@@ -1,6 +1,7 @@
 import {
   IBookingsReducerState,
   IHostelReducer,
+  IKeyLogsReducerState,
   IRoomReducer,
   IStudentReducer,
   IStudentsReducer,
@@ -29,4 +30,8 @@ export const StudentReducerState: IStudentReducer = {
 
 export const BookingsReducerState: IBookingsReducerState = {
   bookings: [],
+};
+
+export const KeyLogsReducerState: IKeyLogsReducerState = {
+  keylogs: [],
 };

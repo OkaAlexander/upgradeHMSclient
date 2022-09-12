@@ -13,11 +13,10 @@ export default function LoginPage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    student &&
-      (Boolean(student.hostelId)
-        ? navigation("/dashboard/profile")
-        : navigation("/hostels"));
-  }, [student]);
+    student && student.hostelId
+      ? navigation("/dashboard/profile")
+      : navigation("/hostels");
+  }, [navigation, student]);
   return (
     <Box
       sx={(theme) => ({
@@ -91,7 +90,10 @@ export default function LoginPage() {
       >
         <Box>
           <Typography variant="body2">
-            Lorem ipsum dolor sit amet consectetur adipisicing
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Voluptatibus voluptate pariatur at, necessitatibus sed in adipisci
+            itaque placeat ea tempora illum id laboriosam sint cumque, possimus
+            distinctio fuga quis molestiae!
           </Typography>
         </Box>
         <Box

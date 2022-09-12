@@ -15,6 +15,7 @@ import {
 } from "../../functions/thunk";
 import { ResponseState } from "../../app/state";
 import { GetBookingsThunk } from "../../functions/get";
+import { AddKeyLogThunk, GetKeyLogsThunk } from "../../functions/services";
 
 const ResponseReducer = createSlice({
   name: "ResponseReducer",
@@ -108,9 +109,9 @@ const ResponseReducer = createSlice({
         state.loading = false;
         state.message = null;
       })
-      .addCase(StudentLoginThunk.fulfilled, (state) => {
+      .addCase(StudentLoginThunk.fulfilled, (state, action) => {
         state.error = null;
-        state.message = null;
+        state.message = action.payload.message;
         state.loading = false;
       })
       .addCase(StudentLoginThunk.pending, (state) => {
@@ -200,10 +201,40 @@ const ResponseReducer = createSlice({
       })
       .addCase(DeclineBookingThunk.fulfilled, (state, action) => {
         state.error = null;
-        state.message = action.payload;
+        state.message = action.payload.message;
         state.loading = false;
       })
       .addCase(DeclineBookingThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(AddKeyLogThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(AddKeyLogThunk.fulfilled, (state) => {
+        state.error = null;
+        state.message = null;
+        state.loading = false;
+      })
+      .addCase(AddKeyLogThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(GetKeyLogsThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(GetKeyLogsThunk.fulfilled, (state) => {
+        state.error = null;
+        state.message = null;
+        state.loading = false;
+      })
+      .addCase(GetKeyLogsThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.message = null;

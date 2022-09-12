@@ -5,7 +5,7 @@ interface RoomModel {
   roomGender: string;
   roomSize: number;
   keyStatus: string;
-  Id: string;
+  id: string;
   hostelId: string;
 }
 

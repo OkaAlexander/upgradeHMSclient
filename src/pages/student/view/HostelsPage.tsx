@@ -45,13 +45,11 @@ export default function HostelsPage() {
   }, []);
 
   useEffect(() => {
-    !student
-      ? navigation("/")
-      : Boolean(student.hostelId) && navigation("/dashboard/profile");
+    student && student.hostelId && navigation("/dashboard/profile");
     if (student) {
       setInfo({ ...student });
     }
-  }, [student]);
+  }, [navigation, student]);
 
   return (
     <Box
@@ -74,15 +72,9 @@ export default function HostelsPage() {
         handleClose={() => setConfirmationModal(!confirmationModal)}
         title="Book Hostel"
         message="Do you want to book this Hostel?"
-        handleResponse={(event) => {
-          const status = event;
-          if (status) {
-            info.hostelId = selectedHostel ? selectedHostel.hostelId : "";
-            if (!Boolean(info.indexNumber)) {
-              info.indexNumber = info.referenceNumber;
-            }
-            dispatch(StudentBookRoomThunk(info));
-          }
+        handleResponse={() => {
+          info.hostelId = selectedHostel ? selectedHostel.hostelId : "";
+          dispatch(StudentBookRoomThunk(info));
           setConfirmationModal(!confirmationModal);
         }}
       />
