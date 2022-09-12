@@ -28,3 +28,14 @@ export const BookingsTableHeader: ITableHeader[] = [
   { title: "DateBooked", align: "center" },
   { title: "More", align: "center" },
 ];
+
+export const HostelsTableHeader: ITableHeader[] = [
+  { title: "Hostel ID", align: "left" },
+  { title: "Hostel Name", align: "left" },
+  { title: "Capacity", align: "center" },
+  { title: "Slots Available", align: "center" },
+  { title: "Total Approved", align: "center" },
+  { title: "Total Booked", align: "center" },
+  { title: "Price", align: "center" },
+  { title: "Edit", align: "center" },
+];

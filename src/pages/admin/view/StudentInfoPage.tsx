@@ -1,4 +1,4 @@
-import { Camera, Search } from "@mui/icons-material";
+import { Camera, NfcOutlined, Search } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -7,14 +7,91 @@ import {
   FormGroup,
   FormLabel,
   IconButton,
+  InputAdornment,
   Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import React, { ChangeEvent } from "react";
-import { CustomInput, Input } from "../../../components";
+import React, { useState } from "react";
+import {
+  FcBusiness,
+  FcBusinessman,
+  FcGraduationCap,
+  FcSearch,
+} from "react-icons/fc";
+import { GetRoutes, PostRoutes } from "../../../api";
+import { useAppDispatch } from "../../../app/hooks";
+import { CustomInput, Input, ResponseDisplay } from "../../../components";
+import configuration from "../../../configurations/configurations";
+import controller from "../../../controller";
+import {
+  responseFail,
+  responsePending,
+  responseSuccess,
+} from "../../../features/slice/ResponseReducer";
+import StudentModel from "../../../model/StudentModel";
+import ConfirmationModalView from "../../../views/ConfirmationModalView";
 
 export default function StudentInfo() {
+  const [info, setInfo] = useState<StudentModel | null>(null);
+  const [error, setError] = useState<any>(null);
+  const [message, setMessage] = useState<any>(null);
+  const [confirmDelete, setComfirmDelete] = useState<boolean>(false);
+  const [query, setQuery] = useState<string>("");
+  const dispatch = useAppDispatch();
+
+  async function HandleSearch() {
+    try {
+      dispatch(responsePending());
+      const results = await controller.Get<StudentModel>({
+        url: GetRoutes.searchStudent(query),
+      });
+      setInfo(results);
+      setError(null);
+      dispatch(responseSuccess(null));
+    } catch (error) {
+      setError(error);
+      setInfo(null);
+      setMessage(null);
+      dispatch(responseFail(null));
+    }
+  }
+
+  async function HandleInfoUpdate() {
+    try {
+      dispatch(responsePending());
+      setError(null);
+      setMessage(null);
+      const response = await controller.Post<{
+        data: StudentModel;
+        message: string;
+      }>({ url: PostRoutes.student_info_update, data: info });
+      setMessage(response.message);
+      dispatch(responseSuccess(null));
+    } catch (error) {
+      setError(error);
+      setMessage(null);
+      dispatch(responseFail(null));
+    }
+  }
+  async function HandleStudentDelete() {
+    try {
+      dispatch(responsePending());
+      setError(null);
+      setMessage(null);
+      const response = await controller.Post<string>({
+        url: PostRoutes.student_delete,
+        data: info,
+      });
+      setMessage(response);
+      dispatch(responseSuccess(null));
+      setInfo(null);
+    } catch (error) {
+      setError(error);
+      setMessage(null);
+      dispatch(responseFail(null));
+    }
+  }
   return (
     <Box
       sx={(theme) => ({
@@ -25,6 +102,16 @@ export default function StudentInfo() {
         flexDirection: "column",
       })}
     >
+      <ConfirmationModalView
+        open={confirmDelete}
+        title="Delete Student"
+        message={`Do you want to Delete ${info?.studentName}`}
+        handleClose={() => setComfirmDelete(false)}
+        handleResponse={() => {
+          HandleStudentDelete();
+          setComfirmDelete(false);
+        }}
+      />
       <Container
         sx={(theme) => ({
           boxShadow: theme.shadows[1],
@@ -48,17 +135,38 @@ export default function StudentInfo() {
           })}
         >
           <Input
-            label="Search By Ref/Phone"
+            label=""
+            props={{
+              variant: "standard",
+              size: "small",
+
+              InputProps: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <FcGraduationCap />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={HandleSearch} size="small">
+                      <FcSearch />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+                onKeyDown: (e) => {
+                  if (e.key === "Enter") {
+                    HandleSearch();
+                  }
+                },
+              },
+              onChange: (e) => setQuery(e.target.value),
+              placeholder: "Search By Ref/Phone",
+            }}
             handleChange={(e) => console.log(e)}
-          />
-          <Chip
-            onClick={() => {}}
-            sx={(theme) => ({ borderRadius: theme.spacing(1) })}
-            label={<Typography variant="body2">Search</Typography>}
-            avatar={<Search />}
           />
         </Box>
       </Container>
+      <ResponseDisplay message={message} error={error} />
       <Container sx={(theme) => ({ marginTop: theme.spacing(1.5) })}>
         <Stack
           sx={(theme) => ({
@@ -83,11 +191,36 @@ export default function StudentInfo() {
               },
             })}
           >
-            <CustomInput label="Student Name" />
-            <CustomInput label="Index Number" />
-            <CustomInput label="Program" />
-            <CustomInput label="Level" />
-            <CustomInput label="Phoe Number" />
+            <CustomInput
+              props={{
+                value: info ? info.studentName : "",
+                onChange: (e) => {
+                  info && setInfo({ ...info, studentName: e.target.value });
+                },
+              }}
+              label="Student Name"
+            />
+            <CustomInput
+              props={{ value: info ? info.indexNumber : "" }}
+              label="Index Number"
+            />
+            <CustomInput
+              props={{ value: info ? info.programme : "" }}
+              label="Program"
+            />
+            <CustomInput
+              props={{ value: info ? info.studentLevel : "" }}
+              label="Level"
+            />
+            <CustomInput
+              props={{
+                value: info ? info.phoneNumber : "",
+                onChange: (e) => {
+                  info && setInfo({ ...info, phoneNumber: e.target.value });
+                },
+              }}
+              label="Phone Number"
+            />
           </Box>
           <Box
             sx={(theme) => ({
@@ -101,17 +234,39 @@ export default function StudentInfo() {
               },
             })}
           >
-            <CustomInput label="Gender" />
-            <CustomInput label="Email Address" />
-            <CustomInput label="Academic Year" />
-            <CustomInput label="Hostel" />
-            <CustomInput label="Room Number" />
+            <CustomInput
+              props={{ value: info ? info.gender : "" }}
+              label="Gender"
+            />
+            <CustomInput
+              props={{
+                value: info ? info.email : "",
+                onChange: (e) => {
+                  info && setInfo({ ...info, email: e.target.value });
+                },
+              }}
+              label="Email Address"
+            />
+            <CustomInput
+              props={{ value: info ? info.academicYear : "" }}
+              label="Academic Year"
+            />
+            <CustomInput
+              props={{ value: info ? info.hostelId : "" }}
+              label="Hostel"
+            />
+            <CustomInput
+              props={{ value: info ? info.roomNumber : "" }}
+              label="Room Number"
+            />
           </Box>
           <Box
             sx={(theme) => ({
               width: "100%",
               display: "flex",
               flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
               flex: 1,
               margin: theme.spacing(0, 0.5),
               [theme.breakpoints.down("sm")]: {
@@ -122,13 +277,22 @@ export default function StudentInfo() {
             <Box
               sx={(theme) => ({
                 width: 200,
-                height: 150,
-                background: "red",
+                height: 200,
+                background: "#f0f0f0",
                 alignSelf: "center",
                 borderRadius: theme.spacing(0.5),
                 boxShadow: theme.shadows[1],
               })}
-            ></Box>
+            >
+              {info ? (
+                <img
+                  alt="student"
+                  src={configuration.remoteResource + info?.picture}
+                />
+              ) : (
+                <FcBusinessman size={200} />
+              )}
+            </Box>
             <Box
               sx={(theme) => ({
                 display: "flex",
@@ -138,7 +302,7 @@ export default function StudentInfo() {
                 margin: theme.spacing(0.5, 0),
               })}
             >
-              <FormGroup sx={(theme) => ({})}>
+              {/* <FormGroup sx={(theme) => ({})}>
                 <TextField
                   variant="outlined"
                   type="file"
@@ -157,23 +321,29 @@ export default function StudentInfo() {
                 >
                   <Typography variant="body2">choose image</Typography>
                 </FormLabel>
-              </FormGroup>
-              <Button
-                sx={(theme) => ({ marginBottom: theme.spacing(0.5) })}
-                variant="contained"
-                size="small"
-                color="primary"
-              >
-                Update
-              </Button>
-              <Button
-                sx={(theme) => ({ marginBottom: theme.spacing(0.5) })}
-                variant="outlined"
-                size="small"
-                color="secondary"
-              >
-                Delete
-              </Button>
+              </FormGroup> */}
+              {info && (
+                <React.Fragment>
+                  <Button
+                    sx={(theme) => ({ marginBottom: theme.spacing(0.5) })}
+                    variant="contained"
+                    size="small"
+                    color="primary"
+                    onClick={HandleInfoUpdate}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    sx={(theme) => ({ marginBottom: theme.spacing(0.5) })}
+                    variant="outlined"
+                    size="small"
+                    color="secondary"
+                    onClick={() => setComfirmDelete(!confirmDelete)}
+                  >
+                    Delete
+                  </Button>
+                </React.Fragment>
+              )}
             </Box>
           </Box>
         </Stack>

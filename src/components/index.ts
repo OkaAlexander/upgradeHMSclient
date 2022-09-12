@@ -17,3 +17,4 @@ export { default as HomeNavLink } from "./HomeNavLink";
 export { default as CustomIconButton } from "./CustomIconButton";
 export { default as CustomTableCell } from "./CustomTableCell";
 export { default as CustomTableRow } from "./CustomTableRow";
+export { default as ResponseDisplay } from "./ResponseDisplay";
