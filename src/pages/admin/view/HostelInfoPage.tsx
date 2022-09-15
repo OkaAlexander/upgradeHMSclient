@@ -194,7 +194,6 @@ export default function HostelInfoPage() {
             <Stack direction="row" alignItems="center">
               <FcHome />
               <Typography variant="body1">School</Typography>
-              <Typography>HELLO REMOVE</Typography>
               <Checkbox onClick={() => setHst(!hst)} checked={Boolean(hst)} />
             </Stack>
             <Stack direction="row" alignItems="center">
