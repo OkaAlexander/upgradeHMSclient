@@ -9,6 +9,7 @@ import {
   AvailableRoomsReducer,
   BookingsReducer,
   KeyLogsReducer,
+  PrivateHostelReducer,
 } from "../features/slice";
 export default combineReducers({
   ResponseReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   StudentReducer,
   AvailableRoomsReducer,
   BookingsReducer,
+  PrivateHostelReducer,
 });

@@ -15,11 +15,14 @@ export const GetRoutes = {
   keylogs_get: (yr?: string) =>
     `hostel/logs/get/?year=${yr ? yr : academicYear}`,
   searchStudent: (id: string) => `student/get/?id=${id}`,
+  private_hostels_get: "private/hostels/get",
 };
 
 export enum PostRoutes {
   school_hostel_add = "hostel/add",
   private_hostel_add = "private/hostel/add",
+  private_hostel_update = "private/hostel/update",
+  private_hostel_delete = "private/hostel/delete",
   student_login = "student/login",
   hostel_book = "hostel/book",
   student_register = "booking/student/register",
@@ -29,4 +32,6 @@ export enum PostRoutes {
   keylog_add = "hostel/log/add",
   student_info_update = "student/info/update",
   student_delete = "student/delete",
+  hostel_info_update = "hostel/update",
+  update_hostel_visibility = "hostel/visibility/update",
 }

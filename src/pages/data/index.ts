@@ -39,3 +39,11 @@ export const HostelsTableHeader: ITableHeader[] = [
   { title: "Price", align: "center" },
   { title: "Edit", align: "center" },
 ];
+export const PrivateHostelsTableHeader: ITableHeader[] = [
+  { title: "Hostel ID", align: "left" },
+  { title: "Hostel Name", align: "left" },
+  { title: "Hostel Price", align: "center" },
+  { title: "Contact", align: "center" },
+  { title: "Description", align: "center" },
+  { title: "Edit", align: "center" },
+];

@@ -1,12 +1,22 @@
 export default interface PrivateHostelModel {
-  ID: string;
-  HostelName: string;
-  Description: string;
-  Image: string;
-  Contact1: string;
-  Contact2: string;
-  Contact3: string;
-  Location: string;
-  Status: string;
-  Price: string;
+  id: string;
+  hostelName: string;
+  description: string;
+  image: string;
+  contact1: string;
+  contact2: string;
+  location: string;
+  status: number;
+  price: number;
 }
+export const InitialPrivateHostelInfo: PrivateHostelModel = {
+  id: "",
+  hostelName: "",
+  description: "",
+  image: "",
+  contact1: "",
+  contact2: "",
+  status: 0,
+  location: "",
+  price: 0,
+};

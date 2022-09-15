@@ -6,3 +6,4 @@ export { default as StudentReducer } from "./StudentReducer";
 export { default as AvailableRoomsReducer } from "./AvailableRoomsReducer";
 export { default as BookingsReducer } from "./BookingsReducer";
 export { default as KeyLogsReducer } from "./KeyLogsReducer";
+export { default as PrivateHostelReducer } from "./PrivateHostelReducer";

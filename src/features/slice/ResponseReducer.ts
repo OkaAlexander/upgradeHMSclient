@@ -7,6 +7,8 @@ import {
   StudentBookRoomThunk,
   StudentLoginThunk,
   DeclineBookingThunk,
+  UpdateHostelInfoThunk,
+  AddPrivateHostelThunk,
 } from "../../functions/post";
 import {
   GetHostelsThunk,
@@ -14,7 +16,7 @@ import {
   GetStudentsThunk,
 } from "../../functions/thunk";
 import { ResponseState } from "../../app/state";
-import { GetBookingsThunk } from "../../functions/get";
+import { GetBookingsThunk, GetPrivateHostelsThunk } from "../../functions/get";
 import { AddKeyLogThunk, GetKeyLogsThunk } from "../../functions/services";
 
 const ResponseReducer = createSlice({
@@ -235,6 +237,51 @@ const ResponseReducer = createSlice({
         state.loading = false;
       })
       .addCase(GetKeyLogsThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(UpdateHostelInfoThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(UpdateHostelInfoThunk.fulfilled, (state, action) => {
+        state.error = null;
+        state.message = action.payload;
+        state.loading = false;
+      })
+      .addCase(UpdateHostelInfoThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(AddPrivateHostelThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(AddPrivateHostelThunk.fulfilled, (state, action) => {
+        state.error = null;
+        state.message = action.payload;
+        state.loading = false;
+      })
+      .addCase(AddPrivateHostelThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(GetPrivateHostelsThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(GetPrivateHostelsThunk.fulfilled, (state) => {
+        state.error = null;
+        state.message = null;
+        state.loading = false;
+      })
+      .addCase(GetPrivateHostelsThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.message = null;
