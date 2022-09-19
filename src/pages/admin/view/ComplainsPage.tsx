@@ -4,12 +4,13 @@ import {
   Container,
   IconButton,
   InputAdornment,
-  MenuItem,
   Stack,
   Tooltip,
   Typography,
+  MenuItem,
+  Chip,
 } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MdOutlineCategory } from "react-icons/md";
 import {
   CustomInput,
@@ -22,7 +23,61 @@ import { GrStatusWarning } from "react-icons/gr";
 import { TableTemplate } from "../../../views";
 import { ComplainstableHeader } from "../data";
 import moment from "moment";
+import { ComplainsType, Problems } from "../../data";
+import ComplainModel from "../../../model/ComplainModel";
+import {
+  responseFail,
+  responsePending,
+  responseSuccess,
+} from "../../../features/slice/ResponseReducer";
+import controller from "../../../controller";
+import { GetRoutes, PostRoutes } from "../../../api";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { GetHostelInfoById } from "../../service";
+import { GetHostelsThunk } from "../../../functions/thunk";
+import { FcCheckmark, FcRefresh } from "react-icons/fc";
+import { MoreVertOutlined } from "@mui/icons-material";
 export default function ComplainsPage() {
+  const dispatch = useAppDispatch();
+  const [complains, setComplains] = useState<ComplainModel[]>([]);
+  const [selected, setSelected] = useState<string[]>([]);
+  const { hostels } = useAppSelector((state) => state.HostelsReducer);
+  async function getComplains(status?: number) {
+    try {
+      dispatch(responsePending());
+      const data = await controller.Get<ComplainModel[]>({
+        url: GetRoutes.get_complains_by_status(status),
+      });
+      setComplains(data);
+      dispatch(responseSuccess(null));
+    } catch (error) {
+      dispatch(responseFail(error));
+    }
+  }
+
+  useEffect(() => {
+    getComplains();
+    dispatch(GetHostelsThunk());
+  }, []);
+
+  async function ResolveComplains() {
+    try {
+      dispatch(responsePending());
+      const data = await controller.Post<{
+        data: ComplainModel[];
+        message: string;
+      }>({
+        url: PostRoutes.complains_resolve,
+        data: selected,
+      });
+      setSelected([]);
+      setComplains(data.data);
+      dispatch(responseSuccess(data.message));
+    } catch (error) {
+      dispatch(responseFail(error));
+    }
+  }
+
   return (
     <Box
       sx={(theme) => ({
@@ -55,6 +110,32 @@ export default function ComplainsPage() {
           <FlatIcons.FcReadingEbook />
           <SizedBox width={0.5} />
           <Typography variant="body1">Complains</Typography>
+          <Chip
+            size="small"
+            avatar={<FcRefresh size={14} />}
+            label={"Refresh"}
+            onClick={() => {
+              getComplains();
+            }}
+            sx={(theme) => ({
+              borderStyle: "none",
+              marginLeft: theme.spacing(2),
+            })}
+          />
+
+          <Chip
+            size="small"
+            avatar={<FcCheckmark size={14} />}
+            label={"Resolve"}
+            onClick={() => {
+              ResolveComplains();
+            }}
+            sx={(theme) => ({
+              borderStyle: "none",
+              marginLeft: theme.spacing(2),
+              display: selected.length > 1 ? "block" : "none",
+            })}
+          />
         </Stack>
         <Stack
           direction="row"
@@ -64,6 +145,7 @@ export default function ComplainsPage() {
             pr: 2,
             flex: 1,
           })}
+          alignItems="center"
         >
           <CustomInput
             props={{
@@ -73,7 +155,18 @@ export default function ComplainsPage() {
               sx: { width: "250px" },
             }}
             label="Problem Type"
-          />
+            handleChange={(e) =>
+              setComplains(
+                complains.filter((c) => c.problemType === e.target.value)
+              )
+            }
+          >
+            {Problems.map((c) => (
+              <MenuItem value={c.title} key={c.title}>
+                {c.title}
+              </MenuItem>
+            ))}
+          </CustomInput>
           <SizedBox width={1} />
           <CustomInput
             props={{
@@ -81,6 +174,13 @@ export default function ComplainsPage() {
               variant: "standard",
               select: true,
               sx: { width: "150px" },
+            }}
+            handleChange={(e) => {
+              if (e.target.value === "Resolved") {
+                getComplains(1);
+              } else {
+                getComplains(0);
+              }
             }}
             label="Complain Status"
           >
@@ -105,35 +205,68 @@ export default function ComplainsPage() {
       <Box>
         <TableTemplate header={ComplainstableHeader}>
           <React.Fragment>
-            {Array.from({ length: 45 }).map(() => (
-              <CustomTableRow
-                index={Math.round(Math.random() * 10)}
-                key={Math.random() + Date.now().toString()}
-              >
-                <CustomTableCell content={<Checkbox />} />
+            {complains.map((c, index) => (
+              <CustomTableRow index={index} key={c.id}>
+                <CustomTableCell
+                  content={
+                    <Checkbox
+                      checked={selected.includes(c.id)}
+                      onChange={() => {
+                        if (selected.includes(c.id)) {
+                          setSelected(selected.filter((s) => s !== c.id));
+                        } else {
+                          setSelected([...selected, c.id]);
+                        }
+                      }}
+                    />
+                  }
+                />
                 <CustomTableCell
                   props={{ align: "center" }}
-                  content={"GetFund Hostel"}
+                  content={GetHostelInfoById(hostels, c.hostelId).hostelName}
                 />
                 <CustomTableCell props={{ align: "center" }} content={"A30"} />
                 <CustomTableCell
                   props={{ align: "center" }}
-                  content={"Kunjam Bismark"}
+                  content={c.compliantName}
                 />
                 <CustomTableCell
                   props={{ align: "center" }}
-                  content={"Food Not Enough"}
+                  content={c.problem}
                 />
                 <CustomTableCell
                   props={{ align: "center" }}
-                  content={moment().format("DD/MM/YYYY h:m a")}
+                  content={moment(c.dateOfComplain).format("DD/MM/YYYY h:m a")}
+                />
+                <CustomTableCell
+                  props={{ align: "center" }}
+                  content={Boolean(c.status) ? "Approved" : "Pending"}
                 />
                 <CustomTableCell
                   props={{ align: "center" }}
                   content={
-                    Boolean((Math.round(Math.random()) * 5) % 2)
-                      ? "Approved"
-                      : "Pending"
+                    <IconButton
+                      disabled={Boolean(c.status)}
+                      onClick={async () => {
+                        try {
+                          dispatch(responsePending());
+                          const data = await controller.Post<{
+                            data: ComplainModel[];
+                            message: string;
+                          }>({
+                            url: PostRoutes.complains_resolve,
+                            data: [c.id],
+                          });
+                          setComplains(data.data);
+                          dispatch(responseSuccess(data.message));
+                        } catch (error) {
+                          dispatch(responseFail(error));
+                        }
+                      }}
+                      size="small"
+                    >
+                      <FcCheckmark />
+                    </IconButton>
                   }
                 />
               </CustomTableRow>

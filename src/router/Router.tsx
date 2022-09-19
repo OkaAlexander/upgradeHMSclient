@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import AdminAuthRouter from "./AdminAuthRouter";
 import AdminRouter from "./AdminRouter";
 import StudentRouter from "./StudentRouter";
 
@@ -8,6 +9,7 @@ export default function Router() {
     <BrowserRouter>
       <AdminRouter />
       <StudentRouter />
+      <AdminAuthRouter />
     </BrowserRouter>
   );
 }

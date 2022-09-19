@@ -118,6 +118,7 @@ export const ComplainstableHeader: ITableHeader[] = [
   { title: "Problem", align: "center" },
   { title: "Date Logged", align: "center" },
   { title: "Status", align: "center" },
+  { title: "Action", align: "center" },
 ];
 
 export const KeylogsTableHeader: ITableHeader[] = [

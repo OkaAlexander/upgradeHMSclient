@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import React, { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
@@ -96,14 +96,18 @@ export default function MenuBarView({
           },
         })}
       >
-        <CustomIconButton Icon={FlatIcons.FcPaid} />
+        <Tooltip title="Shop">
+          <CustomIconButton Icon={FlatIcons.FcPaid} />
+        </Tooltip>
         <SizedBox width={1} />
         <CustomIconButton Icon={FlatIcons.FcNews} />
         <SizedBox width={1} />
-        <CustomIconButton
-          handleClick={handleAccountMenu}
-          Icon={FlatIcons.FcBusinessContact}
-        />
+        <Tooltip title="Student Id">
+          <CustomIconButton
+            handleClick={handleAccountMenu}
+            Icon={FlatIcons.FcBusinessContact}
+          />
+        </Tooltip>
         <SizedBox width={1} />
         <CustomIconButton Icon={FlatIcons.FcRules} />
         <Box

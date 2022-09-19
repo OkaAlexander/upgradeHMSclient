@@ -16,6 +16,8 @@ export const GetRoutes = {
     `hostel/logs/get/?year=${yr ? yr : academicYear}`,
   searchStudent: (id: string) => `student/get/?id=${id}`,
   private_hostels_get: "private/hostels/get",
+  get_complains_by_status: (status?: number) =>
+    `complains/get/status?status=${status ? status : 0}`,
 };
 
 export enum PostRoutes {
@@ -34,4 +36,6 @@ export enum PostRoutes {
   student_delete = "student/delete",
   hostel_info_update = "hostel/update",
   update_hostel_visibility = "hostel/visibility/update",
+  complain_add = "complain/add",
+  complains_resolve = "complains/resolve",
 }

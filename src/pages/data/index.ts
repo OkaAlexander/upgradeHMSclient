@@ -43,7 +43,67 @@ export const PrivateHostelsTableHeader: ITableHeader[] = [
   { title: "Hostel ID", align: "left" },
   { title: "Hostel Name", align: "left" },
   { title: "Hostel Price", align: "center" },
+  { title: "Address", align: "center" },
   { title: "Contact", align: "center" },
-  { title: "Description", align: "center" },
   { title: "Edit", align: "center" },
+];
+
+export const ComplainsType: string[] = ["ELECTRICAL", "CAPENTRY", "PLUMBING"];
+
+export const ElectricalProblems: string[] = [
+  "FAULTY ROOM SOCKET ",
+  "FAULTY BALCONY SOCKET ",
+  "FAULTY BALCONY LIGHT.",
+  "FAULTY WASHROOMS LIGHT.",
+  "FAULTY SWITCH.",
+  "SPOILT ROOM BULB",
+  "SPOILT BALCONY BULB",
+  "SPOILT WASHROOMS BULB",
+  "ALL SOCKETS AND LIGHTING OFF",
+  "ALL SOCKETS NOT WORKING.",
+  "LOOSE ROOMS SOCKET ",
+  "LOOSE ROOMS SWITCH ",
+  "LOOSE BALCONY SOCKET ",
+  "LOOSE BALCONY SWITCH ",
+  "LOOSE BATHROOM SWITCH ",
+];
+
+export const CarpentryProblems: string[] = [
+  "BROKEN DOOR",
+  "BROKEN DOOR HANDLE",
+  "BROKEN BED SLAPS",
+  "SPOILT MATTRESS",
+  "BROKEN KEYS",
+  "SPOILT DOOR LOCK",
+  "SPOIL DOOR LOCK CYLINDER",
+  "BROKEN LOUVRE BLADES",
+  "ROOF LEAKAGE",
+  "SPOILT CEILING",
+  "SPOILT NET",
+  "BROKEN STUDY TABLE",
+  "BROKEN WARDROBE",
+  "BROKEN WARDDROBE HANDLE",
+  "SHAKING OR LOOSED BED",
+];
+
+export const PlumbingProblems: string[] = [
+  "CHOCKED SINK",
+  "SINK LEAKAGE",
+  "BROKEN SINK",
+  "SPOILT WATER CLOSET ",
+  "BROKEN WATER CLOSET HANDLE",
+  "DETATCHED TUBES",
+  "CHOCKED BATHROOM",
+  "SPOILT SHOWER",
+  "WATER NOT FLOWING",
+];
+
+type faultType = {
+  title: string;
+  faults: string[];
+};
+export const Problems: faultType[] = [
+  { title: "ELECTRICAL", faults: ElectricalProblems },
+  { title: "CARPENTRY", faults: CarpentryProblems },
+  { title: "PLUMBING", faults: PlumbingProblems },
 ];

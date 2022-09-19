@@ -34,7 +34,7 @@ export default function TableTemplate({ header, children }: IProps) {
             position: "sticky",
             background: theme.palette.common.white,
             top: 0,
-            zIndex: 2019,
+            zIndex: 2,
           })}
         >
           <TableRow

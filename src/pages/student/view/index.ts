@@ -5,3 +5,4 @@ export { default as ShopPage } from "./ShopPage";
 export { default as AboutPage } from "./AboutPage";
 export { default as EntryPage } from "./EntryPage";
 export { default as HostelInfoPage } from "./HostelInfoPage";
+export { default as AddComplainView } from "./AddNewComplainView";

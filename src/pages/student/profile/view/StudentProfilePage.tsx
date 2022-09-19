@@ -1,18 +1,27 @@
 import {
   Box,
   Button,
+  Chip,
   Container,
   Divider,
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { FcDepartment, FcReading } from "react-icons/fc";
 import { useAppSelector } from "../../../../app/hooks";
-import { Expanded, Row, SizedBox, Text } from "../../../../components";
+import { SizedBox, Text } from "../../../../components";
+import ComplainModel, {
+  ComplainModelInfo,
+} from "../../../../model/ComplainModel";
+import { GetHostelInfoById } from "../../../service";
+import { AddComplainView } from "../../view";
 
 export default function StudentProfilePage() {
   const { student } = useAppSelector((state) => state.StudentReducer);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
+  const [addComplain, setAddComplain] = useState<boolean>(false);
+
   return (
     <Container
       sx={(theme) => ({
@@ -22,6 +31,10 @@ export default function StudentProfilePage() {
         paddingBottom: "100px",
       })}
     >
+      <AddComplainView
+        open={addComplain}
+        handleClose={() => setAddComplain(false)}
+      />
       <Box
         sx={(theme) => ({
           width: "100%",
@@ -34,32 +47,48 @@ export default function StudentProfilePage() {
           margin: theme.spacing(1.5, 0),
         })}
       >
-        <Row
-          children={[
-            <Text
-              text="Booking Status:"
-              props={{
-                sx: (theme) => ({
-                  fontSize: theme.spacing(1.85),
-                }),
-              }}
-            />,
-            <SizedBox width={1} />,
-            <Text text="Pending" />,
-            <SizedBox width={1} />,
-            <Expanded />,
-            <Text
-              text="Hostel:"
-              props={{
-                sx: (theme) => ({
-                  fontSize: theme.spacing(1.5),
-                }),
-              }}
-            />,
-            <SizedBox width={1} />,
-            <Text text="GETFUND HOSTEL" />,
-          ]}
-        />
+        <Stack
+          direction="row"
+          width="100%"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-start"
+            paddingX={2}
+          >
+            <FcReading />
+
+            {student && Boolean(student.roomNumber) ? (
+              <Chip
+                onClick={() => {}}
+                sx={(theme) => ({
+                  borderRadius: 0,
+                  borderStyle: "none",
+                })}
+                variant="outlined"
+                size="small"
+                label="Room Members"
+              />
+            ) : (
+              <Typography variant="body1">Booking Pending</Typography>
+            )}
+          </Stack>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-end"
+            paddingX={2}
+          >
+            <FcDepartment />
+            <Typography variant="body1">
+              {student &&
+                GetHostelInfoById(hostels, student.hostelId).hostelName}
+            </Typography>
+          </Stack>
+        </Stack>
       </Box>
       <Stack
         sx={(theme) => ({
@@ -94,6 +123,31 @@ export default function StudentProfilePage() {
             excepturi modi commodi laudantium debitis illum numquam quos maxime
             velit enim itaque.
           </Typography>
+          <Button
+            sx={(theme) => ({
+              margin: theme.spacing(1, 0),
+              textTransform: "none",
+            })}
+            size="small"
+            fullWidth
+            variant="outlined"
+            color="primary"
+          >
+            Tenancy Agreement
+          </Button>
+          <Button
+            sx={(theme) => ({
+              margin: theme.spacing(1, 0),
+              textTransform: "none",
+            })}
+            size="small"
+            fullWidth
+            variant="outlined"
+            color="error"
+            onClick={() => setAddComplain(true)}
+          >
+            Report Problem
+          </Button>
         </Box>
         <Box
           sx={(theme) => ({

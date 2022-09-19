@@ -279,10 +279,6 @@ export default function HostelInfoPage() {
                       props={{ align: "center" }}
                       content={h.contact1}
                     />
-                    <CustomTableCell
-                      props={{ align: "center" }}
-                      content={h.description}
-                    />
 
                     <CustomTableCell
                       props={{ align: "center" }}
