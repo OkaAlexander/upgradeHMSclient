@@ -7,6 +7,7 @@ import {
   InputAdornment,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
@@ -25,7 +26,7 @@ import UserModel, { UserModelInfo } from "../../../model/UserModel";
 interface IInfo extends UserModel {
   password: string;
 }
-export default function AdminRegisterPage() {
+export default function ResetPasswordPage() {
   const [visible, setVisible] = useState<boolean>(false);
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
@@ -84,20 +85,9 @@ export default function AdminRegisterPage() {
             })}
             spacing={1.5}
           >
-            <TextField
-              variant="outlined"
-              size="small"
-              placeholder="Full Name"
-              value={info.name}
-              onChange={(e) => setInfo({ ...info, name: e.target.value })}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <FcManager />
-                  </InputAdornment>
-                ),
-              }}
-            />
+            <Typography textAlign="center" variant="body1">
+              Enter your phone number to reset password
+            </Typography>
             <TextField
               variant="outlined"
               size="small"
@@ -113,57 +103,16 @@ export default function AdminRegisterPage() {
                 ),
               }}
             />
-            <TextField
-              variant="outlined"
-              size="small"
-              placeholder="Email Address"
-              value={info.email}
-              onChange={(e) => setInfo({ ...info, email: e.target.value })}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <FcFeedback />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              variant="outlined"
-              type={visible ? "text" : "password"}
-              size="small"
-              placeholder="Password"
-              value={info.password}
-              onChange={(e) => setInfo({ ...info, password: e.target.value })}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <FcKey />
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setVisible(!visible)}
-                      size="small"
-                    >
-                      {visible ? (
-                        <VisibilityOffOutlined />
-                      ) : (
-                        <VisibilityOutlined />
-                      )}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
 
             <Button
-              onClick={initRegister}
+              onClick={() => {
+                navigation("/admin/password/change");
+              }}
               size="small"
               color="primary"
               variant="contained"
             >
-              Register
+              Submit
             </Button>
             <Button
               sx={(theme) => ({ textTransform: "none" })}
@@ -171,7 +120,7 @@ export default function AdminRegisterPage() {
               size="small"
               onClick={() => navigation("/admin/login")}
             >
-              already Registered? Login
+              Login
             </Button>
           </Stack>
         </Stack>

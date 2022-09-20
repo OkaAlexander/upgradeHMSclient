@@ -7,3 +7,5 @@ export { default as AvailableRoomsReducer } from "./AvailableRoomsReducer";
 export { default as BookingsReducer } from "./BookingsReducer";
 export { default as KeyLogsReducer } from "./KeyLogsReducer";
 export { default as PrivateHostelReducer } from "./PrivateHostelReducer";
+export { default as UserReducer } from "./UserSlice";
+export { default as UsersReducer } from "./UsersSlice";

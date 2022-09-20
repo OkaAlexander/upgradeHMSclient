@@ -2,9 +2,10 @@ import { ChevronLeft, Dashboard } from "@mui/icons-material";
 import { Box, Divider, Drawer, IconButton, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../app/hooks";
 import { SidebarLink } from "../components";
 import { appColors } from "../constants/colors";
-import { AdminRoutes } from "../routes";
+import { AdminRoutes, userRoutes } from "../routes";
 
 interface IProps {
   sidebar: boolean;
@@ -17,7 +18,7 @@ export default function Sidebar({
   handlePageHeader,
 }: IProps) {
   const navigation = useNavigate();
-
+  const { user } = useAppSelector((state) => state.UserReducer);
   function handleNavigation(route: string) {
     navigation(route);
   }
@@ -89,12 +90,22 @@ export default function Sidebar({
             overflowY: "auto",
           }}
         >
-          {AdminRoutes.map((r) => (
-            <SidebarLink
-              info={{ route: r.url, Icon: r.icon, title: r.name }}
-              key={r.url}
-            />
-          ))}
+          {user &&
+            Boolean(user.role) &&
+            AdminRoutes.map((r) => (
+              <SidebarLink
+                info={{ route: r.url, Icon: r.icon, title: r.name }}
+                key={r.url}
+              />
+            ))}
+          {user &&
+            !Boolean(user.role) &&
+            userRoutes.map((r) => (
+              <SidebarLink
+                info={{ route: r.url, Icon: r.icon, title: r.name }}
+                key={r.url}
+              />
+            ))}
         </Box>
       </Box>
     </Drawer>

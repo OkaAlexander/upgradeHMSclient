@@ -129,3 +129,12 @@ export const KeylogsTableHeader: ITableHeader[] = [
   { title: "Date Logged", align: "center" },
   { title: "Username", align: "center" },
 ];
+
+export const UsersTableHeader: ITableHeader[] = [
+  { title: "Name", align: "left" },
+  { title: "Phone", align: "center" },
+  { title: "Email", align: "center" },
+  { title: "Role", align: "center" },
+  { title: "Status", align: "center" },
+  { title: "Action", align: "center" },
+];

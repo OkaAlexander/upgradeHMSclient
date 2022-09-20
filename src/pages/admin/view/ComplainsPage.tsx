@@ -36,7 +36,8 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { GetHostelInfoById } from "../../service";
 import { GetHostelsThunk } from "../../../functions/thunk";
 import { FcCheckmark, FcRefresh } from "react-icons/fc";
-import { MoreVertOutlined } from "@mui/icons-material";
+import { ExportToExcel } from "../../../shared";
+import { RiFileExcel2Line } from "react-icons/ri";
 export default function ComplainsPage() {
   const dispatch = useAppDispatch();
   const [complains, setComplains] = useState<ComplainModel[]>([]);
@@ -194,11 +195,23 @@ export default function ComplainsPage() {
             ))}
           </CustomInput>
           <SizedBox width={2.5} />
-          <Tooltip title="Export Complains">
+          <ExportToExcel
+            fileName="Complains"
+            dataSource={complains.map((c) => {
+              return {
+                StudentName: c.compliantName,
+                RoomNumber: c.roomNumber,
+                Status: Boolean(c.status) ? "Resolve" : "Pending",
+                Problem: c.problem,
+                Date: moment(c.dateOfComplain).format("DD/MM/YYYY"),
+                Hostel: GetHostelInfoById(hostels, c.hostelId).hostelName,
+              };
+            })}
+          >
             <IconButton size="small">
-              <FlatIcons.FcPrint />
+              <RiFileExcel2Line />
             </IconButton>
-          </Tooltip>
+          </ExportToExcel>
         </Stack>
       </Box>
       <SizedBox height={1.5} />

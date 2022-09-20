@@ -4,10 +4,17 @@ import {
   PhoneOutlined,
   ReadMoreOutlined,
 } from "@mui/icons-material";
-import { Box, Grid, IconButton } from "@mui/material";
+import { Box, Chip, Grid, IconButton } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Text, CustomDivider, Row, SizedBox, SmallText } from "../components";
+import {
+  Text,
+  CustomDivider,
+  Row,
+  SizedBox,
+  SmallText,
+  Expanded,
+} from "../components";
 import constants from "../constants";
 import HostelModel from "../model/HostelModel";
 import Images from "../resources/Images";
@@ -64,6 +71,7 @@ export default function HostelCard({ info, handleBook }: IProps) {
           width: "90%",
           alignSelf: "center",
           minHeight: "50px",
+          padding: theme.spacing(1),
         })}
       >
         <Text text={info.hostelName} />
@@ -74,9 +82,17 @@ export default function HostelCard({ info, handleBook }: IProps) {
             <MoneyOutlined fontSize="small" />,
             <SmallText text={`${constants.currency}${info.price}`} />,
             <SizedBox width={0.5} />,
-            <IconButton onClick={handleBook} size="small">
-              <BookOutlined />
-            </IconButton>,
+            <Chip
+              size="small"
+              onClick={handleBook}
+              sx={(theme) => ({
+                background: theme.palette.background.paper,
+                height: "25px",
+                padding: theme.spacing(0, 1),
+                alignSelf: "flex-end",
+              })}
+              label={"Book"}
+            />,
           ]}
         />
       </Box>

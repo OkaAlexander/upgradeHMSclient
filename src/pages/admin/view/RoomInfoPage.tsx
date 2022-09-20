@@ -56,6 +56,7 @@ export default function RoomInfoPage() {
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const { students } = useAppSelector((state) => state.StudentsReducer);
   const [srch, setSrch] = useState<string>("");
+  const { hostel } = useAppSelector((state) => state.UserReducer);
   const [logInfo, setLogInfo] = useState<KeylogModel | null>(null);
 
   useEffect(() => {
@@ -75,7 +76,11 @@ export default function RoomInfoPage() {
 
   function handleSearch() {
     setRoomData(
-      students.filter((std) => std.roomNumber === srch.toUpperCase().trim())
+      students.filter(
+        (std) =>
+          std.roomNumber === srch.toUpperCase().trim() &&
+          std.hostelId === hostel
+      )
     );
   }
 

@@ -1,21 +1,28 @@
 import { Box, ChipTypeMap, Container, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { GetHostelsThunk } from "../../../functions/thunk";
 import { Routes } from "../../../routes";
-import { PageHeader, ProfileMenu } from "../../../shared";
+import { ProfileMenu } from "../../../shared";
 import { Navbar, Sidebar } from "../../../views";
 
 export default function EntryPage() {
   const navigation = useNavigate();
-  const [pageHeader, setPageHeader] = useState<string>("Room Info");
+  const { user } = useAppSelector((state) => state.UserReducer);
   const [profileMenu, setProfileMenu] = useState<HTMLDivElement | null>(null);
   const [sidebar, setSidebar] = useState<boolean>(true);
   function handleProfileMenu() {
     setProfileMenu(null);
   }
-
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    !user && navigation("/admin/login");
+    user && !Boolean(user.status) && navigation("/admin/pending");
+  }, [user]);
   useEffect(() => {
     navigation(Routes.CHECKINS);
+    dispatch(GetHostelsThunk());
   }, []);
   return (
     <Box
@@ -27,7 +34,7 @@ export default function EntryPage() {
     >
       <Sidebar
         handleSidebar={() => setSidebar(!sidebar)}
-        handlePageHeader={(header) => setPageHeader(header)}
+        handlePageHeader={(header) => {}}
         sidebar={sidebar}
       />
       <Navbar

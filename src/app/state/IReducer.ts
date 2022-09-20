@@ -4,6 +4,7 @@ import KeylogModel from "../../model/KeylogModel";
 import PrivateHostelModel from "../../model/PrivateHostelModel";
 import RoomModel from "../../model/RoomModel";
 import StudentModel from "../../model/StudentModel";
+import UserModel from "../../model/UserModel";
 
 export interface IRoomReducer {
   rooms: RoomModel[];
@@ -31,4 +32,13 @@ export interface IBookingsReducerState {
 
 export interface IPrivateHostelsState {
   privateHostels: PrivateHostelModel[];
+}
+
+export interface IUserReducerState {
+  user: UserModel | null;
+  hostel: string;
+}
+
+export interface IUsersReducer {
+  users: UserModel[];
 }

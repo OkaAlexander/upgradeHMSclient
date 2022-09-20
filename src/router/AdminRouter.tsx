@@ -1,6 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import {
+  AdminLoginPage,
+  AdminPendingAccountPage,
+  AdminRegisterPage,
+} from "../pages/admin/auth";
+import {
   AccountsPage,
   BookingInfoPreviewPage,
   BookingsPage,

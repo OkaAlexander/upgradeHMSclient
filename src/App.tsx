@@ -23,6 +23,7 @@ export default function App() {
         position: toast.POSITION.TOP_RIGHT,
         theme: "dark",
         onClose: handleCloseNotifier,
+        toastId: "success",
       });
 
     Boolean(error) &&
@@ -30,6 +31,7 @@ export default function App() {
         position: toast.POSITION.TOP_RIGHT,
         theme: "dark",
         onClose: handleCloseNotifier,
+        toastId: "error",
       });
 
     return <Box></Box>;

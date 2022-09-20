@@ -18,6 +18,7 @@ export default function CustomInput({
       variant="outlined"
       onChange={handleChange}
       label={label}
+      size="small"
       sx={(theme) => ({
         margin: theme.spacing(0.5, 0),
         width: "100%",

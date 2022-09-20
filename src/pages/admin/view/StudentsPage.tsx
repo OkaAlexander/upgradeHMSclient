@@ -1,5 +1,5 @@
 import { SummarizeOutlined } from "@mui/icons-material";
-import { Box, Container, Divider, TableRow } from "@mui/material";
+import { Box, Chip, Container, Divider, TableRow } from "@mui/material";
 import React, { MouseEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
@@ -14,6 +14,7 @@ import { GetHostelsThunk, GetStudentsThunk } from "../../../functions/thunk";
 import StudentModel from "../../../model/StudentModel";
 import { MdExpandMore } from "react-icons/md";
 import {
+  ExportToExcel,
   PageHeader,
   StudentHostelSummary,
   StudentServicesMenu,
@@ -22,6 +23,9 @@ import { searchStudent } from "../../../util";
 import { TableTemplate } from "../../../views";
 import { StudentsTableHeader } from "../../data";
 import FlatIcons from "../../../constants/icons";
+import { GetHostelInfoById } from "../../service";
+import { FcRefresh } from "react-icons/fc";
+import { RiFileExcel2Line } from "react-icons/ri";
 
 export default function StudentsPage() {
   const dispatch = useAppDispatch();
@@ -30,9 +34,6 @@ export default function StudentsPage() {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [srch, setSrch] = useState<string>("");
   const [Students, setStudents] = useState<StudentModel[]>([]);
-  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   useEffect(() => {
     dispatch(GetStudentsThunk());
@@ -59,6 +60,20 @@ export default function StudentsPage() {
       />
       <PageHeader title="Students Page">
         <>
+          <Chip
+            size="small"
+            label="Refresh"
+            onClick={() => {
+              dispatch(GetStudentsThunk());
+              dispatch(GetHostelsThunk());
+            }}
+            avatar={<FcRefresh />}
+            sx={(theme) => ({
+              borderRadius: 0,
+              background: theme.palette.background.paper,
+              marginRight: theme.spacing(4),
+            })}
+          />
           <Input
             label=""
             props={{
@@ -69,7 +84,22 @@ export default function StudentsPage() {
             }}
           />
           <SizedBox width={0.5} />
-          <CustomIconButton Icon={FlatIcons.FcPrint} />
+          <ExportToExcel
+            fileName="HostelStudents"
+            dataSource={students.map((s) => {
+              return {
+                Name: s.studentName,
+                PhoneNumber: s.phoneNumber,
+                EmailAddress: s.email,
+                RoomNumber: s.roomNumber,
+                Gender: s.gender,
+                Program: s.programme,
+                HostelName: GetHostelInfoById(hostels, s.hostelId).hostelName,
+              };
+            })}
+          >
+            <CustomIconButton Icon={RiFileExcel2Line} />
+          </ExportToExcel>
         </>
       </PageHeader>
 
@@ -152,7 +182,9 @@ export default function StudentsPage() {
                   />
                   <CustomTableCell
                     props={{ align: "center" }}
-                    content={student.hostelId}
+                    content={
+                      GetHostelInfoById(hostels, student.hostelId).hostelName
+                    }
                   />
                   <CustomTableCell
                     props={{ align: "center" }}

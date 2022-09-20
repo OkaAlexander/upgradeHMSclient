@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["StudentReducer"],
+  whitelist: ["StudentReducer", "UserReducer"],
 };
 const persistedReducer = persistReducer(persistConfig, reducer);
 export const store = configureStore({

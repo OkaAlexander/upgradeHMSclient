@@ -111,27 +111,31 @@ export const userRoutes: navigationInterface[] = [
   {
     name: "Check-Ins",
     url: Routes.CHECKINS,
-    icon: Home,
+    icon: FlatIcons.FcMultipleInputs,
   },
   {
     name: "Student",
     url: Routes.STUDENT,
-    icon: AccountBox,
+    icon: FlatIcons.FcGraduationCap,
   },
   {
     name: "Students",
     url: Routes.STUDENTS,
-    icon: AccountBalanceSharp,
+    icon: FlatIcons.FcConferenceCall,
   },
   {
     name: "Complains",
     url: Routes.COMPLAINS,
-    icon: ReportProblem,
+    icon: FlatIcons.FcHighPriority,
   },
   {
     name: "KeyLogs",
     url: Routes.KEY_LOGS,
-    icon: Key,
+    icon: FlatIcons.FcKey,
   },
-  { name: "Cards", url: Routes.STUDENT_CARDS, icon: CardMembership },
+  {
+    name: "Cards",
+    url: Routes.STUDENT_CARDS,
+    icon: FlatIcons.FcBusinessContact,
+  },
 ];

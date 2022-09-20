@@ -7,9 +7,9 @@ import StudentRouter from "./StudentRouter";
 export default function Router() {
   return (
     <BrowserRouter>
+      <AdminAuthRouter />
       <AdminRouter />
       <StudentRouter />
-      <AdminAuthRouter />
     </BrowserRouter>
   );
 }

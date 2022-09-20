@@ -46,6 +46,7 @@ export default function HostelsPage() {
 
   useEffect(() => {
     student && student.hostelId && navigation("/dashboard/profile");
+    !student && navigation("/");
     if (student) {
       setInfo({ ...student });
     }

@@ -5,49 +5,46 @@ import {
   Container,
   IconButton,
   InputAdornment,
-  MenuItem,
   Stack,
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { FcDepartment, FcFeedback, FcKey } from "react-icons/fc";
+import {
+  FcDepartment,
+  FcFeedback,
+  FcKey,
+  FcManager,
+  FcPhone,
+  FcViewDetails,
+} from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { responseFail } from "../../../features/slice/ResponseReducer";
-import { SetHostel } from "../../../features/slice/UserSlice";
-import { UserLoginThunk } from "../../../functions/auth";
-import { GetHostelsThunk } from "../../../functions/thunk";
+import { UserRegisterThunk } from "../../../functions/auth";
+import UserModel, { UserModelInfo } from "../../../model/UserModel";
 
-export default function AdminLogingPage() {
+//
+interface IInfo extends UserModel {
+  password: string;
+}
+export default function AdminRegisterPage() {
   const [visible, setVisible] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
   const navigation = useNavigate();
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.UserReducer);
-  const [info, setInfo] = useState<{
-    password: string;
-    email: string;
-    hostel: string;
-  }>({ password: "", email: "", hostel: "" });
-  const { hostels } = useAppSelector((state) => state.HostelsReducer);
-
-  function initLogin() {
-    try {
-      ValidateLoginInfo(info);
-      dispatch(SetHostel(info.hostel));
-      dispatch(UserLoginThunk({ password: info.password, email: info.email }));
-    } catch (error) {
-      dispatch(responseFail(error));
-    }
-  }
-
+  const [info, setInfo] = useState<IInfo>({
+    ...UserModelInfo,
+    password: "",
+    id: "newuser",
+  });
   useEffect(() => {
-    dispatch(GetHostelsThunk());
-  }, []);
-
-  useEffect(() => {
-    user && Boolean(user.status) && navigation("/admin");
+    user && Boolean(user.status) && navigation("/admin/home");
     user && !Boolean(user.status) && navigation("/admin/pending");
   }, [user]);
+
+  function initRegister() {
+    dispatch(UserRegisterThunk(info));
+  }
+
   return (
     <Box>
       <Box
@@ -91,36 +88,23 @@ export default function AdminLogingPage() {
             <TextField
               variant="outlined"
               size="small"
-              placeholder="Email Address"
-              name="email"
-              type="email"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  initLogin();
-                }
-              }}
-              value={info.email}
-              onChange={(e) => setInfo({ ...info, email: e.target.value })}
+              placeholder="Verification Code"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <FcFeedback />
+                    <FcViewDetails />
                   </InputAdornment>
                 ),
               }}
             />
+
             <TextField
               variant="outlined"
-              value={info.password}
-              onChange={(e) => setInfo({ ...info, password: e.target.value })}
               type={visible ? "text" : "password"}
               size="small"
-              placeholder="Password"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  initLogin();
-                }
-              }}
+              placeholder="New Password"
+              value={info.password}
+              onChange={(e) => setInfo({ ...info, password: e.target.value })}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -145,67 +129,39 @@ export default function AdminLogingPage() {
             />
             <TextField
               variant="outlined"
-              select
+              type={visible ? "text" : "password"}
               size="small"
-              placeholder="Hostel"
-              label="Hostel"
-              onChange={(e) => setInfo({ ...info, hostel: e.target.value })}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  initLogin();
-                }
+              placeholder="Confirm Password"
+              value={info.password}
+              onChange={(e) => setInfo({ ...info, password: e.target.value })}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <FcKey />
+                  </InputAdornment>
+                ),
               }}
-            >
-              {hostels.map((hostel) => (
-                <MenuItem value={hostel.hostelId} key={hostel.hostelId}>
-                  {hostel.hostelName}
-                </MenuItem>
-              ))}
-            </TextField>
+            />
 
             <Button
-              onClick={initLogin}
+              onClick={() => {}}
               size="small"
               color="primary"
               variant="contained"
             >
-              Login
+              Submit
             </Button>
             <Button
               sx={(theme) => ({ textTransform: "none" })}
               variant="outlined"
               size="small"
-              onClick={() => navigation("/admin/register")}
+              onClick={() => navigation("/admin/login")}
             >
-              don't have Account? Register
-            </Button>
-            <Button
-              sx={(theme) => ({ textTransform: "none", alignSelf: "flex-end" })}
-              variant="text"
-              size="small"
-              onClick={() => navigation("/admin/password/reset")}
-            >
-              Forgot Password?
+              Login
             </Button>
           </Stack>
         </Stack>
       </Container>
     </Box>
   );
-}
-
-function ValidateLoginInfo(info: {
-  password: string;
-  email: string;
-  hostel: string;
-}) {
-  if (info.email.length <= 0) {
-    throw "Email Address Required";
-  }
-  if (info.password.length <= 0) {
-    throw "Password Required";
-  }
-  if (info.hostel.length <= 0) {
-    throw "Please Select Hostel";
-  }
 }

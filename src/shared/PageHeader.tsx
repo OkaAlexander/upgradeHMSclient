@@ -32,7 +32,7 @@ export default function PageHeader({ title, children }: IProps) {
           flex: 1,
         })}
       >
-        <FlatIcons.FcReading /> <Text text="All Students" />
+        <FlatIcons.FcReading /> <Text text={title} />
       </Box>
       <Box
         sx={(theme) => ({

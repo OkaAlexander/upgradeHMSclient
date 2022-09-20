@@ -1,3 +1,4 @@
+import { MoreVertOutlined } from "@mui/icons-material";
 import { Box, Container, MenuItem } from "@mui/material";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -77,7 +78,7 @@ export default function ManageRoomInfoPage() {
                 />
                 <CustomTableCell
                   props={{ align: "center" }}
-                  content={<CustomIconButton Icon={FlatIcons.FcExpand} />}
+                  content={<CustomIconButton Icon={MoreVertOutlined} />}
                 />
               </>
             </CustomTableRow>

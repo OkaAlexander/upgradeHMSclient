@@ -8,7 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { FcDepartment, FcManager } from "react-icons/fc";
+import { useAppSelector } from "../app/hooks";
 import { CustomChip } from "../components";
+import { GetHostelInfoById } from "../pages/service";
 import Images from "../resources/Images";
 
 interface IProps {
@@ -21,6 +24,8 @@ export default function Navbar({
   handleSidebar,
   handleProfileMenu,
 }: IProps) {
+  const { user, hostel } = useAppSelector((state) => state.UserReducer);
+  const { hostels } = useAppSelector((state) => state.HostelsReducer);
   return (
     <AppBar
       sx={(theme) => ({
@@ -73,15 +78,25 @@ export default function Navbar({
             padding: (theme) => theme.spacing(0, 2),
           }}
         >
-          <CustomChip
-            Icon={HomeOutlined}
-            title="Hostel Name"
-            handleClick={() => {}}
+          <Chip
+            avatar={<FcDepartment />}
+            label={GetHostelInfoById(hostels, hostel).hostelName}
+            sx={(theme) => ({
+              borderRadius: 0,
+              borderStyle: "none",
+              background: theme.palette.background.paper,
+            })}
           />
           <Chip
+            size="small"
             onClick={handleProfileMenu}
-            avatar={<AccountCircleOutlined />}
-            label={<Typography variant="body2">Biliksuun Samuel</Typography>}
+            sx={(theme) => ({
+              borderRadius: 0,
+              borderStyle: "none",
+              background: theme.palette.background.paper,
+            })}
+            avatar={<FcManager />}
+            label={<Typography variant="body2">{user?.name}</Typography>}
           />
           <IconButton
             onClick={handleSidebar}

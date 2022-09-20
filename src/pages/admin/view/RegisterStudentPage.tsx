@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { FcBusinessman } from "react-icons/fc";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { CustomInput } from "../../../components";
 import { responseFail } from "../../../features/slice/ResponseReducer";
@@ -125,7 +126,7 @@ export default function RegisterStudentPage() {
             })}
           >
             <CustomInput
-              props={{ type: "text", value: info.studentName }}
+              props={{ type: "text", value: info.studentName, size: "small" }}
               handleChange={(event) =>
                 setInfo({ ...info, studentName: event.target.value })
               }
@@ -139,14 +140,18 @@ export default function RegisterStudentPage() {
               label="Phone Number"
             />
             <CustomInput
-              props={{ type: "text", value: info.referenceNumber }}
+              props={{
+                type: "text",
+                value: info.referenceNumber,
+                size: "small",
+              }}
               handleChange={(event) =>
                 setInfo({ ...info, referenceNumber: event.target.value })
               }
               label="Reference Number"
             />
             <CustomInput
-              props={{ type: "email", value: info.email }}
+              props={{ type: "email", value: info.email, size: "small" }}
               handleChange={(event) =>
                 setInfo({ ...info, email: event.target.value })
               }
@@ -167,7 +172,7 @@ export default function RegisterStudentPage() {
           >
             <CustomInput
               label="Level"
-              props={{ select: true, value: info.studentLevel }}
+              props={{ select: true, value: info.studentLevel, size: "small" }}
             >
               {[100, 200, 300, 400].map((level) => (
                 <MenuItem
@@ -183,7 +188,7 @@ export default function RegisterStudentPage() {
             </CustomInput>
             <CustomInput
               label="Academic Year"
-              props={{ select: true, value: info.academicYear }}
+              props={{ select: true, value: info.academicYear, size: "small" }}
             >
               {GenerateAcademicYears().map((yr) => (
                 <MenuItem
@@ -197,7 +202,7 @@ export default function RegisterStudentPage() {
             </CustomInput>
             <CustomInput
               label="Program"
-              props={{ select: true, value: info.programme }}
+              props={{ select: true, value: info.programme, size: "small" }}
             >
               {GetPrograms().map((p) => (
                 <MenuItem
@@ -211,7 +216,7 @@ export default function RegisterStudentPage() {
             </CustomInput>
             <CustomInput
               label="Gender"
-              props={{ select: true, value: info.gender }}
+              props={{ select: true, value: info.gender, size: "small" }}
             >
               {GenerateGender().map((gender) => (
                 <MenuItem
@@ -249,7 +254,11 @@ export default function RegisterStudentPage() {
                 background: "#f5f5f5",
               })}
             >
-              <img src={data.path} alt="student" />
+              {data.path ? (
+                <img alt="student" src={data.path} />
+              ) : (
+                <FcBusinessman size={200} />
+              )}
             </Box>
             <Box
               sx={(theme) => ({

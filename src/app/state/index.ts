@@ -6,6 +6,8 @@ import {
   IRoomReducer,
   IStudentReducer,
   IStudentsReducer,
+  IUserReducerState,
+  IUsersReducer,
 } from "./IReducer";
 import ResponseModel from "../../model/ResponseModel";
 export const ResponseState: ResponseModel = {
@@ -39,4 +41,13 @@ export const KeyLogsReducerState: IKeyLogsReducerState = {
 
 export const PrivateHostelsReducerStaste: IPrivateHostelsState = {
   privateHostels: [],
+};
+
+export const UserReducerState: IUserReducerState = {
+  user: null,
+  hostel: "",
+};
+
+export const UsersReducerState: IUsersReducer = {
+  users: [],
 };

@@ -18,6 +18,11 @@ import {
 import { ResponseState } from "../../app/state";
 import { GetBookingsThunk, GetPrivateHostelsThunk } from "../../functions/get";
 import { AddKeyLogThunk, GetKeyLogsThunk } from "../../functions/services";
+import {
+  GetUsersThunk,
+  UserLoginThunk,
+  UserRegisterThunk,
+} from "../../functions/auth";
 
 const ResponseReducer = createSlice({
   name: "ResponseReducer",
@@ -282,6 +287,51 @@ const ResponseReducer = createSlice({
         state.loading = false;
       })
       .addCase(GetPrivateHostelsThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(UserRegisterThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(UserRegisterThunk.fulfilled, (state, action) => {
+        state.error = null;
+        state.message = action.payload.message;
+        state.loading = false;
+      })
+      .addCase(UserRegisterThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(UserLoginThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(UserLoginThunk.fulfilled, (state) => {
+        state.error = null;
+        state.message = null;
+        state.loading = false;
+      })
+      .addCase(UserLoginThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.message = null;
+      })
+      .addCase(GetUsersThunk.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.loading = false;
+        state.message = null;
+      })
+      .addCase(GetUsersThunk.fulfilled, (state) => {
+        state.error = null;
+        state.message = null;
+        state.loading = false;
+      })
+      .addCase(GetUsersThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
         state.message = null;

@@ -7,13 +7,14 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FcDepartment, FcReading } from "react-icons/fc";
 import { useAppSelector } from "../../../../app/hooks";
 import { SizedBox, Text } from "../../../../components";
 import ComplainModel, {
   ComplainModelInfo,
 } from "../../../../model/ComplainModel";
+import { ExportToPdf } from "../../../../shared";
 import { GetHostelInfoById } from "../../../service";
 import { AddComplainView } from "../../view";
 
@@ -21,6 +22,7 @@ export default function StudentProfilePage() {
   const { student } = useAppSelector((state) => state.StudentReducer);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const [addComplain, setAddComplain] = useState<boolean>(false);
+  const pdfRef = useRef<any>(null);
 
   return (
     <Container
@@ -123,18 +125,23 @@ export default function StudentProfilePage() {
             excepturi modi commodi laudantium debitis illum numquam quos maxime
             velit enim itaque.
           </Typography>
-          <Button
+
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            width="100%"
+            spacing={2}
             sx={(theme) => ({
               margin: theme.spacing(1, 0),
               textTransform: "none",
+              borderRadius: theme.spacing(0.5),
+              border: `1px solid ${theme.palette.action.hover}`,
             })}
-            size="small"
-            fullWidth
-            variant="outlined"
-            color="primary"
           >
-            Tenancy Agreement
-          </Button>
+            <Typography variant="body2">Tenancy Agreement</Typography>
+            <ExportToPdf dataRef={pdfRef} />
+          </Stack>
           <Button
             sx={(theme) => ({
               margin: theme.spacing(1, 0),
@@ -150,6 +157,7 @@ export default function StudentProfilePage() {
           </Button>
         </Box>
         <Box
+          ref={pdfRef}
           sx={(theme) => ({
             width: "100%",
             margin: theme.spacing(0, 1),

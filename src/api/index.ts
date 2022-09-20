@@ -38,4 +38,9 @@ export enum PostRoutes {
   update_hostel_visibility = "hostel/visibility/update",
   complain_add = "complain/add",
   complains_resolve = "complains/resolve",
+  user_login = "user/login",
+  user_register = "user/register",
+  users_get = "users/get",
+  update_user_status = "user/status/update",
+  update_user_role = "user/role/update",
 }

@@ -7,3 +7,5 @@ export { default as StudentHostelSummary } from "./StudentHostelSummary";
 export { default as Footer } from "./Footer";
 export { default as BookingActionMenu } from "./BookingActionMenu";
 export { default as Nyansh } from "./Buttocks";
+export { default as ExportToExcel } from "./ExportToExcel";
+export { default as ExportToPdf } from "./ExportToPdf";
