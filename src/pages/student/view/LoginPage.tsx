@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -24,6 +24,7 @@ export default function LoginPage() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-start",
+        overflowY: "auto",
       })}
     >
       <Box
@@ -88,11 +89,32 @@ export default function LoginPage() {
         })}
       >
         <Box>
+          <Typography variant="h5">How to apply</Typography>
           <Typography variant="body2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptatibus voluptate pariatur at, necessitatibus sed in adipisci
-            itaque placeat ea tempora illum id laboriosam sint cumque, possimus
-            distinctio fuga quis molestiae!
+            <ol>
+              <li>
+                Login with your reference number "refer to your admission letter
+                for the reference number"
+              </li>
+              <li>
+                Click on the Book Hostel of your preferred hostel and you will
+                receive a notification when the booking is successful.
+              </li>
+              <li>
+                Make payment within five working days only when your booking is
+                successful to secure your accommodation
+              </li>
+              <li>
+                You can keep visiting this site to check your Booking status
+                after payment.
+              </li>
+              <li>
+                <strong>Please Note:</strong> Hostel fees should be paid
+                separently from the academic fees. Pay exact amount allocated to
+                the hostel you booked.<strong>Contact 0202440507</strong> for
+                more info.
+              </li>
+            </ol>
           </Typography>
         </Box>
         <Box
@@ -103,11 +125,17 @@ export default function LoginPage() {
             justifyContent: "center",
           })}
         >
-          <ul>
-            <li>Fidelity Bank</li>
-            <li>Zenith Bank</li>
-            <li>GCB</li>
-          </ul>
+          <Typography>
+            NOTE: Pay Hostel fees at any of the underlisted banks
+            <strong> ONLY</strong> when your booking is successfull
+          </Typography>
+          <Stack direction="row" spacing={2}>
+            <ul>
+              <li>Fidelity Bank</li>
+              <li>Zenith Bank</li>
+              <li>GCB</li>
+            </ul>
+          </Stack>
         </Box>
       </Box>
     </Box>

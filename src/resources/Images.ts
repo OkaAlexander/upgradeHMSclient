@@ -5,6 +5,7 @@ import largebg from "../assets/bguenr.jpg";
 import login_bg from "../assets/login_bg.jpg";
 import school_logo from "../assets/certLogo.png";
 import hostel from "../assets/hostel.jpg";
+import hostelavatar from "../assets/hostel_avatar.jpeg";
 import passportimg from "../assets/okah_passport.jpg";
 export default {
   labeledlogo,
@@ -15,4 +16,5 @@ export default {
   school_logo,
   hostel,
   passportimg,
+  hostelavatar,
 };

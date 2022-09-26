@@ -1,6 +1,6 @@
 import { MoreVertOutlined } from "@mui/icons-material";
 import { Box, Container, MenuItem } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   CustomIconButton,
@@ -12,19 +12,33 @@ import {
 } from "../../../components";
 import FlatIcons from "../../../constants/icons";
 import { GetHostelsThunk, GetRoomsThunk } from "../../../functions/thunk";
+import RoomModel from "../../../model/RoomModel";
 import { PageHeader } from "../../../shared";
 import { TableTemplate } from "../../../views";
 import { RoomsTableHeader } from "../../data";
+import { GetHostelInfoById } from "../../service";
 
 export default function ManageRoomInfoPage() {
   const dispatch = useAppDispatch();
   const { rooms } = useAppSelector((state) => state.RoomsReducer);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
+  const [Rooms, setRooms] = useState<RoomModel[]>([]);
+  const [filter, setFilter] = useState<{ hostel: string; room: string }>({
+    hostel: "",
+    room: "",
+  });
 
   useEffect(() => {
-    // dispatch(GetRoomsThunk());
-    // dispatch(GetHostelsThunk());
+    setRooms(rooms);
   }, []);
+
+  function handleFilter() {
+    setRooms(
+      rooms.filter(
+        (r) => r.hostelId === filter.hostel && r.roomNumber === filter.room
+      )
+    );
+  }
   return (
     <Box
       sx={(theme) => ({
@@ -37,24 +51,53 @@ export default function ManageRoomInfoPage() {
     >
       <PageHeader title="Manage Rooms">
         <>
-          <Input
+          <CustomInput
             label="Hostel"
-            props={{ variant: "outlined", size: "small" }}
+            props={{
+              variant: "outlined",
+              size: "small",
+              select: true,
+              onKeyDown: (e) => {
+                e.key === "Enter" && handleFilter();
+              },
+              onChange: (e) => setFilter({ ...filter, hostel: e.target.value }),
+            }}
+          >
+            {hostels.map((h) => (
+              <MenuItem value={h.hostelId} key={h.hostelId}>
+                {h.hostelName}
+              </MenuItem>
+            ))}
+          </CustomInput>
+          <SizedBox width={1} />
+          <Input
+            label="Room"
+            props={{
+              variant: "outlined",
+              size: "small",
+              value: filter.room,
+              onKeyDown: (e) => {
+                e.key === "Enter" && handleFilter();
+              },
+              onChange: (e) =>
+                setFilter({ ...filter, room: e.target.value.toUpperCase() }),
+            }}
           />
           <SizedBox width={1} />
-          <Input label="Room" props={{ variant: "outlined", size: "small" }} />
-          <SizedBox width={1} />
-          <CustomIconButton Icon={FlatIcons.FcSearch} />
+          <CustomIconButton
+            handleClick={handleFilter}
+            Icon={FlatIcons.FcSearch}
+          />
         </>
       </PageHeader>
       <Container>
         <TableTemplate header={RoomsTableHeader}>
-          {rooms.map((r, index) => (
+          {Rooms.map((r, index) => (
             <CustomTableRow index={index}>
               <>
                 <CustomTableCell
                   props={{ align: "left" }}
-                  content={r.hostelId}
+                  content={GetHostelInfoById(hostels, r.hostelId).hostelName}
                 />
                 <CustomTableCell
                   props={{ align: "center" }}

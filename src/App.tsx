@@ -1,6 +1,6 @@
 import React from "react";
 import Router from "./router/Router";
-import { Box, ThemeProvider } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { themeConfig } from "./configurations/configurations";
 import { Loader } from "./components";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
@@ -38,6 +38,7 @@ export default function App() {
   }
   return (
     <ThemeProvider theme={themeConfig}>
+      <CssBaseline />
       {Boolean(error || message) && HandleNotifier()}
       <ToastContainer draggable={true} autoClose={3000} />
       <Loader open={loading} />

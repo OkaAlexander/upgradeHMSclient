@@ -66,6 +66,7 @@ export default function RegisterStudentPage() {
       formData.append("gender", info.gender);
       formData.append("hostelId", info.hostelId);
       formData.append("roomNumber", info.roomNumber);
+      formData.append("picture", info.studentName);
       // formData.append("picture", info.picture);
       // formData.append("indexNumber", info.indexNumber);
       formData.append("file", file);
@@ -301,15 +302,14 @@ export default function RegisterStudentPage() {
             </Box>
           </Box>
         </Stack>
-        <Box
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+          padding={1}
           sx={(theme) => ({
-            padding: theme.spacing(1),
             borderRadius: 0,
             boxShadow: theme.shadows[1],
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
             width: "100%",
             margin: theme.spacing(1, 0),
             [theme.breakpoints.down("sm")]: {
@@ -319,77 +319,52 @@ export default function RegisterStudentPage() {
               marginBotom: theme.spacing(5),
             },
           })}
+          spacing={1.5}
         >
-          <Box
-            sx={(theme) => ({
-              width: "200px",
-              margin: theme.spacing(0, 0.5),
-              [theme.breakpoints.down("sm")]: {
-                width: "100%",
-                margin: theme.spacing(1, 0),
-              },
-            })}
+          <CustomInput label="Hostel" props={{ select: true }}>
+            {hostels.map((hostel) => (
+              <MenuItem
+                value={hostel.hostelId}
+                key={hostel.hostelId}
+                onClick={() => setInfo({ ...info, hostelId: hostel.hostelId })}
+              >
+                {hostel.hostelName}
+              </MenuItem>
+            ))}
+          </CustomInput>
+
+          <CustomInput label="Room Number" props={{ select: true }}>
+            {rooms.map((rm) => (
+              <MenuItem
+                value={rm.roomNumber}
+                key={rm.roomNumber}
+                onClick={() => setInfo({ ...info, roomNumber: rm.roomNumber })}
+              >
+                {rm.roomNumber}
+              </MenuItem>
+            ))}
+          </CustomInput>
+
+          <CustomInput
+            props={{
+              value: info.roomNumber,
+              onChange: (e) =>
+                setInfo({ ...info, roomNumber: e.target.value.toUpperCase() }),
+            }}
+            label="Room Number"
+          />
+
+          <Button
+            onClick={handleSubmit}
+            fullWidth
+            size="medium"
+            sx={(theme) => ({ height: 38 })}
+            variant="contained"
+            color="primary"
           >
-            <CustomInput label="Hostel" props={{ select: true }}>
-              {hostels.map((hostel) => (
-                <MenuItem
-                  value={hostel.hostelId}
-                  key={hostel.hostelId}
-                  onClick={() =>
-                    setInfo({ ...info, hostelId: hostel.hostelId })
-                  }
-                >
-                  {hostel.hostelName}
-                </MenuItem>
-              ))}
-            </CustomInput>
-          </Box>
-          <Box
-            sx={(theme) => ({
-              width: "200px",
-              margin: theme.spacing(0, 1),
-              [theme.breakpoints.down("sm")]: {
-                width: "100%",
-                margin: theme.spacing(1, 0),
-              },
-            })}
-          >
-            <CustomInput label="Room Number" props={{ select: true }}>
-              {rooms.map((rm) => (
-                <MenuItem
-                  value={rm.roomNumber}
-                  key={rm.roomNumber}
-                  onClick={() =>
-                    setInfo({ ...info, roomNumber: rm.roomNumber })
-                  }
-                >
-                  {rm.roomNumber}
-                </MenuItem>
-              ))}
-            </CustomInput>
-          </Box>
-          <Box
-            sx={(theme) => ({
-              width: "200px",
-              margin: theme.spacing(0, 1),
-              [theme.breakpoints.down("sm")]: {
-                width: "100%",
-                margin: theme.spacing(1, 0),
-              },
-            })}
-          >
-            <Button
-              onClick={handleSubmit}
-              fullWidth
-              size="medium"
-              sx={(theme) => ({ height: 38 })}
-              variant="contained"
-              color="primary"
-            >
-              Submit
-            </Button>
-          </Box>
-        </Box>
+            Submit
+          </Button>
+        </Stack>
       </Container>
     </Box>
   );

@@ -23,17 +23,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { AppDispatch } from "../../../app/store";
-import {
-  Text,
-  ChipButton,
-  Input,
-  Row,
-  SizedBox,
-  SmallText,
-  Expanded,
-} from "../../../components";
-import { appColors } from "../../../constants/colors";
+import { SizedBox } from "../../../components";
 import FlatIcons from "../../../constants/icons";
 import { AddKeyLogThunk, GetKeyLogsThunk } from "../../../functions/services";
 import {
@@ -43,15 +33,12 @@ import {
 } from "../../../functions/thunk";
 import KeylogModel from "../../../model/KeylogModel";
 import StudentModel from "../../../model/StudentModel";
-import Images from "../../../resources/Images";
-import { RoomStudentView } from "../../../views";
 import { GetHostelInfoById } from "../../service";
 import { StudentCheckInCard, StudentCheckInPlaceholder } from "../components";
 
 export default function RoomInfoPage() {
   const dispatch = useAppDispatch();
   const [roomData, setRoomData] = useState<StudentModel[]>([]);
-  const { rooms } = useAppSelector((state) => state.RoomsReducer);
   const { keylogs } = useAppSelector((state) => state.KeyLogsReducer);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const { students } = useAppSelector((state) => state.StudentsReducer);
@@ -178,9 +165,7 @@ export default function RoomInfoPage() {
                         handleAddKeyLog={handleAddKeyLog}
                         student={s}
                       />
-                    ) : (
-                      <React.Fragment />
-                    )
+                    ) : null
                   )
               : Array.from({ length: 2 }).map(() => (
                   <StudentCheckInPlaceholder />
@@ -194,9 +179,9 @@ export default function RoomInfoPage() {
             {roomData.length > 0
               ? roomData
                   .map((d, index) => {
-                    if (index < 4 && index > 1 && roomData.length > 2) {
+                    if (index < 4 && index > 1 && roomData.length >= 2) {
                       return d;
-                    } else if (index === 1) {
+                    } else if (roomData.length <= 1 && index === 1) {
                       return d;
                     }
                     return null;
@@ -209,9 +194,7 @@ export default function RoomInfoPage() {
                         handleAddKeyLog={handleAddKeyLog}
                         student={s}
                       />
-                    ) : (
-                      <React.Fragment />
-                    )
+                    ) : null
                   )
               : Array.from({ length: 2 }).map(() => (
                   <StudentCheckInPlaceholder />

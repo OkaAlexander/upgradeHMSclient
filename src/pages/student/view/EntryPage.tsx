@@ -20,15 +20,11 @@ export default function EntryPage() {
   }, [student]);
 
   return (
-    <Container
+    <Box
       sx={(theme) => ({
         width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        height: "100vh",
         overflow: "hidden",
+        height: "100vh",
       })}
     >
       <AccountMenu
@@ -48,12 +44,15 @@ export default function EntryPage() {
           [theme.breakpoints.down("sm")]: {
             height: "60%",
           },
+          paddingBottom: "100px",
+          overflowY: "auto",
+          overflowX: "hidden",
         })}
       >
         <Outlet />
       </Box>
       <CustomDivider />
       <Footer />
-    </Container>
+    </Box>
   );
 }

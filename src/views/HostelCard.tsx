@@ -53,7 +53,7 @@ export default function HostelCard({ info, handleBook }: IProps) {
           flex: 1,
         })}
       >
-        <img src={Images.hostel} alt="" />
+        <img src={Images.hostelavatar} alt="" />
       </Box>
       <Box
         sx={(theme) => ({
@@ -79,19 +79,43 @@ export default function HostelCard({ info, handleBook }: IProps) {
         <Row
           padding={{ x: 1, y: 0 }}
           children={[
-            <MoneyOutlined fontSize="small" />,
-            <SmallText text={`${constants.currency}${info.price}`} />,
+            //<MoneyOutlined fontSize="small" />,
+            <SmallText
+              text={`${"Hostel Fee:"} ${constants.currency}${info.price}`}
+            />,
+
+            <SizedBox width={0.5} />,
+            // <Chip
+            //   size="small"
+            //   onClick={handleBook}
+            //   sx={(theme) => ({
+            //     background: theme.palette.background.paper,
+            //     height: "25px",
+            //     padding: theme.spacing(0, 1),
+            //     alignSelf: "flex-end",
+            //   })}
+            //   label={"Book now"}
+            // />,
+          ]}
+        />
+        <CustomDivider />
+        <Row
+          padding={{ x: 1, y: 0 }}
+          children={[
+            //<MoneyOutlined fontSize="small" />,
+            //<SmallText text={`${constants.currency}${info.price}`} />,
             <SizedBox width={0.5} />,
             <Chip
-              size="small"
+              variant="outlined"
+              color="success"
               onClick={handleBook}
               sx={(theme) => ({
                 background: theme.palette.background.paper,
                 height: "25px",
-                padding: theme.spacing(0, 1),
+                padding: theme.spacing(0, 2),
                 alignSelf: "flex-end",
               })}
-              label={"Book"}
+              label={"Book now"}
             />,
           ]}
         />

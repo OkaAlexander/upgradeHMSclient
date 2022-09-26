@@ -113,17 +113,24 @@ export default function StudentProfilePage() {
             },
           })}
         >
-          <Text text="University of Energy and Natural Resources, Hostel Management System" />
+          <Text
+            text="The University Hostels"
+            props={{ sx: { fontWeight: "bold" } }}
+          />
           <SizedBox height={1} />
           <Divider />
           <Typography variant="body2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-            veritatis distinctio minus possimus reprehenderit, earum ad fugiat
-            necessitatibus iste commodi aliquam rerum libero est provident omnis
-            delectus cumque eius et cupiditate exercitationem. Aliquam eum
-            alias, officia, quidem expedita est maiores ratione eos sunt
-            excepturi modi commodi laudantium debitis illum numquam quos maxime
-            velit enim itaque.
+            The University of Energy and Natural Resources currently has two
+            students’ residential facility namely; GETfund Hostel and New
+            Hostel. All the two hostels are mixed (Male and Female) The hostels
+            offer a serene atmosphere for learning and are close to the main
+            campus offering students the opportunity to attend lectures on time.
+            The university runs an In-Out-Out-Out accommodation system for their
+            hostel. The university offer accommodation for first-year students
+            but it is on a first-come, first-served basis, meaning you have to
+            be very quick during the application process for the hostel
+            accommodation at the university. Facilities include (TV) rooms,
+            basketball court, volleyball court, salon, and supermarket.
           </Typography>
 
           <Stack
@@ -173,14 +180,35 @@ export default function StudentProfilePage() {
         >
           <Text
             props={{ sx: { fontWeight: "bold" } }}
-            text="Explore Our Services"
+            text="Rules & Regulations"
           />
           <Divider />
           <SizedBox height={1} />
           <Typography variant="body2">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse atque
-            ab mollitia consequuntur praesentium, dolore molestiae amet
-            explicabo nihil, dolores quaerat numquam aliquid, suscipit id!
+            <ol>
+              <li>
+                All students offered accommodation must, on arrival, sign a
+                Residence Book.
+              </li>
+              <li>
+                All students offered accommodation must read and sign a tenancy
+                agreement before moving to their respective rooms.
+              </li>
+              <li>
+                A student who is offered Hostel accommodation but decides to
+                stay off-campus must inform, in writing, the Hostel Manager of
+                his/her decline of the offer.
+              </li>
+              <li>
+                No student shall, under any condition or circumstance, either
+                transfer his/her Hostel accommodation to any other student or
+                accept such an illegal offer.
+              </li>
+              <li>
+                Any student who breaches the rule shall either pay a fine or
+                lose his/her residential status.
+              </li>
+            </ol>
           </Typography>
           <SizedBox height={1} />
           <Divider />
