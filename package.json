@@ -19,6 +19,8 @@
     "@types/react-dom": "^18.0.5",
     "axios": "^0.27.2",
     "fuse.js": "^6.6.2",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.25",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-csv": "^2.2.2",

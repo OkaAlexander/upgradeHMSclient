@@ -8,15 +8,15 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState, useRef } from "react";
-import { FcDepartment, FcReading } from "react-icons/fc";
+import { FcDepartment, FcDownload, FcReading } from "react-icons/fc";
 import { useAppSelector } from "../../../../app/hooks";
 import { SizedBox, Text } from "../../../../components";
-import ComplainModel, {
-  ComplainModelInfo,
-} from "../../../../model/ComplainModel";
 import { ExportToPdf } from "../../../../shared";
 import { GetHostelInfoById } from "../../../service";
 import { AddComplainView } from "../../view";
+import pdfGenerator from "../../../../generatePdf/TenancyAgreement";
+import { FcCallback, FcImport, FcAssistant } from "react-icons/fc";
+import TenancyAgreement from "../../../../shared/GenerateTanancy";
 
 export default function StudentProfilePage() {
   const { student } = useAppSelector((state) => state.StudentReducer);
@@ -119,7 +119,12 @@ export default function StudentProfilePage() {
           />
           <SizedBox height={1} />
           <Divider />
-          <Typography variant="body2">
+          <Typography
+            variant="body2"
+            sx={(theme) => ({
+              margin: theme.spacing(1.5, 0),
+            })}
+          >
             The University of Energy and Natural Resources currently has two
             students’ residential facility namely; GETfund Hostel and New
             Hostel. All the two hostels are mixed (Male and Female) The hostels
@@ -146,8 +151,17 @@ export default function StudentProfilePage() {
               border: `1px solid ${theme.palette.action.hover}`,
             })}
           >
-            <Typography variant="body2">Tenancy Agreement</Typography>
-            <ExportToPdf dataRef={pdfRef} />
+            <TenancyAgreement />
+            {/* <Button
+              variant="outlined"
+              fullWidth
+              onClick={Data.tenancyAgreement()}
+            >
+              <FcDownload />
+              Tenancy Agreement
+            </Button> */}
+            {/* <Typography variant="body2">Tenancy Agreement</Typography>
+            <ExportToPdf dataRef={pdfRef} /> */}
           </Stack>
           <Button
             sx={(theme) => ({
@@ -212,13 +226,17 @@ export default function StudentProfilePage() {
           </Typography>
           <SizedBox height={1} />
           <Divider />
-          <Text props={{ sx: { fontWeight: "bold" } }} text="Home Sales" />
+          <Text props={{ sx: { fontWeight: "bold" } }} text="Contact Address" />
           <SizedBox height={1} />
           <Typography variant="body2">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea,
-            aperiam impedit nihil velit cum laborum!
+            <FcCallback /> 0202440507
           </Typography>
-          <Button
+
+          <Typography variant="body2">
+            <FcImport /> hostel@uenr.edu.gh
+          </Typography>
+
+          {/* <Button
             fullWidth
             sx={(theme) => ({
               margin: theme.spacing(1.5, 0),
@@ -227,15 +245,17 @@ export default function StudentProfilePage() {
             variant="outlined"
           >
             Checkout
-          </Button>
-          <Divider />
-          <Text props={{ sx: { fontWeight: "bold" } }} text="Policy" />
-          <Typography variant="body2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-            minus ut optio sint consectetur sequi enim? Eligendi animi obcaecati
-            delectus!
+          </Button>*/}
+          <Divider sx={{ marginTop: "5%" }} />
+          <Text props={{ sx: { fontWeight: "bold" } }} text="Noticeboard" />
+          <Typography variant="body1" color="#fc030f">
+            <FcAssistant />
+            Announcement
           </Typography>
-          <Button
+          <Typography variant="body1">
+            No Announcement for you. keep enjoycing your stay
+          </Typography>
+          {/* <Button
             fullWidth
             sx={(theme) => ({
               margin: theme.spacing(1.5, 0),
@@ -244,7 +264,7 @@ export default function StudentProfilePage() {
             size="small"
           >
             Read More
-          </Button>
+          </Button> */}
         </Box>
       </Stack>
     </Container>
