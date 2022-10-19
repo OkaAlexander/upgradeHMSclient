@@ -15,7 +15,7 @@ class Data extends Component {
     tenancyAgreement.setLineWidth(1.2);
     const logoWidth = 25;
     const logoHeight = 30;
-    const newWidth = 20;
+    const currency: string = "GH₵";
     tenancyAgreement.addImage(
       Images.logo,
       "jpeg",
@@ -203,12 +203,23 @@ class Data extends Component {
       startY: 120,
     });
     autoTable(tenancyAgreement, {
-      styles: { fillColor: [255, 0, 0] },
-      columnStyles: { 0: { halign: "center", fillColor: [0, 255, 0] } },
+      //styles: { fillColor: [255, 0, 0] },
+      styles: {
+        fontSize: 12,
+        lineWidth: 0.2,
+        lineColor: "#000",
+        minCellHeight: 5,
+        cellPadding: 2,
+        overflow: "visible",
+        cellWidth: "auto",
+        fontStyle: "normal",
+        textColor: "#000",
+      },
+      //columnStyles: { 0: { halign: "center", fillColor: [0, 255, 0] } },
       margin: { top: 10 },
       head: [["No", "OFFENCES", "CHARGES/PENALTIES"]],
       body: [
-        ["1", "Change of locks without consent", "GH₵ 80.00"],
+        ["1", `Change of locks without consent, GH₵ 80.00`],
         ["2", "Accommodating pertcher(s)", "Hostel fees"],
         [
           "3",
@@ -234,6 +245,7 @@ class Data extends Component {
         ["16", "Entry into the roof top (Polytank Area)", "GH₵ 100.00"],
         ["17", "Throwing down waste water through the balcony", "GH₵ 100.00"],
       ],
+      theme: "striped",
     });
     tenancyAgreement.save("name.pdf");
   };
