@@ -53,31 +53,22 @@ class Data extends Component {
       offset + logoWidth + 45,
       offset + 37
     );
-    tenancyAgreement.setFontSize(11);
-    tenancyAgreement.text(
-      "THIS AGREEMENT is made the ………………………………… day of ………………………………..BETWEEN",
-      offset + 8,
-      offset + logoHeight + 25
-    );
-    tenancyAgreement.setFontSize(11);
-    tenancyAgreement.text(
-      "GETFUND HOSTEL COMMITTEE MANAGEMENT UENR represented by the HostelManageress",
-      offset + 8,
-      offset + logoHeight + 30
-    );
-    tenancyAgreement.setFontSize(11);
-    tenancyAgreement.text(
-      "(HEREINAFTER CALLED THE “HOSTEL”) of the other part and…………………………………… ",
-      offset + 8,
-      offset + logoHeight + 35
-    );
-    tenancyAgreement.setFontSize(11);
-    tenancyAgreement.text(
-      "(HEREINAFTER CALLED THE”RESIDENT STUDENT”) of the other part.",
-      offset + 8,
-      offset + logoHeight + 40
-    );
 
+    autoTable(tenancyAgreement, {
+      body: [
+        [
+          "THIS AGREEMENT is made the ………………………………… day of ………………………………..BETWEEN GETFUND HOSTEL COMMITTEE MANAGEMENT UENR represented by the Hostel Manageress (HEREINAFTER CALLED THE “HOSTEL”) of the other part and …………………………………… (HEREINAFTER CALLED THE”RESIDENT STUDENT”) of the other part.",
+        ],
+
+        //["Castille", "castille@example.com", "Spain"],
+        // ...
+      ],
+      theme: "plain",
+      startY: 60,
+      styles: {
+        fontSize: 12,
+      },
+    });
     autoTable(tenancyAgreement, {
       body: [
         [
@@ -91,11 +82,15 @@ class Data extends Component {
         // ...
       ],
       theme: "plain",
-      startY: 80,
+      startY: 90,
+      styles: {
+        fontSize: 12,
+      },
     });
     autoTable(tenancyAgreement, {
-      head: [[`3${" "}"THE PARTIES HEREBY AGREE THAT`]],
+      //head: [[`3${" "}"THE PARTIES HEREBY AGREE THAT`]],
       body: [
+        [`3. ${" "}${"THE PARTIES HEREBY AGREE THAT"}`],
         [
           `I. ${" "}${"Pay the Hostel upfront a sum of ………………………….. as a security to his/her accommodation in Room No………………….."}`,
         ],
@@ -188,19 +183,15 @@ class Data extends Component {
         [""],
         [""],
         [""],
-        [""],
-        [""],
-        [""],
-        [""],
-        [""],
-        [""],
-        [""],
-        [""],
+
         ["PENALTIES/OFFENCES AND CHARGES"],
         // ...
       ],
       theme: "plain",
-      startY: 120,
+      startY: 140,
+      styles: {
+        fontSize: 12,
+      },
     });
     autoTable(tenancyAgreement, {
       //styles: { fillColor: [255, 0, 0] },
@@ -247,12 +238,14 @@ class Data extends Component {
       ],
       theme: "striped",
     });
-    tenancyAgreement.save("name.pdf");
+    tenancyAgreement.save("tenancyAgreement.pdf");
   };
   render() {
     return (
       <Box>
-        <Button onClick={this.tenancyAgreement}>TENANCY AGREEMENT</Button>
+        <Button onClick={this.tenancyAgreement}>
+          DOWNLOAD TENANCY AGREEMENT
+        </Button>
       </Box>
     );
   }
