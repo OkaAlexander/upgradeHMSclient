@@ -1,4 +1,5 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -89,33 +90,40 @@ export default function LoginPage() {
         })}
       >
         <Box>
-          <Typography variant="h5">How to apply</Typography>
-          <Typography variant="body2">
-            <ol>
-              <li>
-                Login with your reference number "refer to your admission letter
-                for the reference number"
-              </li>
-              <li>
-                Click on the Book Hostel of your preferred hostel and you will
-                receive a notification when the booking is successful.
-              </li>
-              <li>
-                Make payment within five working days only when your booking is
-                successful to secure your accommodation
-              </li>
-              <li>
-                You can keep visiting this site to check your Booking status
-                after payment.
-              </li>
-              <li>
-                <strong>Please Note:</strong> Hostel fees should be paid
-                separently from the academic fees. Pay exact amount allocated to
-                the hostel you booked.<strong>Contact 0202440507</strong> for
-                more info.
-              </li>
-            </ol>
-          </Typography>
+          <Container>
+            <Typography variant="h5">How to apply</Typography>
+          </Container>
+          <Container>
+            <Typography variant="body2">
+              <ol>
+                <li>
+                  Login with your reference number{" "}
+                  <strong>refer to your admission letter </strong>
+                  for the reference number
+                </li>
+                <li>
+                  Click on the <strong>Book Now </strong> of your preferred
+                  hostel and you will receive a notification when the booking is
+                  successful.
+                </li>
+                <li>
+                  Make payment within <strong>five working days only </strong>
+                  when your booking is successful to secure your accommodation
+                </li>
+
+                <li>
+                  <strong>Note:</strong> Hostel fees should be paid separently
+                  from the academic fees. Pay exact amount allocated to the
+                  hostel you booked.
+                </li>
+                <li>
+                  You can keep visiting this site to check your Booking status
+                  after payment. <strong>Contact 0202440507</strong> Only when
+                  you have challenges
+                </li>
+              </ol>
+            </Typography>
+          </Container>
         </Box>
         <Box
           sx={(theme) => ({
@@ -125,15 +133,17 @@ export default function LoginPage() {
             justifyContent: "center",
           })}
         >
-          <Typography>
-            NOTE: Pay Hostel fees at any of the underlisted banks
-            <strong> ONLY</strong> when your booking is successfull
-          </Typography>
+          <Container>
+            <Typography>
+              NOTE: Pay Hostel fees at any of the underlisted banks
+              <strong> ONLY</strong> when your booking is successfull
+            </Typography>
+          </Container>
           <Stack direction="row" spacing={2}>
             <ul>
-              <li>Fidelity Bank</li>
-              <li>Zenith Bank</li>
-              <li>GCB</li>
+              {["Fidelity Bank", "Zenith Bank", "GCB"].map((bank) => {
+                return <li>{bank}</li>;
+              })}
             </ul>
           </Stack>
         </Box>

@@ -33,12 +33,18 @@ export default function ManageRoomInfoPage() {
   }, []);
 
   function handleFilter() {
-    setRooms(
-      rooms.filter(
-        (r) => r.hostelId === filter.hostel && r.roomNumber === filter.room
-      )
-    );
+    Boolean(filter.hostel.length) &&
+      setRooms(rooms.filter((r) => r.hostelId === filter.hostel));
+    Boolean(filter.room.length) &&
+      setRooms(rooms.filter((r) => r.roomNumber === filter.room));
   }
+
+  // useEffect(() => {
+  //   Boolean(filter.hostel.length) &&
+  //     setRooms(rooms.filter((r) => r.hostelId === filter.hostel));
+  //   Boolean(filter.room.length) &&
+  //     setRooms(rooms.filter((r) => r.roomNumber === filter.room));
+  // }, [filter]);
   return (
     <Box
       sx={(theme) => ({

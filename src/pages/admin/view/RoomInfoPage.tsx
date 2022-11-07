@@ -59,6 +59,7 @@ export default function RoomInfoPage() {
       const logs = keylogs.filter((k) => k.roomNumber === std.roomNumber);
       logs.length > 0 && setLogInfo(logs[0]);
     }
+    console.log(roomData);
   }, [roomData, keylogs]);
 
   function handleSearch() {
@@ -148,25 +149,15 @@ export default function RoomInfoPage() {
             })}
           >
             {roomData.length > 0
-              ? roomData
-                  .map((d, index) => {
-                    if (index < 2 && roomData.length > 2) {
-                      return d;
-                    } else if (index < 1) {
-                      return d;
-                    }
-                    return null;
-                  })
-                  .filter((s) => s !== null)
-                  .map((s) =>
-                    s ? (
-                      <StudentCheckInCard
-                        logInfo={logInfo}
-                        handleAddKeyLog={handleAddKeyLog}
-                        student={s}
-                      />
-                    ) : null
-                  )
+              ? roomData.map((s, i) =>
+                  i % 2 === 0 ? (
+                    <StudentCheckInCard
+                      logInfo={logInfo}
+                      handleAddKeyLog={handleAddKeyLog}
+                      student={s}
+                    />
+                  ) : null
+                )
               : Array.from({ length: 2 }).map(() => (
                   <StudentCheckInPlaceholder />
                 ))}
@@ -177,25 +168,15 @@ export default function RoomInfoPage() {
             })}
           >
             {roomData.length > 0
-              ? roomData
-                  .map((d, index) => {
-                    if (index < 4 && index > 1 && roomData.length >= 2) {
-                      return d;
-                    } else if (roomData.length <= 1 && index === 1) {
-                      return d;
-                    }
-                    return null;
-                  })
-                  .filter((s) => s !== null)
-                  .map((s) =>
-                    s ? (
-                      <StudentCheckInCard
-                        logInfo={logInfo}
-                        handleAddKeyLog={handleAddKeyLog}
-                        student={s}
-                      />
-                    ) : null
-                  )
+              ? roomData.map((s, i) =>
+                  i % 2 === 1 ? (
+                    <StudentCheckInCard
+                      logInfo={logInfo}
+                      handleAddKeyLog={handleAddKeyLog}
+                      student={s}
+                    />
+                  ) : null
+                )
               : Array.from({ length: 2 }).map(() => (
                   <StudentCheckInPlaceholder />
                 ))}

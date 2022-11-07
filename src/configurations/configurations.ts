@@ -19,12 +19,11 @@ export const themeConfig = createTheme({
     divider: appColors.gray,
   },
 });
-
 const configuration = {
-  remoteResource: "http://localhost:5243/",
   baseURL: "http://localhost:5243/api/",
+  remoteResource: "http://localhost:5243/",
+  //baseURL: "https://hostelapp.uenr.edu.gh:444/api/",
   //remoteResource: "https://hostelapp.uenr.edu.gh:444/",
-  //: "https://hostelapp.uenr.edu.gh:444/api/",
 };
 
 export default configuration;

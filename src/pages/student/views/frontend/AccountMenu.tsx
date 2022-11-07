@@ -10,7 +10,7 @@ interface IProps {
 export default function AccountMenu({ handleClose, anchorEl }: IProps) {
   const dispatch = useAppDispatch();
   return (
-    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)}>
+    <Menu onClose={handleClose} anchorEl={anchorEl} open={Boolean(anchorEl)}>
       <MenuItem
         onClick={() => {
           handleClose();

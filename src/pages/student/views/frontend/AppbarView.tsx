@@ -12,7 +12,7 @@ export default function AppbarView() {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: theme.spacing(0.5),
+        paddingRight: theme.spacing(6),
       })}
     >
       <Box

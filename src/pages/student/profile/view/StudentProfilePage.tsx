@@ -61,21 +61,27 @@ export default function StudentProfilePage() {
             justifyContent="flex-start"
             paddingX={2}
           >
-            <FcReading />
-
             {student && Boolean(student.roomNumber) ? (
-              <Chip
-                onClick={() => {}}
-                sx={(theme) => ({
-                  borderRadius: 0,
-                  borderStyle: "none",
-                })}
-                variant="outlined"
-                size="small"
-                label="Room Members"
-              />
+              <Stack display="flex">
+                <Typography
+                  variant="body1"
+                  marginLeft="6%"
+                >{`Room:${student.roomNumber}`}</Typography>
+                {/* <Chip
+                  onClick={() => {}}
+                  sx={(theme) => ({
+                    borderRadius: 0,
+                    borderStyle: "none",
+                  })}
+                  variant="outlined"
+                  size="small"
+                  label="Room Members"
+                />  */}
+              </Stack>
             ) : (
-              <Typography variant="body1">Booking Pending</Typography>
+              <Typography variant="body1" color="warning">
+                Booking Pending
+              </Typography>
             )}
           </Stack>
           <Stack
@@ -114,7 +120,7 @@ export default function StudentProfilePage() {
           })}
         >
           <Text
-            text="The University Hostels"
+            text="Rules & Regulations"
             props={{ sx: { fontWeight: "bold" } }}
           />
           <SizedBox height={1} />
@@ -125,17 +131,30 @@ export default function StudentProfilePage() {
               margin: theme.spacing(1.5, 0),
             })}
           >
-            The University of Energy and Natural Resources currently has two
-            students’ residential facility namely; GETfund Hostel and New
-            Hostel. All the two hostels are mixed (Male and Female) The hostels
-            offer a serene atmosphere for learning and are close to the main
-            campus offering students the opportunity to attend lectures on time.
-            The university runs an In-Out-Out-Out accommodation system for their
-            hostel. The university offer accommodation for first-year students
-            but it is on a first-come, first-served basis, meaning you have to
-            be very quick during the application process for the hostel
-            accommodation at the university. Facilities include (TV) rooms,
-            basketball court, volleyball court, salon, and supermarket.
+            <ol>
+              <li>
+                All students offered accommodation must, on arrival, sign a
+                Residence Book.
+              </li>
+              <li>
+                All students offered accommodation must read and sign a tenancy
+                agreement before moving to their respective rooms.
+              </li>
+              <li>
+                A student who is offered Hostel accommodation but decides to
+                stay off-campus must inform, in writing, the Hostel Manager of
+                his/her decline of the offer.
+              </li>
+              <li>
+                No student shall, under any condition or circumstance, either
+                transfer his/her Hostel accommodation to any other student or
+                accept such an illegal offer.
+              </li>
+              <li>
+                Any student who breaches the rule shall either pay a fine or
+                lose his/her residential status.
+              </li>
+            </ol>
           </Typography>
 
           <Stack
@@ -176,6 +195,18 @@ export default function StudentProfilePage() {
           >
             Report Problem
           </Button>
+          <Button
+            sx={(theme) => ({
+              margin: theme.spacing(1, 0),
+              textTransform: "none",
+            })}
+            size="small"
+            fullWidth
+            variant="outlined"
+            color="primary"
+          >
+            Room Members
+          </Button>
         </Box>
         <Box
           ref={pdfRef}
@@ -192,49 +223,16 @@ export default function StudentProfilePage() {
             },
           })}
         >
-          <Text
-            props={{ sx: { fontWeight: "bold" } }}
-            text="Rules & Regulations"
-          />
-          <Divider />
-          <SizedBox height={1} />
-          <Typography variant="body2">
-            <ol>
-              <li>
-                All students offered accommodation must, on arrival, sign a
-                Residence Book.
-              </li>
-              <li>
-                All students offered accommodation must read and sign a tenancy
-                agreement before moving to their respective rooms.
-              </li>
-              <li>
-                A student who is offered Hostel accommodation but decides to
-                stay off-campus must inform, in writing, the Hostel Manager of
-                his/her decline of the offer.
-              </li>
-              <li>
-                No student shall, under any condition or circumstance, either
-                transfer his/her Hostel accommodation to any other student or
-                accept such an illegal offer.
-              </li>
-              <li>
-                Any student who breaches the rule shall either pay a fine or
-                lose his/her residential status.
-              </li>
-            </ol>
-          </Typography>
-          <SizedBox height={1} />
-          <Divider />
           <Text props={{ sx: { fontWeight: "bold" } }} text="Contact Address" />
+          <Divider />
           <SizedBox height={1} />
           <Typography variant="body2">
             <FcCallback /> 0202440507
           </Typography>
-
           <Typography variant="body2">
             <FcImport /> hostel@uenr.edu.gh
           </Typography>
+          <SizedBox height={1} />
 
           {/* <Button
             fullWidth

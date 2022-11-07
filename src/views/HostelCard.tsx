@@ -70,7 +70,7 @@ export default function HostelCard({ info, handleBook }: IProps) {
           left: "5%",
           width: "90%",
           alignSelf: "center",
-          minHeight: "50px",
+          minHeight: "80px",
           padding: theme.spacing(1),
         })}
       >

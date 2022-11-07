@@ -10,8 +10,8 @@ interface IProps {
 export default function MobileMenu({ anchorEl, handleClose }: IProps) {
   const dispatch = useAppDispatch();
   return (
-    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)}>
-      <MenuItem
+    <Menu onClose={handleClose} anchorEl={anchorEl} open={Boolean(anchorEl)}>
+      {/* <MenuItem
         onClick={() => {
           handleClose();
         }}
@@ -24,7 +24,7 @@ export default function MobileMenu({ anchorEl, handleClose }: IProps) {
         }}
       >
         About
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem
         onClick={() => {
           handleClose();

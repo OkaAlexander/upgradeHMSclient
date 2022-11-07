@@ -231,11 +231,11 @@ export default function HostelInfoPage() {
                     />
                     <CustomTableCell
                       props={{ align: "center" }}
-                      content={h.totalBooked.toString()}
+                      content={h.totalApproved.toString()}
                     />
                     <CustomTableCell
                       props={{ align: "center" }}
-                      content={h.totalApproved.toString()}
+                      content={h.totalBooked.toString()}
                     />
                     <CustomTableCell
                       props={{ align: "center" }}
