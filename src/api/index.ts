@@ -12,6 +12,7 @@ export const GetRoutes = {
   rooms: (year?: string) => `rooms/get/?year=${year ? year : academicYear}`,
   hostels: "hostels/get",
   bookings: () => `bookings/get`,
+  trash: () => `booking/decline/get`,
   keylogs_get: (yr?: string) =>
     `hostel/logs/get/?year=${yr ? yr : academicYear}`,
   searchStudent: (id: string) => `student/get/?id=${id}`,

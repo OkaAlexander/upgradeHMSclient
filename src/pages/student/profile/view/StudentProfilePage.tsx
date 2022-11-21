@@ -17,7 +17,7 @@ import { AddComplainView } from "../../view";
 import pdfGenerator from "../../../../generatePdf/TenancyAgreement";
 import { FcCallback, FcImport, FcAssistant } from "react-icons/fc";
 import TenancyAgreement from "../../../../shared/GenerateTanancy";
-
+import TenancyAgreenmentNewHostel from "../../../../shared/TenancyAgreenmentNewHostel";
 export default function StudentProfilePage() {
   const { student } = useAppSelector((state) => state.StudentReducer);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
@@ -79,7 +79,7 @@ export default function StudentProfilePage() {
                 />  */}
               </Stack>
             ) : (
-              <Typography variant="body1" color="warning">
+              <Typography variant="body1" color="error">
                 Booking Pending
               </Typography>
             )}
@@ -167,10 +167,23 @@ export default function StudentProfilePage() {
               margin: theme.spacing(1, 0),
               textTransform: "none",
               borderRadius: theme.spacing(0.5),
-              border: `1px solid ${theme.palette.action.hover}`,
+              border: "0px",
             })}
           >
-            <TenancyAgreement />
+            {student &&
+            Boolean(student.roomNumber) &&
+            GetHostelInfoById(hostels, student.hostelId).hostelName ===
+              "Getfund Hostel" ? (
+              <TenancyAgreement />
+            ) : student &&
+              Boolean(student.roomNumber) &&
+              GetHostelInfoById(hostels, student.hostelId).hostelName ===
+                "New Hostel" ? (
+              <TenancyAgreenmentNewHostel />
+            ) : (
+              <Box></Box>
+            )}
+
             {/* <Button
               variant="outlined"
               fullWidth

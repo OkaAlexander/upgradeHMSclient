@@ -36,6 +36,7 @@ export const Routes = {
   BOOK: "/admin/home/book",
   COMPLAINS: "/admin/home/complains",
   BOOKINGS: "/admin/home/bookings",
+  TRASH: "/admin/home/trash",
   // ADMIN_REGISTER_HOSTEL: "/admin/home/hostel/add",
   HOSTELS: "/admin/home/hostels",
   KEY_LOGS: "/admin/home/keylogs",
@@ -105,7 +106,7 @@ export const AdminRoutes = [
     url: Routes.STUDENT_CARDS,
     icon: FlatIcons.FcBusinessContact,
   },
-  { name: "Trash", url: Routes.BOOKINGS, icon: FlatIcons.FcFullTrash },
+  { name: "Trash", url: Routes.TRASH, icon: FlatIcons.FcFullTrash },
 ];
 export const userRoutes: navigationInterface[] = [
   {

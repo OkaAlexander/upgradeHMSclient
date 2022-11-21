@@ -19,6 +19,7 @@ import {
   StudentIdPage,
   StudentsInfoPage,
   StudentsPage,
+  TrashPage,
 } from "../pages/admin/view";
 import RoomInfoPage from "../pages/admin/view/RoomInfoPage";
 import { Routes as routes } from "../routes";
@@ -39,6 +40,7 @@ export default function AdminRouter() {
         <Route path={routes.PROFILE} element={<ProfilePage />} />
         <Route path={routes.STUDENT_CARDS} element={<StudentIdPage />} />
         <Route path={routes.STUDENTS} element={<StudentsPage />} />
+        <Route path={routes.TRASH} element={<TrashPage />} />
         <Route
           path={routes.BOOKING_INFO_PREVIEW}
           element={<BookingInfoPreviewPage />}

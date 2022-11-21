@@ -12,3 +12,4 @@ export { default as AccountsPage } from "./AccountsPage";
 export { default as BookingsPage } from "./BookingsPage";
 export { default as StudentsPage } from "./StudentsPage";
 export { default as BookingInfoPreviewPage } from "./BookingInfoPreviewPage";
+export { default as TrashPage } from "./TrashPage";
