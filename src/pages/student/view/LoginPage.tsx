@@ -117,8 +117,13 @@ export default function LoginPage() {
                   hostel you booked.
                 </li>
                 <li>
+                  You are required to revisit this site to download
+                  <strong>tenancy Agreement.</strong> Print it out and submit it
+                  on the day of arrival
+                </li>
+                <li>
                   You can keep visiting this site to check your Booking status
-                  after payment. <strong>Contact 0202440507</strong> Only when
+                  after payment. <strong>Contact 0507907082</strong> Only when
                   you have challenges
                 </li>
               </ol>
