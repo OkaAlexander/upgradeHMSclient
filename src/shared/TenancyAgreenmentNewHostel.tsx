@@ -315,6 +315,7 @@ class NewHostelData extends Component {
             textTransform: "none",
             background: "transparent",
             color: "#59b379",
+            width: "100%",
           })}
           size="small"
           fullWidth

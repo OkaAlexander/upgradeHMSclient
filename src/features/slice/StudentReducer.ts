@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { StudentBookRoomThunk, StudentLoginThunk } from "../../functions/post";
 import { StudentReducerState } from "../../app/state";
+import StudentModel from "../../model/StudentModel";
 
 const StudentReducer = createSlice({
   name: "StudentReducer",
@@ -8,6 +9,9 @@ const StudentReducer = createSlice({
   reducers: {
     InitLogout: (state) => {
       state.student = null;
+    },
+    setStudent: (state, action: { payload: StudentModel | null }) => {
+      state.student = action.payload;
     },
   },
   extraReducers(builder) {
@@ -22,4 +26,4 @@ const StudentReducer = createSlice({
 });
 
 export default StudentReducer.reducer;
-export const { InitLogout } = StudentReducer.actions;
+export const { InitLogout, setStudent } = StudentReducer.actions;

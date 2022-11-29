@@ -60,3 +60,44 @@ export default {
   Get,
   Post,
 };
+
+export interface IController {
+  method?: "get" | "put" | "post" | "delete" | "patch";
+  url?: string;
+  params?: any;
+  data?: any;
+  token?: any;
+  isfile?: boolean;
+}
+export function Controller<T>({
+  method,
+  url,
+  params,
+  token,
+  isfile,
+  data,
+}: IController) {
+  return new Promise<T>(function (resolve, reject) {
+    try {
+      Axios({
+        baseURL: configuration.baseURL,
+        data,
+        url,
+        method: method ? method : "post",
+        params,
+        headers: {
+          authorization: `Bearer ${token}`,
+          contentType: isfile ? "multipart/form-data" : "application/json",
+        },
+      })
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error?.response?.data || error?.message || error);
+        });
+    } catch (error) {
+      reject(error);
+    }
+  });
+}

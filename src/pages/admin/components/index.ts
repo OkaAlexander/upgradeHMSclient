@@ -4,3 +4,4 @@ export { default as StudentCheckInPlaceholder } from "./StudentCheckInPlaceHolde
 export { default as SchoolHostelTabPanel } from "./SchoolHostelTabPanel";
 export { default as PrivateHostelTabPanel } from "./PrivateHostelTabPanel";
 export { default as UserAccountAction } from "./UserAccountAction";
+export { default as ManageRoomMenu } from "./ManageRoomMenu";

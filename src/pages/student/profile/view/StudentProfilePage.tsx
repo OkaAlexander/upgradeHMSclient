@@ -7,9 +7,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
 import { FcDepartment, FcDownload, FcReading } from "react-icons/fc";
-import { useAppSelector } from "../../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { SizedBox, Text } from "../../../../components";
 import { ExportToPdf } from "../../../../shared";
 import { GetHostelInfoById } from "../../../service";
@@ -18,11 +18,40 @@ import pdfGenerator from "../../../../generatePdf/TenancyAgreement";
 import { FcCallback, FcImport, FcAssistant } from "react-icons/fc";
 import TenancyAgreement from "../../../../shared/GenerateTanancy";
 import TenancyAgreenmentNewHostel from "../../../../shared/TenancyAgreenmentNewHostel";
+import {
+  responseFail,
+  responsePending,
+  responseSuccess,
+} from "../../../../features/slice/ResponseReducer";
+import { Controller } from "../../../../controller";
+import StudentModel from "../../../../model/StudentModel";
+import { setStudent } from "../../../../features/slice/StudentReducer";
 export default function StudentProfilePage() {
   const { student } = useAppSelector((state) => state.StudentReducer);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const [addComplain, setAddComplain] = useState<boolean>(false);
   const pdfRef = useRef<any>(null);
+
+  const dispatch = useAppDispatch();
+
+  async function getDetails() {
+    try {
+      dispatch(responsePending());
+      const info = await Controller<StudentModel | null>({
+        method: "post",
+        url: "student/id",
+        data: { id: student?.referenceNumber },
+      });
+      info && dispatch(setStudent(info));
+      dispatch(responseSuccess(null));
+    } catch (error) {
+      dispatch(responseFail(error));
+    }
+  }
+
+  useEffect(() => {
+    getDetails();
+  }, []);
 
   return (
     <Container
@@ -154,6 +183,11 @@ export default function StudentProfilePage() {
                 Any student who breaches the rule shall either pay a fine or
                 lose his/her residential status.
               </li>
+              <li>
+                You are required to download <strong>Tenancy Agreement</strong>
+                Form when your booking is approved and submit it on the day of
+                arrival
+              </li>
             </ol>
           </Typography>
 
@@ -240,7 +274,7 @@ export default function StudentProfilePage() {
           <Divider />
           <SizedBox height={1} />
           <Typography variant="body2">
-            <FcCallback /> 0202440507
+            <FcCallback /> 0507907082
           </Typography>
           <Typography variant="body2">
             <FcImport /> hostel@uenr.edu.gh

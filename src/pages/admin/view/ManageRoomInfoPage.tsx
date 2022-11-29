@@ -11,15 +11,22 @@ import {
   SizedBox,
 } from "../../../components";
 import FlatIcons from "../../../constants/icons";
-import { GetHostelsThunk, GetRoomsThunk } from "../../../functions/thunk";
+import {
+  GetHostelsThunk,
+  GetRoomsThunk,
+  RoomThunk,
+} from "../../../functions/thunk";
 import RoomModel from "../../../model/RoomModel";
 import { PageHeader } from "../../../shared";
 import { TableTemplate } from "../../../views";
 import { RoomsTableHeader } from "../../data";
 import { GetHostelInfoById } from "../../service";
+import { ManageRoomMenu } from "../components";
 
 export default function ManageRoomInfoPage() {
   const dispatch = useAppDispatch();
+  const [room, setRoom] = useState<RoomModel | null>(null);
+  const [edit, setEdit] = useState<HTMLElement | null>(null);
   const { rooms } = useAppSelector((state) => state.RoomsReducer);
   const { hostels } = useAppSelector((state) => state.HostelsReducer);
   const [Rooms, setRooms] = useState<RoomModel[]>([]);
@@ -39,12 +46,10 @@ export default function ManageRoomInfoPage() {
       setRooms(rooms.filter((r) => r.roomNumber === filter.room));
   }
 
-  // useEffect(() => {
-  //   Boolean(filter.hostel.length) &&
-  //     setRooms(rooms.filter((r) => r.hostelId === filter.hostel));
-  //   Boolean(filter.room.length) &&
-  //     setRooms(rooms.filter((r) => r.roomNumber === filter.room));
-  // }, [filter]);
+  useEffect(() => {
+    setRooms(rooms);
+  }, [rooms]);
+
   return (
     <Box
       sx={(theme) => ({
@@ -55,6 +60,27 @@ export default function ManageRoomInfoPage() {
         justifyContent: "flex-start",
       })}
     >
+      <ManageRoomMenu
+        room={room}
+        anchorEl={edit}
+        handleClose={() => {
+          setEdit(null);
+          setRoom(null);
+        }}
+        handleStatus={(status) => {
+          if (room) {
+            dispatch(
+              RoomThunk({
+                url: "room/update",
+                method: "put",
+                data: { ...room, roomStatus: status },
+              })
+            );
+          }
+          setRoom(null);
+          setEdit(null);
+        }}
+      />
       <PageHeader title="Manage Rooms">
         <>
           <CustomInput
@@ -127,7 +153,15 @@ export default function ManageRoomInfoPage() {
                 />
                 <CustomTableCell
                   props={{ align: "center" }}
-                  content={<CustomIconButton Icon={MoreVertOutlined} />}
+                  content={
+                    <CustomIconButton
+                      handleClick={(e) => {
+                        setRoom(r);
+                        setEdit(e.currentTarget);
+                      }}
+                      Icon={MoreVertOutlined}
+                    />
+                  }
                 />
               </>
             </CustomTableRow>

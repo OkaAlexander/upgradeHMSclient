@@ -117,9 +117,10 @@ export default function LoginPage() {
                   hostel you booked.
                 </li>
                 <li>
-                  You are required to revisit this site to download
-                  <strong>tenancy Agreement.</strong> Print it out and submit it
-                  on the day of arrival
+                  You are required to download{" "}
+                  <strong>Tenancy Agreement </strong>
+                  Form when your booking is approved and submit it on the day of
+                  arrival
                 </li>
                 <li>
                   You can keep visiting this site to check your Booking status
