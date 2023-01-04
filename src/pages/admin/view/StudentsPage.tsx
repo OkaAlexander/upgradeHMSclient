@@ -34,6 +34,7 @@ export default function StudentsPage() {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [srch, setSrch] = useState<string>("");
   const [Students, setStudents] = useState<StudentModel[]>([]);
+  console.log(`student lenth is${Students.length}`);
 
   useEffect(() => {
     dispatch(GetStudentsThunk());
@@ -90,6 +91,7 @@ export default function StudentsPage() {
               return {
                 Name: s.studentName,
                 PhoneNumber: s.phoneNumber,
+                RefereceNumber: s.referenceNumber,
                 EmailAddress: s.email,
                 RoomNumber: s.roomNumber,
                 Gender: s.gender,
@@ -160,38 +162,39 @@ export default function StudentsPage() {
         >
           <Container>
             <TableTemplate header={StudentsTableHeader}>
-              {Students.map((student, index) => (
-                <TableRow
-                  sx={(theme) => ({
-                    backgroundColor: index % 2 === 0 ? "#fefefe" : "#f0f0f0",
-                  })}
-                  key={student.referenceNumber}
-                >
-                  <CustomTableCell content={student.studentName} />
-                  <CustomTableCell
-                    props={{ align: "center" }}
-                    content={student.referenceNumber}
-                  />
-                  <CustomTableCell
-                    props={{ align: "center" }}
-                    content={student.roomNumber}
-                  />
-                  <CustomTableCell
-                    props={{ align: "center" }}
-                    content={student.gender}
-                  />
-                  <CustomTableCell
-                    props={{ align: "center" }}
-                    content={
-                      GetHostelInfoById(hostels, student.hostelId).hostelName
-                    }
-                  />
-                  <CustomTableCell
-                    props={{ align: "center" }}
-                    content={<CustomIconButton Icon={MdExpandMore} />}
-                  />
-                </TableRow>
-              ))}
+              {Students.length > 0 &&
+                Students.map((student, index) => (
+                  <TableRow
+                    sx={(theme) => ({
+                      backgroundColor: index % 2 === 0 ? "#fefefe" : "#f0f0f0",
+                    })}
+                    key={student.referenceNumber}
+                  >
+                    <CustomTableCell content={student.studentName} />
+                    <CustomTableCell
+                      props={{ align: "center" }}
+                      content={student.referenceNumber}
+                    />
+                    <CustomTableCell
+                      props={{ align: "center" }}
+                      content={student.roomNumber}
+                    />
+                    <CustomTableCell
+                      props={{ align: "center" }}
+                      content={student.gender}
+                    />
+                    <CustomTableCell
+                      props={{ align: "center" }}
+                      content={
+                        GetHostelInfoById(hostels, student.hostelId).hostelName
+                      }
+                    />
+                    <CustomTableCell
+                      props={{ align: "center" }}
+                      content={<CustomIconButton Icon={MdExpandMore} />}
+                    />
+                  </TableRow>
+                ))}
             </TableTemplate>
           </Container>
         </Box>

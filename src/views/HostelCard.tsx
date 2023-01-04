@@ -4,7 +4,7 @@ import {
   PhoneOutlined,
   ReadMoreOutlined,
 } from "@mui/icons-material";
-import { Box, Chip, Grid, IconButton } from "@mui/material";
+import { Box, Chip, Grid, IconButton, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -74,7 +74,8 @@ export default function HostelCard({ info, handleBook }: IProps) {
           padding: theme.spacing(1),
         })}
       >
-        <Text text={info.hostelName} />
+        <Typography sx={{ fontWeight: "bold" }}>{info.hostelName}</Typography>
+        {/* <Text text={info.hostelName} /> */}
         <CustomDivider />
         <Row
           padding={{ x: 1, y: 0 }}
@@ -99,6 +100,17 @@ export default function HostelCard({ info, handleBook }: IProps) {
           ]}
         />
         <CustomDivider />
+        <Row
+          padding={{ x: 1, y: 0 }}
+          children={[
+            //<MoneyOutlined fontSize="small" />,
+            //<SmallText text={`${constants.currency}${info.price}`} />,
+            <SizedBox width={0.5} />,
+            <Typography sx={{ backgroundColor: "transparent" }}>
+              {info.description}
+            </Typography>,
+          ]}
+        />
         <Row
           padding={{ x: 1, y: 0 }}
           children={[

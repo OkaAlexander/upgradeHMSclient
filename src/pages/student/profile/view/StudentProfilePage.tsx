@@ -149,7 +149,7 @@ export default function StudentProfilePage() {
           })}
         >
           <Text
-            text="Rules & Regulations"
+            text="For Your Infomation"
             props={{ sx: { fontWeight: "bold" } }}
           />
           <SizedBox height={1} />
@@ -162,26 +162,35 @@ export default function StudentProfilePage() {
           >
             <ol>
               <li>
-                All students offered accommodation must, on arrival, sign a
-                Residence Book.
+                If your Booking is Pending, it means the booking process was
+                successful
               </li>
               <li>
-                All students offered accommodation must read and sign a tenancy
-                agreement before moving to their respective rooms.
+                However, You must make <strong>Full Payment</strong>
+                {""} before the booking will be approve
+              </li>
+              <li>After payment, your booking will be approved the next day</li>
+              <li>
+                When your Booking is approved, Pending approval will change to
+                your room number
               </li>
               <li>
-                A student who is offered Hostel accommodation but decides to
-                stay off-campus must inform, in writing, the Hostel Manager of
-                his/her decline of the offer.
+                You are Require to make payment at{" "}
+                <strong>GCB,Fidelity or Zenith Bank Only</strong>
               </li>
               <li>
-                No student shall, under any condition or circumstance, either
-                transfer his/her Hostel accommodation to any other student or
-                accept such an illegal offer.
+                When you visit any of the above banks, tell them you are paying
+                UENR hostel fees
               </li>
               <li>
-                Any student who breaches the rule shall either pay a fine or
-                lose his/her residential status.
+                Do not take any account number from anyone. the Above banks have
+                all the details of the University hostel
+              </li>
+              <li>
+                You are required to pay exact fee of the hostel you booked.
+                <strong>
+                  GetFund Hostel fee: GH₵ 2322.00 New Hostel: GH₵2484.00
+                </strong>
               </li>
               <li>
                 You are required to download <strong>Tenancy Agreement</strong>
